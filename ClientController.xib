@@ -12,7 +12,7 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="46"/>
+			<integer value="45"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -41,7 +41,7 @@
 			<object class="NSWindowTemplate" id="1005">
 				<int key="NSWindowStyleMask">15</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{196, 146}, {550, 364}}</string>
+				<string key="NSWindowRect">{{196, 107}, {623, 403}}</string>
 				<int key="NSWTFlags">544735232</int>
 				<string key="NSWindowTitle">Window</string>
 				<string key="NSWindowClass">NSWindow</string>
@@ -54,7 +54,7 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSSplitView" id="758869189">
 							<reference key="NSNextResponder" ref="1006"/>
-							<int key="NSvFlags">268</int>
+							<int key="NSvFlags">274</int>
 							<object class="NSMutableArray" key="NSSubviews">
 								<bool key="EncodedWithXMLCoder">YES</bool>
 								<object class="NSCustomView" id="375601694">
@@ -75,7 +75,7 @@
 														<object class="NSTextView" id="927881158">
 															<reference key="NSNextResponder" ref="824628868"/>
 															<int key="NSvFlags">2322</int>
-															<string key="NSFrameSize">{550, 14}</string>
+															<string key="NSFrameSize">{350, 14}</string>
 															<reference key="NSSuperview" ref="824628868"/>
 															<object class="NSTextContainer" key="NSTextContainer" id="847320146">
 																<object class="NSLayoutManager" key="NSLayoutManager">
@@ -93,7 +93,7 @@
 																	<nil key="NSDelegate"/>
 																</object>
 																<reference key="NSTextView" ref="927881158"/>
-																<double key="NSWidth">550</double>
+																<double key="NSWidth">350</double>
 																<int key="NSTCFlags">1</int>
 															</object>
 															<object class="NSTextViewSharedData" key="NSSharedData">
@@ -159,11 +159,11 @@
 															</object>
 															<int key="NSTVFlags">6</int>
 															<string key="NSMaxSize">{550, 1e+07}</string>
-															<string key="NSMinize">{223, 12}</string>
+															<string key="NSMinize">{223, 0}</string>
 															<nil key="NSDelegate"/>
 														</object>
 													</object>
-													<string key="NSFrameSize">{550, 224}</string>
+													<string key="NSFrameSize">{350, 403}</string>
 													<reference key="NSSuperview" ref="154703198"/>
 													<reference key="NSNextKeyView" ref="927881158"/>
 													<reference key="NSDocView" ref="927881158"/>
@@ -196,7 +196,7 @@
 													<double key="NSPercent">0.94565218687057495</double>
 												</object>
 											</object>
-											<string key="NSFrameSize">{550, 224}</string>
+											<string key="NSFrameSize">{350, 403}</string>
 											<reference key="NSSuperview" ref="375601694"/>
 											<reference key="NSNextKeyView" ref="824628868"/>
 											<int key="NSsFlags">528</int>
@@ -205,7 +205,7 @@
 											<reference key="NSContentView" ref="824628868"/>
 										</object>
 									</object>
-									<string key="NSFrameSize">{550, 224}</string>
+									<string key="NSFrameSize">{350, 403}</string>
 									<reference key="NSSuperview" ref="758869189"/>
 									<string key="NSClassName">NSView</string>
 								</object>
@@ -250,7 +250,7 @@
 																	<string>public.url</string>
 																</object>
 															</object>
-															<string key="NSFrameSize">{535, 14}</string>
+															<string key="NSFrameSize">{263, 14}</string>
 															<reference key="NSSuperview" ref="61175412"/>
 															<object class="NSTextContainer" key="NSTextContainer" id="948928635">
 																<object class="NSLayoutManager" key="NSLayoutManager">
@@ -268,7 +268,7 @@
 																	<nil key="NSDelegate"/>
 																</object>
 																<reference key="NSTextView" ref="584183635"/>
-																<double key="NSWidth">535</double>
+																<double key="NSWidth">263</double>
 																<int key="NSTCFlags">1</int>
 															</object>
 															<object class="NSTextViewSharedData" key="NSSharedData">
@@ -309,11 +309,11 @@
 															</object>
 															<int key="NSTVFlags">6</int>
 															<string key="NSMaxSize">{535, 1e+07}</string>
-															<string key="NSMinize">{223, 8}</string>
+															<string key="NSMinize">{223, 0}</string>
 															<nil key="NSDelegate"/>
 														</object>
 													</object>
-													<string key="NSFrameSize">{535, 130}</string>
+													<string key="NSFrameSize">{263, 403}</string>
 													<reference key="NSSuperview" ref="368762380"/>
 													<reference key="NSNextKeyView" ref="584183635"/>
 													<reference key="NSDocView" ref="584183635"/>
@@ -323,8 +323,8 @@
 												</object>
 												<object class="NSScroller" id="866696256">
 													<reference key="NSNextResponder" ref="368762380"/>
-													<int key="NSvFlags">256</int>
-													<string key="NSFrame">{{535, 0}, {15, 115}}</string>
+													<int key="NSvFlags">-2147483392</int>
+													<string key="NSFrame">{{248, 0}, {15, 388}}</string>
 													<reference key="NSSuperview" ref="368762380"/>
 													<reference key="NSTarget" ref="368762380"/>
 													<string key="NSAction">_doScroller:</string>
@@ -342,26 +342,27 @@
 													<double key="NSPercent">0.94565218687057495</double>
 												</object>
 											</object>
-											<string key="NSFrameSize">{550, 130}</string>
+											<string key="NSFrameSize">{263, 403}</string>
 											<reference key="NSSuperview" ref="82716229"/>
 											<reference key="NSNextKeyView" ref="61175412"/>
-											<int key="NSsFlags">16</int>
+											<int key="NSsFlags">528</int>
 											<reference key="NSVScroller" ref="866696256"/>
 											<reference key="NSHScroller" ref="21004088"/>
 											<reference key="NSContentView" ref="61175412"/>
 										</object>
 									</object>
-									<string key="NSFrame">{{0, 234}, {550, 130}}</string>
+									<string key="NSFrame">{{360, 0}, {263, 403}}</string>
 									<reference key="NSSuperview" ref="758869189"/>
 									<string key="NSClassName">NSView</string>
 								</object>
 							</object>
-							<string key="NSFrameSize">{550, 364}</string>
+							<string key="NSFrameSize">{623, 403}</string>
 							<reference key="NSSuperview" ref="1006"/>
+							<bool key="NSIsVertical">YES</bool>
 							<int key="NSDividerStyle">3</int>
 						</object>
 					</object>
-					<string key="NSFrameSize">{550, 364}</string>
+					<string key="NSFrameSize">{623, 403}</string>
 					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1680, 1028}}</string>
@@ -410,6 +411,14 @@
 						<reference key="destination" ref="584183635"/>
 					</object>
 					<int key="connectionID">61</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBOutletConnection" key="connection">
+						<string key="label">initialFirstResponder</string>
+						<reference key="source" ref="1005"/>
+						<reference key="destination" ref="368762380"/>
+					</object>
+					<int key="connectionID">62</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -566,9 +575,9 @@
 				</object>
 				<object class="NSMutableArray" key="dict.values">
 					<bool key="EncodedWithXMLCoder">YES</bool>
-					<string>{{343, 160}, {550, 364}}</string>
+					<string>{{329, 295}, {623, 403}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{343, 160}, {550, 364}}</string>
+					<string>{{329, 295}, {623, 403}}</string>
 					<integer value="1"/>
 					<string>{196, 240}</string>
 					<string>{{202, 428}, {480, 270}}</string>
@@ -608,7 +617,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">61</int>
+			<int key="maxID">62</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -616,6 +625,17 @@
 				<object class="IBPartialClassDescription">
 					<string key="className">ClientController</string>
 					<string key="superclassName">NSWindowController</string>
+					<object class="NSMutableDictionary" key="actions">
+						<string key="NS.key.0">sendCommand:</string>
+						<string key="NS.object.0">id</string>
+					</object>
+					<object class="NSMutableDictionary" key="actionInfosByName">
+						<string key="NS.key.0">sendCommand:</string>
+						<object class="IBActionInfo" key="NS.object.0">
+							<string key="name">sendCommand:</string>
+							<string key="candidateClassName">id</string>
+						</object>
+					</object>
 					<object class="NSMutableDictionary" key="outlets">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">

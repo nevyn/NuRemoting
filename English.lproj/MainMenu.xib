@@ -1316,7 +1316,7 @@
 				<string key="NSClassName">NSFontManager</string>
 			</object>
 			<object class="NSWindowTemplate" id="541141674">
-				<int key="NSWindowStyleMask">15</int>
+				<int key="NSWindowStyleMask">13</int>
 				<int key="NSWindowBacking">2</int>
 				<string key="NSWindowRect">{{335, 456}, {317, 294}}</string>
 				<int key="NSWTFlags">1954021376</int>

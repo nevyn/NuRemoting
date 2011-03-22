@@ -49,6 +49,7 @@
 	NSAttributedString * astr = [[[NSAttributedString alloc] initWithString:[str stringByAppendingString:@"\n"] attributes:[NSDictionary dictionaryWithObject:color forKey:NSForegroundColorAttributeName]] autorelease];
 	
 	[[output textStorage] appendAttributedString:astr];
+	[output scrollRangeToVisible:NSMakeRange([output textStorage].length, 0)];
 }
 -(IBAction)sendCommand:(id)sender;
 {
@@ -58,7 +59,7 @@
 	NSAttributedString * astr = [[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"> %@\n", outputString] attributes:[NSDictionary dictionaryWithObjectsAndKeys:[NSColor grayColor], NSForegroundColorAttributeName, italic, NSFontAttributeName, nil ]] autorelease];
 	
 	[[output textStorage] appendAttributedString:astr];
-
+	[output scrollRangeToVisible:NSMakeRange([output textStorage].length, 0)];
 	[client sendCommand:outputString];
 }
 @end
