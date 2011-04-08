@@ -1,6 +1,6 @@
 #import <Cocoa/Cocoa.h>
 #import "RemotingClient.h"
-
+#import "TemplateController.h"
 
 @interface ClientController : NSWindowController
 <RemotingClientDelegate>
@@ -10,6 +10,7 @@
 	IBOutlet NSTextView *input;
 	NSString *oldHost; int oldPort;
 	int reconnectCount;
+	IBOutlet TemplateController *templates;
 }
 @property (readonly, retain) RemotingClient *client;
 -(id)initWithClient:(RemotingClient*)client_;

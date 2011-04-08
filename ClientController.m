@@ -99,10 +99,16 @@ static NSColor *DarkGreen() {
 }
 -(IBAction)sendCommand:(id)sender;
 {
-	NSString *outputString = [sender string];
+	NSMutableString *outputString = [[[sender string] mutableCopy] autorelease];
 	if([outputString isEqual:@"/reconnect"]) {
 		[self reconnect];
 		return;
+	}
+	NSRange r;
+	while(r = [outputString rangeOfString:@"#require "], r.location != NSNotFound) {
+		NSRange toNewline = [outputString rangeOfString:@"\n" options:0 range:NSMakeRange(r.location+r.length, outputString.length-r.location-r.length)];
+		NSString *templateName = [outputString substringWithRange:NSMakeRange(r.location+r.length, toNewline.location-r.location-r.length)];
+		[outputString replaceCharactersInRange:NSMakeRange(r.location, toNewline.location-r.location) withString:[templates contentsOfSnippetNamed:templateName]];
 	}
 	[self appendString:[NSString stringWithFormat:@"> %@", outputString] color:[NSColor grayColor] italic:YES];
 	[client sendCommand:outputString];
