@@ -1,13 +1,18 @@
 #import "ClientController.h"
 
+static NSColor *DarkGreen() {
+	return [NSColor colorWithDeviceRed:0 green:.5 blue:0 alpha:1];
+}
 
 @interface ClientController ()
 @property (readwrite, retain) RemotingClient *client;
+@property (copy) NSString *oldHost;
+-(void)appendString:(NSString*)str color:(NSColor*)color italic:(BOOL)italic;
 @end
 
 
 @implementation ClientController
-@synthesize client;
+@synthesize client, oldHost;
 
 -(id)initWithClient:(RemotingClient*)client_;
 {
@@ -24,7 +29,24 @@
 -(void)dealloc;
 {
 	self.client = nil;
+	self.oldHost = nil;
 	[super dealloc];
+}
+-(void)reconnect;
+{
+	[self appendString:[NSString stringWithFormat:@"Reconnecting to %@…", self.oldHost] color:[NSColor darkGrayColor] italic:YES];
+	
+	NSError *err = nil;
+	RemotingClient *cl = nil;
+	if(oldHost)
+		cl = [[[RemotingClient alloc] initWithHost:self.oldHost port:oldPort error:&err] autorelease];
+	if(!cl) {
+		NSString *error = @"No host to connect to; aborting";
+		if(err) error = [NSString stringWithFormat:@"%@; aborting", [err localizedDescription]];
+		[self appendString:error color:[NSColor redColor] italic:YES];
+	}
+	self.client = cl;
+	self.client.delegate = self;
 }
 
 - (BOOL)textView:(NSTextView *)textView doCommandBySelector:(SEL)commandSelector;
@@ -36,30 +58,46 @@
 	return NO;
 }
 
--(void)remotingClientDisconnected:(RemotingClient*)client;
+-(void)appendString:(NSString*)str color:(NSColor*)color italic:(BOOL)italic;
 {
-	[input setEditable:NO];
-	[[input textStorage] setAttributedString:[[[NSAttributedString alloc] initWithString:@"Disconnected"] autorelease]];
-}
--(void)remotingClient:(RemotingClient*)client receivedOutput:(NSString*)str withStatusCode:(int)code;
-{
-	NSColor *color = [NSColor blackColor];
-	if(code != RemotingStatusOK)
-		color = [NSColor redColor];
-	NSAttributedString * astr = [[[NSAttributedString alloc] initWithString:[str stringByAppendingString:@"\n"] attributes:[NSDictionary dictionaryWithObject:color forKey:NSForegroundColorAttributeName]] autorelease];
+	NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
+	if(italic) {
+		NSFont *italic = [[NSFontManager sharedFontManager] convertFont:[NSFont systemFontOfSize:12] toHaveTrait:NSItalicFontMask];
+		[attrs setObject:italic forKey:NSFontAttributeName];
+	}
+	[attrs setObject:color forKey:NSForegroundColorAttributeName];
+	NSAttributedString * astr = [[[NSAttributedString alloc] initWithString:[str stringByAppendingString:@"\n"] attributes:attrs] autorelease];
 	
 	[[output textStorage] appendAttributedString:astr];
 	[output scrollRangeToVisible:NSMakeRange([output textStorage].length, 0)];
+}
+-(void)remotingClientConnected:(RemotingClient*)client_;
+{
+	self.oldHost = client_.socket.connectedHost;
+	oldPort = client_.socket.connectedPort;
+	[input setEditable:YES];
+	[self appendString:@"Connected" color:DarkGreen() italic:NO];
+}
+-(void)remotingClient:(RemotingClient*)client willDisconnectWithError:(NSError*)err;
+{
+	[self appendString:[NSString stringWithFormat:@"Error: %@", [err localizedDescription]] color:[NSColor redColor] italic:NO];
+}
+-(void)remotingClientDisconnected:(RemotingClient*)client;
+{
+	[input setEditable:NO];
+	
+	[self appendString:@"Disconnected; reconnecting in 5…" color:[NSColor redColor] italic:NO];
+	[self performSelector:@selector(reconnect) withObject:nil afterDelay:5];
+}
+-(void)remotingClient:(RemotingClient*)client receivedOutput:(NSString*)str withStatusCode:(int)code;
+{
+	[self appendString:str color:(code!=RemotingStatusOK)?[NSColor redColor]:[NSColor blackColor] italic:NO];
+
 }
 -(IBAction)sendCommand:(id)sender;
 {
 	NSString *outputString = [sender string];
-	
-	NSFont *italic = [[NSFontManager sharedFontManager] convertFont:[NSFont systemFontOfSize:12] toHaveTrait:NSItalicFontMask];
-	NSAttributedString * astr = [[[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"> %@\n", outputString] attributes:[NSDictionary dictionaryWithObjectsAndKeys:[NSColor grayColor], NSForegroundColorAttributeName, italic, NSFontAttributeName, nil ]] autorelease];
-	
-	[[output textStorage] appendAttributedString:astr];
-	[output scrollRangeToVisible:NSMakeRange([output textStorage].length, 0)];
+	[self appendString:[NSString stringWithFormat:@"> %@", outputString] color:[NSColor grayColor] italic:YES];
 	[client sendCommand:outputString];
 }
 @end

@@ -8,6 +8,7 @@
 	RemotingClient *client;
 	IBOutlet NSTextView *output;
 	IBOutlet NSTextView *input;
+	NSString *oldHost; int oldPort;
 }
 @property (readonly, retain) RemotingClient *client;
 -(id)initWithClient:(RemotingClient*)client_;

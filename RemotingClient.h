@@ -21,6 +21,8 @@ enum RemotingStatusCodes {
 @class RemotingClient;
 @protocol RemotingClientDelegate <NSObject>
 -(void)remotingClient:(RemotingClient*)client receivedOutput:(NSString*)output withStatusCode:(int)code;
+-(void)remotingClientConnected:(RemotingClient*)client;
+-(void)remotingClient:(RemotingClient*)client willDisconnectWithError:(NSError*)err;
 -(void)remotingClientDisconnected:(RemotingClient*)client;
 @end
 
@@ -32,8 +34,10 @@ enum RemotingStatusCodes {
 }
 @property (assign) id<RemotingClientDelegate> delegate;
 @property (copy) NSString *name;
+@property (readonly, retain) AsyncSocket *socket;
 +(void)performSearchOnBrowser:(NSNetServiceBrowser*)browser;
--(id)initWithService:(NSNetService*)service;
+-(id)initWithService:(NSNetService*)service error:(NSError**)err;
+-(id)initWithHost:(NSString*)host port:(int)port error:(NSError**)err;
 
 -(void)sendCommand:(NSString*)commands;
 @end

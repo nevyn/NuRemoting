@@ -11,8 +11,7 @@
 NSString *kNuRemotingBonjourType = @"_nuremote._tcp.";
 
 @interface RemotingClient ()
-@property (retain) AsyncSocket *socket;
-
+@property (readwrite, retain) AsyncSocket *socket;
 @end
 
 
@@ -30,14 +29,12 @@ NSString *kNuRemotingBonjourType = @"_nuremote._tcp.";
 {
 	[browser searchForServicesOfType:kNuRemotingBonjourType inDomain:@""];
 }
--(id)initWithService:(NSNetService*)service;
+-(id)initWithService:(NSNetService*)service error:(NSError**)err;
 {
 	self.socket = [[[AsyncSocket alloc] initWithDelegate:self] autorelease];
 	[self.socket setRunLoopModes:[NSArray arrayWithObject:NSRunLoopCommonModes]];
 
-	NSError *err;
-	if(![socket connectToAddress:[service.addresses objectAtIndex:0] error:&err]) {
-		//[NSApp presentError:err];
+	if(![socket connectToAddress:[service.addresses objectAtIndex:0] error:err]) {
 		[self release];
 		return nil;
 	}
@@ -46,23 +43,40 @@ NSString *kNuRemotingBonjourType = @"_nuremote._tcp.";
 	
 	return self;
 }
+-(id)initWithHost:(NSString*)host port:(int)port error:(NSError**)err;
+{
+	self.socket = [[[AsyncSocket alloc] initWithDelegate:self] autorelease];
+	[self.socket setRunLoopModes:[NSArray arrayWithObject:NSRunLoopCommonModes]];
+
+	if(![socket connectToHost:host onPort:port error:err]) {
+		[self release];
+		return nil;
+	}
+	
+	self.name = host;
+	
+	return self;
+
+}
 -(void)dealloc;
 {
+	self.socket.delegate = nil;
 	self.socket = nil;
 	[super dealloc];
+}
+- (void)onSocket:(AsyncSocket *)sock willDisconnectWithError:(NSError *)err;
+{
+	[delegate remotingClient:self willDisconnectWithError:err];
 }
 - (void)onSocketDidDisconnect:(AsyncSocket *)sock
 {
 	[delegate remotingClientDisconnected:self];
 	self.socket = nil;
 }
-- (void)onSocket:(AsyncSocket *)sock willDisconnectWithError:(NSError *)err;
-{
-	NSLog(@"ParameterClient: client socket error: %@", [err localizedDescription]);
-}
 - (void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
 {
 	[socket readDataToData:[RemotingClient messageSeparator] withTimeout:-1 tag:0];
+	[delegate remotingClientConnected:self];
 }
 - (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {

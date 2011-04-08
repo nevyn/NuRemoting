@@ -36,7 +36,12 @@
 }
 - (void)netServiceDidResolveAddress:(NSNetService *)service;
 {
-	RemotingClient *client = [[[RemotingClient alloc] initWithService:service] autorelease];
+	NSError *err = nil;
+	RemotingClient *client = [[[RemotingClient alloc] initWithService:service error:&err] autorelease];
+	if(!client) {
+		[NSApp presentError:err];
+		return;
+	}
 	ClientController *controller = [(ClientController*)[ClientController alloc] initWithClient:client];
 	[controller showWindow:nil];
 }
