@@ -9,6 +9,7 @@
 	IBOutlet NSTextView *output;
 	IBOutlet NSTextView *input;
 	NSString *oldHost; int oldPort;
+	int reconnectCount;
 }
 @property (readonly, retain) RemotingClient *client;
 -(id)initWithClient:(RemotingClient*)client_;

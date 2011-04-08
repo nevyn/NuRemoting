@@ -34,7 +34,8 @@ static NSColor *DarkGreen() {
 }
 -(void)reconnect;
 {
-	[self appendString:[NSString stringWithFormat:@"Reconnecting to %@…", self.oldHost] color:[NSColor darkGrayColor] italic:YES];
+	reconnectCount++;
+	[self appendString:[NSString stringWithFormat:@"Reconnect try %d to %@…", reconnectCount, self.oldHost] color:[NSColor darkGrayColor] italic:YES];
 	
 	NSError *err = nil;
 	RemotingClient *cl = nil;
@@ -75,7 +76,7 @@ static NSColor *DarkGreen() {
 {
 	self.oldHost = client_.socket.connectedHost;
 	oldPort = client_.socket.connectedPort;
-	[input setEditable:YES];
+	reconnectCount = 0;
 	[self appendString:@"Connected" color:DarkGreen() italic:NO];
 }
 -(void)remotingClient:(RemotingClient*)client willDisconnectWithError:(NSError*)err;
@@ -84,10 +85,12 @@ static NSColor *DarkGreen() {
 }
 -(void)remotingClientDisconnected:(RemotingClient*)client;
 {
-	[input setEditable:NO];
-	
-	[self appendString:@"Disconnected; reconnecting in 5…" color:[NSColor redColor] italic:NO];
-	[self performSelector:@selector(reconnect) withObject:nil afterDelay:5];
+	if(reconnectCount < 5) {
+		[self appendString:@"Disconnected; reconnecting in 5…" color:[NSColor redColor] italic:NO];
+		[self performSelector:@selector(reconnect) withObject:nil afterDelay:5];
+	} else {
+		[self appendString:@"Permanently disconnected, type /reconnect to try again" color:[NSColor redColor] italic:NO];
+	}
 }
 -(void)remotingClient:(RemotingClient*)client receivedOutput:(NSString*)str withStatusCode:(int)code;
 {
@@ -97,6 +100,10 @@ static NSColor *DarkGreen() {
 -(IBAction)sendCommand:(id)sender;
 {
 	NSString *outputString = [sender string];
+	if([outputString isEqual:@"/reconnect"]) {
+		[self reconnect];
+		return;
+	}
 	[self appendString:[NSString stringWithFormat:@"> %@", outputString] color:[NSColor grayColor] italic:YES];
 	[client sendCommand:outputString];
 }
