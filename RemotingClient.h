@@ -21,6 +21,7 @@ enum RemotingStatusCodes {
 @class RemotingClient;
 @protocol RemotingClientDelegate <NSObject>
 -(void)remotingClient:(RemotingClient*)client receivedOutput:(NSString*)output withStatusCode:(int)code;
+-(void)remotingClient:(RemotingClient*)client receivedData:(NSData*)output;
 -(void)remotingClientConnected:(RemotingClient*)client;
 -(void)remotingClient:(RemotingClient*)client willDisconnectWithError:(NSError*)err;
 -(void)remotingClientDisconnected:(RemotingClient*)client;

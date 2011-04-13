@@ -115,7 +115,14 @@ static NSColor *DarkGreen() {
 		return;
 	}
 	[self appendString:str color:(code!=RemotingStatusOK)?[NSColor redColor]:[NSColor blackColor] italic:NO];
-
+}
+-(void)remotingClient:(RemotingClient*)client receivedData:(NSData*)data;
+{
+	NSSavePanel *savePanel = [NSSavePanel savePanel];
+	[savePanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
+		if(result != NSFileHandlingPanelOKButton) return;
+		[data writeToURL:savePanel.URL atomically:NO];
+	}];
 }
 -(IBAction)sendCommand:(id)sender;
 {

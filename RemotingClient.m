@@ -14,6 +14,23 @@ NSString *kNuRemotingBonjourType = @"_nuremote._tcp.";
 @property (readwrite, retain) AsyncSocket *socket;
 @end
 
+typedef enum {
+	kReadingCommand = 0,
+	kReadingData = 1,
+} ReadingType;
+
+NSDictionary *SPKeyValueStringToDict(NSString *kvString) {
+	NSArray *lines = [kvString componentsSeparatedByString:@"\n"];
+	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:[lines count]];
+	for (NSString *line in lines) {
+		NSArray *keyAndValue = [line componentsSeparatedByString:@":"];
+		if([keyAndValue count] != 2) continue;
+		NSString *key = [[keyAndValue objectAtIndex:0] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+		NSString *value = [[keyAndValue objectAtIndex:1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+		[dict setObject:value forKey:key];
+	}
+	return dict;
+}
 
 
 @implementation RemotingClient
@@ -75,20 +92,33 @@ NSString *kNuRemotingBonjourType = @"_nuremote._tcp.";
 }
 - (void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
 {
-	[socket readDataToData:[RemotingClient messageSeparator] withTimeout:-1 tag:0];
+	[socket readDataToData:[RemotingClient messageSeparator] withTimeout:-1 tag:kReadingCommand];
 	[delegate remotingClientConnected:self];
 }
 - (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
-	NSString *cmd = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
-	NSString *code = [cmd substringToIndex:[cmd rangeOfString:@" "].location];
-	NSRange r;
-	r.location = [cmd rangeOfString:@"\t"].location + 1;
-	r.length = [cmd length]-r.location - [RemotingClient messageSeparator].length;
-	NSString *output = [cmd substringWithRange:r];
-	[delegate remotingClient:self receivedOutput:output withStatusCode:[code intValue]];
-	
-	[socket readDataToData:[RemotingClient messageSeparator] withTimeout:-1 tag:0];
+	if(tag == kReadingCommand) {
+		NSString *cmd = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+		NSString *code = [cmd substringToIndex:[cmd rangeOfString:@" "].location];
+		NSRange r;
+		r.location = [cmd rangeOfString:@"\t"].location + 1;
+		r.length = [cmd length]-r.location - [RemotingClient messageSeparator].length;
+		NSString *output = [cmd substringWithRange:r];
+		if([code intValue] == 201) {
+			NSDictionary *settings = SPKeyValueStringToDict(output);
+			int length = [[settings objectForKey:@"Content-Length"] intValue];
+
+			[delegate remotingClient:self receivedOutput:[NSString stringWithFormat:@"Receiving %d bytes of data...", length] withStatusCode:[code intValue]];
+			[socket readDataToLength:length withTimeout:-1 tag:kReadingData];
+		} else {
+			[delegate remotingClient:self receivedOutput:output withStatusCode:[code intValue]];
+			[socket readDataToData:[RemotingClient messageSeparator] withTimeout:-1 tag:kReadingCommand];
+		}
+	} else if (tag == kReadingData) {
+			[delegate remotingClient:self receivedOutput:[NSString stringWithFormat:@"Received %d bytes of data.", [data length]] withStatusCode:201];
+		[delegate remotingClient:self receivedData:data];
+		[socket readDataToData:[RemotingClient messageSeparator] withTimeout:-1 tag:kReadingCommand];
+	}
 }
 -(void)sendCommand:(NSString*)commands;
 {
