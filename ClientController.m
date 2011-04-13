@@ -129,7 +129,7 @@ static NSColor *DarkGreen() {
 }
 -(IBAction)sendCommand:(id)sender;
 {
-	NSMutableString *outputString = [[[sender string] mutableCopy] autorelease];
+	NSMutableString *outputString = [[[input string] mutableCopy] autorelease];
 	if([outputString isEqual:@"/reconnect"]) {
 		[self reconnect];
 		return;
