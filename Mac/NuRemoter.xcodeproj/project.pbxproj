@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		055256F51356D85800CAD58A /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 055256F41356D85800CAD58A /* AsyncSocket.m */; };
 		056EE41A1338D9FB00FA0A60 /* RemotingClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 056EE4191338D9FB00FA0A60 /* RemotingClient.m */; };
-		056EE41D1338DADC00FA0A60 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 056EE41C1338DADC00FA0A60 /* AsyncSocket.m */; };
 		056EE44F1338DE1200FA0A60 /* ClientController.m in Sources */ = {isa = PBXBuildFile; fileRef = 056EE44D1338DE1200FA0A60 /* ClientController.m */; };
 		056EE4501338DE1200FA0A60 /* ClientController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 056EE44E1338DE1200FA0A60 /* ClientController.xib */; };
 		056EE58B1338EB0200FA0A60 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 056EE58A1338EB0200FA0A60 /* icon.icns */; };
@@ -21,10 +21,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		055256F31356D85800CAD58A /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
+		055256F41356D85800CAD58A /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncSocket.m; sourceTree = "<group>"; };
 		056EE4181338D9FB00FA0A60 /* RemotingClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemotingClient.h; sourceTree = "<group>"; };
 		056EE4191338D9FB00FA0A60 /* RemotingClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemotingClient.m; sourceTree = "<group>"; };
-		056EE41B1338DADC00FA0A60 /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
-		056EE41C1338DADC00FA0A60 /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncSocket.m; sourceTree = "<group>"; };
 		056EE44C1338DE1200FA0A60 /* ClientController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClientController.h; sourceTree = "<group>"; };
 		056EE44D1338DE1200FA0A60 /* ClientController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClientController.m; sourceTree = "<group>"; };
 		056EE44E1338DE1200FA0A60 /* ClientController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClientController.xib; sourceTree = "<group>"; };
@@ -57,22 +57,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		080E96DDFE201D6D7F000001 /* Classes */ = {
+		055256F21356D85800CAD58A /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				055256F31356D85800CAD58A /* AsyncSocket.h */,
+				055256F41356D85800CAD58A /* AsyncSocket.m */,
+			);
+			name = Common;
+			path = ../Common;
+			sourceTree = SOURCE_ROOT;
+		};
+		080E96DDFE201D6D7F000001 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				256AC3D80F4B6AC300CF3369 /* NuRemoterAppDelegate.h */,
 				256AC3D90F4B6AC300CF3369 /* NuRemoterAppDelegate.m */,
 				056EE4181338D9FB00FA0A60 /* RemotingClient.h */,
 				056EE4191338D9FB00FA0A60 /* RemotingClient.m */,
-				056EE41B1338DADC00FA0A60 /* AsyncSocket.h */,
-				056EE41C1338DADC00FA0A60 /* AsyncSocket.m */,
 				056EE44C1338DE1200FA0A60 /* ClientController.h */,
 				056EE44D1338DE1200FA0A60 /* ClientController.m */,
 				056EE44E1338DE1200FA0A60 /* ClientController.xib */,
 				05F6CEE0134F31ED009FB3B1 /* TemplateController.h */,
 				05F6CEE1134F31ED009FB3B1 /* TemplateController.m */,
 			);
-			name = Classes;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
@@ -104,8 +112,9 @@
 		29B97314FDCFA39411CA2CEA /* NuRemoter */ = {
 			isa = PBXGroup;
 			children = (
-				080E96DDFE201D6D7F000001 /* Classes */,
-				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				055256F21356D85800CAD58A /* Common */,
+				080E96DDFE201D6D7F000001 /* Sources */,
+				29B97315FDCFA39411CA2CEA /* Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
@@ -113,13 +122,13 @@
 			name = NuRemoter;
 			sourceTree = "<group>";
 		};
-		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+		29B97315FDCFA39411CA2CEA /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				256AC3F00F4B6AF500CF3369 /* NuRemoter_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
-			name = "Other Sources";
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
@@ -130,7 +139,7 @@
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
 			);
-			name = Resources;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
@@ -209,9 +218,9 @@
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				256AC3DA0F4B6AC300CF3369 /* NuRemoterAppDelegate.m in Sources */,
 				056EE41A1338D9FB00FA0A60 /* RemotingClient.m in Sources */,
-				056EE41D1338DADC00FA0A60 /* AsyncSocket.m in Sources */,
 				056EE44F1338DE1200FA0A60 /* ClientController.m in Sources */,
 				05F6CEE2134F31ED009FB3B1 /* TemplateController.m in Sources */,
+				055256F51356D85800CAD58A /* AsyncSocket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,8 +256,8 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = NuRemoter_Prefix.pch;
-				INFOPLIST_FILE = "NuRemoter-Info.plist";
+				GCC_PREFIX_HEADER = Sources/NuRemoter_Prefix.pch;
+				INFOPLIST_FILE = "Resources/NuRemoter-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = NuRemoter;
 			};
@@ -261,8 +270,8 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = NuRemoter_Prefix.pch;
-				INFOPLIST_FILE = "NuRemoter-Info.plist";
+				GCC_PREFIX_HEADER = Sources/NuRemoter_Prefix.pch;
+				INFOPLIST_FILE = "Resources/NuRemoter-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = NuRemoter;
 			};
