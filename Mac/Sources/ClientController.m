@@ -7,7 +7,7 @@ static NSColor *DarkGreen() {
 @interface ClientController ()
 @property (readwrite, retain) RemotingClient *client;
 @property (copy) NSString *oldHost;
--(void)appendString:(NSString*)str color:(NSColor*)color italic:(BOOL)italic;
+-(void)appendString:(NSString*)str color:(NSColor*)color italic:(BOOL)italic to:(NSTextView*)dest;
 @end
 
 
@@ -35,7 +35,7 @@ static NSColor *DarkGreen() {
 -(void)reconnect;
 {
 	reconnectCount++;
-	[self appendString:[NSString stringWithFormat:@"Reconnect try %d to %@…", reconnectCount, self.oldHost] color:[NSColor darkGrayColor] italic:YES];
+	[self appendString:[NSString stringWithFormat:@"Reconnect try %d to %@…", reconnectCount, self.oldHost] color:[NSColor darkGrayColor] italic:YES to:output];
 	
 	NSError *err = nil;
 	RemotingClient *cl = nil;
@@ -44,7 +44,7 @@ static NSColor *DarkGreen() {
 	if(!cl) {
 		NSString *error = @"No host to connect to; aborting";
 		if(err) error = [NSString stringWithFormat:@"%@; aborting", [err localizedDescription]];
-		[self appendString:error color:[NSColor redColor] italic:YES];
+		[self appendString:error color:[NSColor redColor] italic:YES to:output];
 	}
 	self.client = cl;
 	self.client.delegate = self;
@@ -59,7 +59,7 @@ static NSColor *DarkGreen() {
 	return NO;
 }
 
--(void)appendString:(NSString*)str color:(NSColor*)color italic:(BOOL)italic;
+-(void)appendString:(NSString*)str color:(NSColor*)color italic:(BOOL)italic to:(NSTextView*)dest;
 {
 	NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
 	if(italic) {
@@ -69,30 +69,30 @@ static NSColor *DarkGreen() {
 	[attrs setObject:color forKey:NSForegroundColorAttributeName];
 	NSAttributedString * astr = [[[NSAttributedString alloc] initWithString:[str stringByAppendingString:@"\n"] attributes:attrs] autorelease];
 	
-	BOOL scrollToEnd = [[[output enclosingScrollView] verticalScroller] floatValue] > .99 && output.selectedRange.length==0;
+	BOOL scrollToEnd = [[[dest enclosingScrollView] verticalScroller] floatValue] == 1 && dest.selectedRange.length==0;
 	
-	[[output textStorage] appendAttributedString:astr];
+	[[dest textStorage] appendAttributedString:astr];
 	
-	if(scrollToEnd) [output scrollRangeToVisible:NSMakeRange([output textStorage].length, 0)];
+	if(scrollToEnd) [dest scrollRangeToVisible:NSMakeRange([output textStorage].length, 0)];
 }
 -(void)remotingClientConnected:(RemotingClient*)client_;
 {
 	self.oldHost = client_.socket.connectedHost;
 	oldPort = client_.socket.connectedPort;
 	reconnectCount = 0;
-	[self appendString:@"Connected" color:DarkGreen() italic:NO];
+	[self appendString:@"Connected" color:DarkGreen() italic:NO to:output];
 }
 -(void)remotingClient:(RemotingClient*)client willDisconnectWithError:(NSError*)err;
 {
-	[self appendString:[NSString stringWithFormat:@"Error: %@", [err localizedDescription]] color:[NSColor redColor] italic:NO];
+	[self appendString:[NSString stringWithFormat:@"Error: %@", [err localizedDescription]] color:[NSColor redColor] italic:NO to:output];
 }
 -(void)remotingClientDisconnected:(RemotingClient*)client;
 {
 	if(reconnectCount < 5) {
-		[self appendString:@"Disconnected; reconnecting in 5…" color:[NSColor redColor] italic:NO];
+		[self appendString:@"Disconnected; reconnecting in 5…" color:[NSColor redColor] italic:NO to:output];
 		[self performSelector:@selector(reconnect) withObject:nil afterDelay:5];
 	} else {
-		[self appendString:@"Permanently disconnected, type /reconnect to try again" color:[NSColor redColor] italic:NO];
+		[self appendString:@"Permanently disconnected, type /reconnect to try again" color:[NSColor redColor] italic:NO to:output];
 	}
 }
 -(void)remotingClient:(RemotingClient*)client receivedOutput:(NSString*)str withStatusCode:(int)code;
@@ -114,10 +114,10 @@ static NSColor *DarkGreen() {
 		else if(level > 6) // debug1-7
 			color = [NSColor colorWithCalibratedHue:.3 saturation:.5-((level-6)/7./2.) brightness:.7 alpha:1];
 
-		[self appendString:str color:color italic:YES];
+		[self appendString:str color:color italic:YES to:logOutput];
 		return;
 	}
-	[self appendString:str color:(code!=RemotingStatusOK)?[NSColor redColor]:[NSColor blackColor] italic:NO];
+	[self appendString:str color:(code!=RemotingStatusOK)?[NSColor redColor]:[NSColor blackColor] italic:NO to:output];
 }
 -(void)remotingClient:(RemotingClient*)client receivedData:(NSData*)data;
 {
@@ -140,7 +140,7 @@ static NSColor *DarkGreen() {
 		NSString *templateName = [outputString substringWithRange:NSMakeRange(r.location+r.length, toNewline.location-r.location-r.length)];
 		[outputString replaceCharactersInRange:NSMakeRange(r.location, toNewline.location-r.location) withString:[templates contentsOfSnippetNamed:templateName]];
 	}
-	[self appendString:outputString color:[NSColor purpleColor] italic:YES];
+	[self appendString:outputString color:[NSColor purpleColor] italic:YES to:output];
 	[client sendCommand:outputString];
 }
 @end

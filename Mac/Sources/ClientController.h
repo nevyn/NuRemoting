@@ -6,6 +6,7 @@
 <RemotingClientDelegate>
 {
 	RemotingClient *client;
+	IBOutlet NSTextView *logOutput;
 	IBOutlet NSTextView *output;
 	IBOutlet NSTextView *input;
 	NSString *oldHost; int oldPort;
