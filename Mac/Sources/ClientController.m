@@ -69,11 +69,11 @@ static NSColor *DarkGreen() {
 	[attrs setObject:color forKey:NSForegroundColorAttributeName];
 	NSAttributedString * astr = [[[NSAttributedString alloc] initWithString:[str stringByAppendingString:@"\n"] attributes:attrs] autorelease];
 	
-	BOOL scrollToEnd = [[[dest enclosingScrollView] verticalScroller] floatValue] == 1 && dest.selectedRange.length==0;
+	NSScrollView *scroll = [dest enclosingScrollView];
+	BOOL scrollToEnd = [[scroll verticalScroller] floatValue] == 1 && dest.selectedRange.length==0;
 	
 	[[dest textStorage] appendAttributedString:astr];
-	
-	if(scrollToEnd) [dest scrollRangeToVisible:NSMakeRange([output textStorage].length, 0)];
+	if(scrollToEnd) [dest scrollToEndOfDocument:nil];
 }
 -(void)remotingClientConnected:(RemotingClient*)client_;
 {
