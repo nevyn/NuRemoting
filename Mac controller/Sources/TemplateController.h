@@ -1,11 +1,3 @@
-//
-//  TemplateController.h
-//  NuRemoter
-//
-//  Created by Joachim Bengtsson on 2011-04-08.
-//  Copyright 2011 Spotify AB. All rights reserved.
-//
-
 #import <Cocoa/Cocoa.h>
 
 
