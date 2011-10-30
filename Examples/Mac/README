@@ -1,0 +1,20 @@
+Sample application displaying how you can embed a NuRemote into your Mac application.
+
+What I've done to the project
+-----------------------------
+* Link to readline, libffi and SystemConfiguration
+* Pulled in all the files in "NuRemote"
+* Pulled in all the files in Examples/Support to get the Nu
+  language (except the ffi implementation, which is for iOS)
+* Created and ran an SPNuRemote instance at application startup.
+
+Sample scripts
+--------------
+
+<pre><code>
+(set del ((NSApplication sharedApplication) delegate))
+(set wi (del window))
+
+(wi setFrame:'(100 300 200 100) display:1 animate:1)
+</code></pre>
+

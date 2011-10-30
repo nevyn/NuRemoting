@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		055256F51356D85800CAD58A /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 055256F41356D85800CAD58A /* AsyncSocket.m */; };
-		056EE41A1338D9FB00FA0A60 /* RemotingClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 056EE4191338D9FB00FA0A60 /* RemotingClient.m */; };
+		0511A70F145B65310060519A /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 0511A709145B65310060519A /* AsyncSocket.m */; };
+		0511A710145B65310060519A /* RemotingClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0511A70B145B65310060519A /* RemotingClient.m */; };
 		056EE44F1338DE1200FA0A60 /* ClientController.m in Sources */ = {isa = PBXBuildFile; fileRef = 056EE44D1338DE1200FA0A60 /* ClientController.m */; };
 		056EE4501338DE1200FA0A60 /* ClientController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 056EE44E1338DE1200FA0A60 /* ClientController.xib */; };
 		056EE58B1338EB0200FA0A60 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 056EE58A1338EB0200FA0A60 /* icon.icns */; };
@@ -21,10 +21,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		055256F31356D85800CAD58A /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
-		055256F41356D85800CAD58A /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncSocket.m; sourceTree = "<group>"; };
-		056EE4181338D9FB00FA0A60 /* RemotingClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemotingClient.h; sourceTree = "<group>"; };
-		056EE4191338D9FB00FA0A60 /* RemotingClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemotingClient.m; sourceTree = "<group>"; };
+		0511A708145B65310060519A /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
+		0511A709145B65310060519A /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncSocket.m; sourceTree = "<group>"; };
+		0511A70A145B65310060519A /* RemotingClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemotingClient.h; sourceTree = "<group>"; };
+		0511A70B145B65310060519A /* RemotingClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemotingClient.m; sourceTree = "<group>"; };
+		0511A70C145B65310060519A /* Shared.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shared.h; sourceTree = "<group>"; };
 		056EE44C1338DE1200FA0A60 /* ClientController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClientController.h; sourceTree = "<group>"; };
 		056EE44D1338DE1200FA0A60 /* ClientController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClientController.m; sourceTree = "<group>"; };
 		056EE44E1338DE1200FA0A60 /* ClientController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClientController.xib; sourceTree = "<group>"; };
@@ -57,23 +58,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		055256F21356D85800CAD58A /* Common */ = {
+		0511A707145B65310060519A /* NuRemote */ = {
 			isa = PBXGroup;
 			children = (
-				055256F31356D85800CAD58A /* AsyncSocket.h */,
-				055256F41356D85800CAD58A /* AsyncSocket.m */,
+				0511A708145B65310060519A /* AsyncSocket.h */,
+				0511A709145B65310060519A /* AsyncSocket.m */,
+				0511A70A145B65310060519A /* RemotingClient.h */,
+				0511A70B145B65310060519A /* RemotingClient.m */,
+				0511A70C145B65310060519A /* Shared.h */,
 			);
-			name = Common;
-			path = ../Common;
-			sourceTree = SOURCE_ROOT;
+			name = NuRemote;
+			path = ../NuRemote;
+			sourceTree = "<group>";
 		};
 		080E96DDFE201D6D7F000001 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
 				256AC3D80F4B6AC300CF3369 /* NuRemoterAppDelegate.h */,
 				256AC3D90F4B6AC300CF3369 /* NuRemoterAppDelegate.m */,
-				056EE4181338D9FB00FA0A60 /* RemotingClient.h */,
-				056EE4191338D9FB00FA0A60 /* RemotingClient.m */,
 				056EE44C1338DE1200FA0A60 /* ClientController.h */,
 				056EE44D1338DE1200FA0A60 /* ClientController.m */,
 				056EE44E1338DE1200FA0A60 /* ClientController.xib */,
@@ -112,7 +114,7 @@
 		29B97314FDCFA39411CA2CEA /* NuRemoter */ = {
 			isa = PBXGroup;
 			children = (
-				055256F21356D85800CAD58A /* Common */,
+				0511A707145B65310060519A /* NuRemote */,
 				080E96DDFE201D6D7F000001 /* Sources */,
 				29B97315FDCFA39411CA2CEA /* Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -217,10 +219,10 @@
 			files = (
 				8D11072D0486CEB800E47090 /* main.m in Sources */,
 				256AC3DA0F4B6AC300CF3369 /* NuRemoterAppDelegate.m in Sources */,
-				056EE41A1338D9FB00FA0A60 /* RemotingClient.m in Sources */,
 				056EE44F1338DE1200FA0A60 /* ClientController.m in Sources */,
 				05F6CEE2134F31ED009FB3B1 /* TemplateController.m in Sources */,
-				055256F51356D85800CAD58A /* AsyncSocket.m in Sources */,
+				0511A70F145B65310060519A /* AsyncSocket.m in Sources */,
+				0511A710145B65310060519A /* RemotingClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

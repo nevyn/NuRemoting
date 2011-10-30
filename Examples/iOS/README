@@ -1,0 +1,21 @@
+Sample application displaying how you can embed a NuRemote into your iOS application.
+
+What I've done to the project
+-----------------------------
+* Link to CFNetwork
+* Pulled in all the files in "NuRemote"
+* Pulled in all the files in Examples/Support to get the Nu
+  language
+* Created and ran an SPNuRemote instance at application startup.
+
+Sample scripts
+--------------
+
+<pre><code>
+(set del ((UIApplication sharedApplication) delegate))
+(set nav (del navigationController))
+(set root ((nav viewControllers) objectAtIndex:0))
+
+(root insertNewObject)
+</code></pre>
+

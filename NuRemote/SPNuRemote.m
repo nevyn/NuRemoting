@@ -7,13 +7,10 @@
 //
 
 #import "SPNuRemote.h"
-#import "SPIOSLog.h"
 
-// forward
-@interface SpotifyAppDelegate : NSObject
-+(SpotifyAppDelegate*)appDelegate;
--(SPIOSLog*)log;
-@end
+#if !TARGET_OS_IPHONE
+#import <SystemConfiguration/SystemConfiguration.h>
+#endif
 
 //#import <Nu/Nu.h>
 @interface NSObject (NuStuff)
@@ -22,16 +19,21 @@
 -(id)parseEval:(NSString*)code;
 @end
 
-static const int kNuRemotingPort = 8023;
-static NSString *kNuRemotingBonjourType = @"_nuremote._tcp.";
+
+@interface SPNuRemote ()
+@property(nonatomic,readonly) NSMutableArray *clients;
+@property(nonatomic,readonly) NSMutableDictionary *datasets;
+@end
 
 
 @interface SPNRClient : NSObject
 {
 	AsyncSocket *sock;
 	id parser;
+	SPNuRemote *parent;
 }
--(id)init:(AsyncSocket*)s;
+-(id)init:(AsyncSocket*)s :(SPNuRemote*)parent_;
+-(void)sendInitialDatasets;
 @end
 @implementation SPNRClient
 +(NSData*)doubleNewline;
@@ -40,42 +42,33 @@ static NSString *kNuRemotingBonjourType = @"_nuremote._tcp.";
 	if(!dnl) dnl = [[NSData dataWithBytes:"\xa\xa" length:2] retain];
 	return dnl;
 }
--(void)enableRemoteLogging;
-{
-	[[SpotifyAppDelegate appDelegate].log.delegates addObject:self];
-}
--(void)disableRemoteLogging;
-{
-	[[SpotifyAppDelegate appDelegate].log.delegates removeObject:self];
-}
 
--(id)init:(AsyncSocket*)s;
+-(id)init:(AsyncSocket*)s :(SPNuRemote*)parent_;
 {
 	parser = [[NSClassFromString(@"Nu") parser] retain];
 	if(!parser)
 		return nil;
 	
+	parent = parent_;
 	sock = [s retain];
 	[parser parseEval:@"(set log (NuBridgedFunction functionWithName:\"NSLog\" signature:\"v@\"))"];
-	[parser setValue:self forKey:@"remote"];
-	[self enableRemoteLogging];
 	
 	[sock setDelegate:self];
 	[sock readDataToData:[SPNRClient doubleNewline] withTimeout:-1 tag:0];
+	
+	[self sendInitialDatasets];
 	return self;
 }
 -(void)dealloc;
 {
-	[self disableRemoteLogging];
 	[sock release];
 	[parser release];
 	[super dealloc];
 }
 - (void)onSocketDidDisconnect:(AsyncSocket *)sock_;
 {
-	[parser setValue:nil forKey:@"remote"];
 	[sock release]; sock = nil;
-	[self release];
+	[parent.clients removeObject:self]; // I will be deallocated now
 }
 -(void)reply:(NSString*)code :(NSString*)reply;
 {
@@ -110,33 +103,74 @@ static NSString *kNuRemotingBonjourType = @"_nuremote._tcp.";
 	
 	return [self reply:@"200 OK" :reply];
 }
--(void)log:(SPIOSLog*)log wroteLine:(NSString*)line withFlags:(uint)flags;
+-(void)writeLogLine:(NSString*)line logLevel:(int)logLevel;
 {
-	int logLevel = flags % 0xf;
 	[self reply:[NSString stringWithFormat:@"6%02d Log message", logLevel] :[line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
+}
+-(void)addDataPoint:(float)data atTime:(NSTimeInterval)interval toDataSet:(NSString*)setName;
+{
+	[self reply:@"701 New Data Point" :[NSString stringWithFormat:@"%@\n%f\n%f", 
+		setName, interval, data
+	]];
+}
+-(void)sendInitialDatasets;
+{
+	for(NSString *setName in parent.datasets.allKeys) {
+		NSMutableDictionary *dataset = [parent.datasets objectForKey:setName];
+		NSData *data = [NSKeyedArchiver archivedDataWithRootObject:dataset];
+		NSData *header = [[NSString stringWithFormat:@"702 Dataset Priming\t\nSet-Name: %@\nContent-Length: %d\n\n", setName, [data length]] dataUsingEncoding:NSUTF8StringEncoding];
+		[sock writeData:header withTimeout:-1 tag:0];
+		[sock writeData:data withTimeout:-1 tag:0];
+	}
+
 }
 @end
 
 
 
 @implementation SPNuRemote
-@synthesize listenSocket, publisher;
+@synthesize listenSocket, publisher, delegate, clients, datasets;
+-(id)init;
+{
+	clients = [NSMutableArray new];
+	datasets = [NSMutableDictionary new];
+
+	return self;
+}
 -(void)run;
 {
 	if(!NSClassFromString(@"Nu") || listenSocket)
 		return;
 
 	self.listenSocket = [[[AsyncSocket alloc] initWithDelegate:self] autorelease];
-	self.publisher = [[[NSNetService alloc] initWithDomain:@"" type:kNuRemotingBonjourType name:[UIDevice currentDevice].name	port:kNuRemotingPort] autorelease];
-
+	
+	NSString *appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
+	
+#if TARGET_OS_IPHONE
+	NSString *deviceName = [UIDevice currentDevice].name;
+#else
+	SCDynamicStoreRef dynstore = SCDynamicStoreCreate(kCFAllocatorSystemDefault, (CFStringRef)appName, nil, nil);
+	NSDictionary *computerNameEntry = [(id)SCDynamicStoreCopyValue(dynstore,(CFStringRef)@"Setup:/System") autorelease];
+	CFRelease(dynstore);
+	NSString *deviceName = [computerNameEntry objectForKey:@"ComputerName"];
+#endif
+	NSString *pubName = [NSString stringWithFormat:@"%@: %@",
+		deviceName,
+		appName
+	];
+	
+	self.publisher = [[[NSNetService alloc] initWithDomain:@"" type:kNuRemotingBonjourType name:pubName	port:kNuRemotingPort] autorelease];
+	
+#if TARGET_OS_IPHONE
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(activated) name:UIApplicationDidBecomeActiveNotification object:nil];
+#endif
 	
 	NSError *err = nil;
 	if(![listenSocket acceptOnPort:kNuRemotingPort error:&err]) {
 		NSLog(@"SPNuRemote listen failure: %@", err);
 		return;
 	}
-		
+	
 
 	[publisher publish];
 }
@@ -144,6 +178,8 @@ static NSString *kNuRemotingBonjourType = @"_nuremote._tcp.";
 {
 	self.listenSocket = nil;
 	self.publisher = nil;
+	[clients release];
+	[datasets release];
 	[super dealloc];
 }
 -(void)activated;
@@ -162,11 +198,33 @@ static NSString *kNuRemotingBonjourType = @"_nuremote._tcp.";
 
 - (void)onSocket:(AsyncSocket *)sock didAcceptNewSocket:(AsyncSocket *)newSocket;
 {
-	[[SPNRClient alloc] init:newSocket];
+	[clients addObject:[[[SPNRClient alloc] init:newSocket :self] autorelease]];
 }
 - (void)onSocketDidDisconnect:(AsyncSocket *)sock;
 {
-	self.listenSocket = self.publisher = (id)nil;
+	self.listenSocket = nil;
+	self.publisher = nil;
 	[self activated];
+}
+
+-(void)writeLogLine:(NSString *)line logLevel:(int)level;
+{
+	for(SPNRClient *client in clients)
+		[client writeLogLine:line logLevel:level];
+}
+
+-(void)addDataPoint:(float)data toDataSet:(NSString*)setName;
+{
+	NSMutableDictionary *dataset = [datasets objectForKey:setName];
+	if(!dataset) {
+		dataset = [NSMutableDictionary dictionaryWithCapacity:1000];
+		[datasets setObject:dataset forKey:setName];
+	}
+	
+	NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
+	
+	[dataset setObject:[NSNumber numberWithFloat:data] forKey:[NSNumber numberWithDouble:now]];
+	for(SPNRClient *client in clients)
+		[client addDataPoint:data atTime:now toDataSet:setName];
 }
 @end

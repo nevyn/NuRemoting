@@ -6,22 +6,16 @@
 //  Copyright 2011 Spotify AB. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 #import "AsyncSocket.h"
-
-extern NSString *kNuRemotingBonjourType;
-
-enum RemotingStatusCodes {
-	RemotingStatusOK = 200,
-	RemotingStatusBadRequest = 400,
-	RemotingStatusException = 500
-};
+#import "Shared.h"
 
 
 @class RemotingClient;
 @protocol RemotingClientDelegate <NSObject>
 -(void)remotingClient:(RemotingClient*)client receivedOutput:(NSString*)output withStatusCode:(int)code;
 -(void)remotingClient:(RemotingClient*)client receivedData:(NSData*)output;
+-(void)remotingClient:(RemotingClient*)client receivedPoint:(float)pt at:(NSTimeInterval)sinceRef inSet:(NSString*)datasetName;
 -(void)remotingClientConnected:(RemotingClient*)client;
 -(void)remotingClient:(RemotingClient*)client willDisconnectWithError:(NSError*)err;
 -(void)remotingClientDisconnected:(RemotingClient*)client;
@@ -32,6 +26,7 @@ enum RemotingStatusCodes {
 	id<RemotingClientDelegate> delegate;
 	AsyncSocket *socket;
 	NSString *name;
+	NSString *incomingDatasetName;
 }
 @property (assign) id<RemotingClientDelegate> delegate;
 @property (copy) NSString *name;
