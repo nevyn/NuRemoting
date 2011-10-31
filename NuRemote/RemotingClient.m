@@ -9,7 +9,7 @@
 #import "RemotingClient.h"
 
 @interface RemotingClient ()
-@property (readwrite, retain) AsyncSocket *socket;
+@property(nonatomic,readwrite,retain) AsyncSocket *socket;
 @end
 
 typedef enum {
@@ -45,7 +45,7 @@ NSDictionary *SPKeyValueStringToDict(NSString *kvString) {
 	return dnl;
 }
 
-@synthesize delegate, socket, name, incomingDatasetName;
+@synthesize delegate = _delegate, socket, name, incomingDatasetName;
 +(void)performSearchOnBrowser:(NSNetServiceBrowser*)browser;
 {
 	[browser searchForServicesOfType:kNuRemotingBonjourType inDomain:@""];
@@ -61,6 +61,7 @@ NSDictionary *SPKeyValueStringToDict(NSString *kvString) {
 	}
 	
 	self.name = service.name;
+	delegateResponseMap = [NSMutableDictionary new];
 	
 	return self;
 }
@@ -75,6 +76,7 @@ NSDictionary *SPKeyValueStringToDict(NSString *kvString) {
 	}
 	
 	self.name = host;
+	delegateResponseMap = [NSMutableDictionary new];
 	
 	return self;
 
@@ -83,21 +85,41 @@ NSDictionary *SPKeyValueStringToDict(NSString *kvString) {
 {
 	self.socket.delegate = nil;
 	self.socket = nil;
+	[delegateResponseMap release]; delegateResponseMap = nil;
 	[super dealloc];
 }
+
+#define MapResponse(sel) [delegateResponseMap setObject:[NSNumber numberWithBool:[_delegate respondsToSelector:@selector(sel)]] forKey:NSStringFromSelector(@selector(sel))];
+#define DelegateResponds(sel) [[delegateResponseMap objectForKey:NSStringFromSelector(@selector(sel))] boolValue]
+-(void)setDelegate:(id<RemotingClientDelegate>)delegate;
+{
+	_delegate = delegate;
+	MapResponse(remotingClient:receivedOutput:withStatusCode:);
+	MapResponse(remotingClient:receivedData:);
+	MapResponse(remotingClient:receivedPoint:at:inSet:);
+	MapResponse(remotingClientConnected:);
+	MapResponse(remotingClient:willDisconnectWithError:);
+	MapResponse(remotingClientDisconnected:);
+}
+
+
+
 - (void)onSocket:(AsyncSocket *)sock willDisconnectWithError:(NSError *)err;
 {
-	[delegate remotingClient:self willDisconnectWithError:err];
+	if(DelegateResponds(remotingClient:willDisconnectWithError:))
+		[_delegate remotingClient:self willDisconnectWithError:err];
 }
 - (void)onSocketDidDisconnect:(AsyncSocket *)sock
 {
-	[delegate remotingClientDisconnected:self];
+	if(DelegateResponds(remotingClientDisconnected:))
+		[_delegate remotingClientDisconnected:self];
 	self.socket = nil;
 }
 - (void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
 {
 	[socket readDataToData:[RemotingClient messageSeparator] withTimeout:-1 tag:kReadingCommand];
-	[delegate remotingClientConnected:self];
+	if(DelegateResponds(remotingClientConnected:))
+		[_delegate remotingClientConnected:self];
 }
 - (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
@@ -115,28 +137,48 @@ NSDictionary *SPKeyValueStringToDict(NSString *kvString) {
 			
 			if([code intValue] == RemotingStatusStatsPriming) {
 				self.incomingDatasetName = [settings objectForKey:@"Set-Name"];
-				[delegate remotingClient:self receivedOutput:[NSString stringWithFormat:@"Receiving %d bytes of stats...", length] withStatusCode:[code intValue]];
+				if(DelegateResponds(remotingClient:receivedOutput:withStatusCode:))
+					[_delegate remotingClient:self receivedOutput:[NSString stringWithFormat:@"Receiving %d bytes of stats...", length] withStatusCode:[code intValue]];
 				
 				[socket readDataToLength:length withTimeout:-1 tag:kReadingDatasetPriming];
 			} else if([code intValue] == RemotingDataReply) {
-				[delegate remotingClient:self receivedOutput:[NSString stringWithFormat:@"Receiving %d bytes of data...", length] withStatusCode:[code intValue]];
+				if(DelegateResponds(remotingClient:receivedOutput:withStatusCode:))
+					[_delegate remotingClient:self receivedOutput:[NSString stringWithFormat:@"Receiving %d bytes of data...", length] withStatusCode:[code intValue]];
 				[socket readDataToLength:length withTimeout:-1 tag:kReadingData];
 			}
+		} else if([code intValue] == RemotingStatusStatsNewDataPoint) {
+			if(DelegateResponds(remotingClient:receivedPoint:at:inSet:)) {
+				NSArray *components = [output componentsSeparatedByString:@"\n"];
+				NSAssert([components count] == 3, @"Missing component in data set");
+				
+				[_delegate remotingClient:self
+					receivedPoint:[[components objectAtIndex:2] floatValue]
+					at:[[components objectAtIndex:1] doubleValue]
+					inSet:[components objectAtIndex:0]
+				];
+			}
+			[socket readDataToData:[RemotingClient messageSeparator] withTimeout:-1 tag:kReadingCommand];
+
 		} else {
-			[delegate remotingClient:self receivedOutput:output withStatusCode:[code intValue]];
+			if(DelegateResponds(remotingClient:receivedOutput:withStatusCode:))
+				[_delegate remotingClient:self receivedOutput:output withStatusCode:[code intValue]];
 			[socket readDataToData:[RemotingClient messageSeparator] withTimeout:-1 tag:kReadingCommand];
 		}
 		
 	} else if (tag == kReadingData) {
-		[delegate remotingClient:self receivedOutput:[NSString stringWithFormat:@"Received %d bytes of data.", [data length]] withStatusCode:201];
-		[delegate remotingClient:self receivedData:data];
+		if(DelegateResponds(remotingClient:receivedOutput:withStatusCode:))
+			[_delegate remotingClient:self receivedOutput:[NSString stringWithFormat:@"Received %d bytes of data.", [data length]] withStatusCode:201];
+		if(DelegateResponds(remotingClient:receivedData:))
+			[_delegate remotingClient:self receivedData:data];
 		[socket readDataToData:[RemotingClient messageSeparator] withTimeout:-1 tag:kReadingCommand];
 	} else if (tag == kReadingDatasetPriming) {
 		NSDictionary *primedStats = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-		[delegate remotingClient:self receivedOutput:[NSString stringWithFormat:@"Primed %@ with %d data points.", self.incomingDatasetName, [primedStats count]] withStatusCode:201];
+		if(DelegateResponds(remotingClient:receivedOutput:withStatusCode:))
+			[_delegate remotingClient:self receivedOutput:[NSString stringWithFormat:@"Primed %@ with %d data points.", self.incomingDatasetName, [primedStats count]] withStatusCode:201];
 		
-		for(NSNumber *when in primedStats)
-			[delegate remotingClient:self receivedPoint:[[primedStats objectForKey:when] floatValue] at:[when floatValue] inSet:self.incomingDatasetName];
+		if(DelegateResponds(remotingClient:receivedPoint:at:inSet:))
+			for(NSNumber *when in [[primedStats allKeys] sortedArrayUsingSelector:@selector(compare:)])
+				[_delegate remotingClient:self receivedPoint:[[primedStats objectForKey:when] floatValue] at:[when floatValue] inSet:self.incomingDatasetName];
 		
 		self.incomingDatasetName = nil;
 

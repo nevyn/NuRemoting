@@ -1,4 +1,5 @@
 #import "ClientController.h"
+#import "NRStatsCell.h"
 
 static NSColor *DarkGreen() {
 	return [NSColor colorWithDeviceRed:0 green:.5 blue:0 alpha:1];
@@ -12,7 +13,7 @@ static NSColor *DarkGreen() {
 
 
 @implementation ClientController
-@synthesize client, oldHost;
+@synthesize client, oldHost, statsDrawer, statsTable;
 
 -(id)initWithClient:(RemotingClient*)client_;
 {
@@ -22,7 +23,7 @@ static NSColor *DarkGreen() {
 	self.client = client_;
 	self.client.delegate = self;
 	self.window.title = client_.name;
-	
+	statSets = [NSMutableArray new];
 	
 	return self;
 }
@@ -32,23 +33,8 @@ static NSColor *DarkGreen() {
 	self.oldHost = nil;
 	[super dealloc];
 }
--(void)reconnect;
-{
-	reconnectCount++;
-	[self appendString:[NSString stringWithFormat:@"Reconnect try %d to %@…", reconnectCount, self.oldHost] color:[NSColor darkGrayColor] italic:YES to:output];
-	
-	NSError *err = nil;
-	RemotingClient *cl = nil;
-	if(oldHost)
-		cl = [[[RemotingClient alloc] initWithHost:self.oldHost port:oldPort error:&err] autorelease];
-	if(!cl) {
-		NSString *error = @"No host to connect to; aborting";
-		if(err) error = [NSString stringWithFormat:@"%@; aborting", [err localizedDescription]];
-		[self appendString:error color:[NSColor redColor] italic:YES to:output];
-	}
-	self.client = cl;
-	self.client.delegate = self;
-}
+
+#pragma mark Text stuff
 
 - (BOOL)textView:(NSTextView *)textView doCommandBySelector:(SEL)commandSelector;
 {
@@ -75,6 +61,10 @@ static NSColor *DarkGreen() {
 	[[dest textStorage] appendAttributedString:astr];
 	if(scrollToEnd) [dest scrollToEndOfDocument:nil];
 }
+
+
+#pragma mark RemotingClient delegate
+
 -(void)remotingClientConnected:(RemotingClient*)client_;
 {
 	self.oldHost = client_.socket.connectedHost;
@@ -100,7 +90,7 @@ static NSColor *DarkGreen() {
 	if(code >= 600 && code < 700) {
 		int level = code-600;
 		
-		NSColor *color = nil;
+		NSColor *color = [NSColor blackColor];
 		if(level < 3) // error, assert, fatal
 			color = [NSColor redColor];
 		else if(level == 3) // warning
@@ -127,13 +117,38 @@ static NSColor *DarkGreen() {
 		[data writeToURL:savePanel.URL atomically:NO];
 	}];
 }
+
+#pragma mark Commands
+
+-(void)reconnect;
+{
+	reconnectCount++;
+	[self appendString:[NSString stringWithFormat:@"Reconnect try %d to %@…", reconnectCount, self.oldHost] color:[NSColor darkGrayColor] italic:YES to:output];
+	
+	NSError *err = nil;
+	RemotingClient *cl = nil;
+	if(oldHost)
+		cl = [[[RemotingClient alloc] initWithHost:self.oldHost port:oldPort error:&err] autorelease];
+	if(!cl) {
+		NSString *error = @"No host to connect to; aborting";
+		if(err) error = [NSString stringWithFormat:@"%@; aborting", [err localizedDescription]];
+		[self appendString:error color:[NSColor redColor] italic:YES to:output];
+	}
+	self.client = cl;
+	self.client.delegate = self;
+}
+
 -(IBAction)sendCommand:(id)sender;
 {
 	NSMutableString *outputString = [[[input string] mutableCopy] autorelease];
 	if([outputString isEqual:@"/reconnect"]) {
 		[self reconnect];
 		return;
+	} else if([outputString isEqual:@"/stats"]) {
+		[statsDrawer open];
+		return;
 	}
+	
 	NSRange r;
 	while(r = [outputString rangeOfString:@"#require "], r.location != NSNotFound) {
 		NSRange toNewline = [outputString rangeOfString:@"\n" options:0 range:NSMakeRange(r.location+r.length, outputString.length-r.location-r.length)];
@@ -142,5 +157,24 @@ static NSColor *DarkGreen() {
 	}
 	[self appendString:outputString color:[NSColor purpleColor] italic:YES to:output];
 	[client sendCommand:outputString];
+}
+
+#pragma mark Stats
+-(NRStats*)statsNamed:(NSString*)name;
+{
+	for(NRStats *stats in statSets)
+		if([stats.name isEqual:name]) return stats;
+	NRStats *stats = [[[NRStats alloc] initWithName:name] autorelease];
+	[[self mutableArrayValueForKey:@"statSets"] addObject:stats];
+	return stats;
+}
+-(void)remotingClient:(RemotingClient *)client receivedPoint:(float)pt at:(NSTimeInterval)sinceRef inSet:(NSString *)datasetName;
+{
+	[[self statsNamed:datasetName] addPoint:pt atTime:sinceRef];
+	
+	if(!hasAutoshownStats && statsDrawer.state == NSDrawerClosedState) {
+		hasAutoshownStats = YES;
+		[statsDrawer open];
+	}
 }
 @end
