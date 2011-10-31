@@ -1,0 +1,3 @@
+[submodule "Mac Controller/CorePlot"]
+	path = Mac Controller/CorePlot
+	url = https://github.com/djw/core-plot.git
