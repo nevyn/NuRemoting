@@ -31,8 +31,8 @@ static NSString *const NRStatsPlotIdentifier = @"NRStatsPlot";
     CPTMutableTextStyle *font = [CPTMutableTextStyle textStyle];
 	font.fontSize = 10;
 	
-	dataSourceLinePlot.labelTextStyle = font;
-	dataSourceLinePlot.labelOffset = -1.0;
+	//dataSourceLinePlot.labelTextStyle = font;
+	//dataSourceLinePlot.labelOffset = -1.0;
 
 	
 	[_graph addPlot:dataSourceLinePlot];
@@ -56,9 +56,22 @@ static NSString *const NRStatsPlotIdentifier = @"NRStatsPlot";
 	x.labelTextStyle = font;
 
     CPTXYAxis *y = axisSet.yAxis;
-    y.labelingPolicy = CPTAxisLabelingPolicyAutomatic;
+	y.labelingPolicy = CPTAxisLabelingPolicyNone;
     y.majorGridLineStyle = majorGridLineStyle;
-    y.labelOffset = 10.0;
+	
+	_floatingY = [[(CPTXYAxis *)[CPTXYAxis alloc] initWithFrame:CGRectZero] autorelease];
+    _floatingY.labelingPolicy = CPTAxisLabelingPolicyAutomatic;
+    _floatingY.labelOffset = -50.;
+    _floatingY.coordinate = CPTCoordinateY;
+    _floatingY.plotSpace = _graph.defaultPlotSpace;
+	_floatingY.orthogonalCoordinateDecimal = CPTDecimalFromDouble(10);
+	NSNumberFormatter *sciFormatter = [[NSNumberFormatter new] autorelease];
+	sciFormatter.numberStyle = NSNumberFormatterScientificStyle;
+	_floatingY.labelFormatter = sciFormatter;
+	_floatingY.labelTextStyle = font;
+	_floatingY.labelExclusionRanges = [NSArray arrayWithObject:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(-0.01) length:CPTDecimalFromDouble(0.02)]];
+	
+	_graph.axisSet.axes = [NSArray arrayWithObjects:x, y, _floatingY, nil];
 }
 -(void)setStats:(NRStats *)stats;
 {
@@ -93,7 +106,7 @@ static NSString *const NRStatsPlotIdentifier = @"NRStatsPlot";
 	}
 	return nil;
 }
-
+/* Can't come up with a way to make this look good, so y2 will have to do
 -(CPTLayer *)dataLabelForPlot:(CPTPlot *)plot recordIndex:(NSUInteger)index;
 {
 	NSTimeInterval current = [[_stats.times objectAtIndex:index] doubleValue];
@@ -102,7 +115,7 @@ static NSString *const NRStatsPlotIdentifier = @"NRStatsPlot";
 		return nil;
 	}
 	return (id)[NSNull null];
-}
+}*/
 
 -(void)stats:(NRStats *)stats addedPoint:(float)pt at:(NSTimeInterval)when;
 {
@@ -124,13 +137,10 @@ static NSString *const NRStatsPlotIdentifier = @"NRStatsPlot";
     [plotSpace scaleToFitPlots:[NSArray arrayWithObject:dataSourceLinePlot]];
 	
 	CPTPlotRange *yRange = plotSpace.yRange;
-    [yRange unionPlotRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(-.5) length:CPTDecimalFromDouble(1)]]; // always include 0
-	[yRange expandRangeByFactor:CPTDecimalFromDouble(1.1)];
+    [yRange unionPlotRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0) length:CPTDecimalFromDouble(0)]]; // always include 0
+	[yRange expandRangeByFactor:CPTDecimalFromDouble(1.5)];
     plotSpace.yRange = yRange;
 	
-	CPTXYAxisSet *axisSet = (CPTXYAxisSet *)_graph.axisSet;
-	
-    CPTXYAxis *y = axisSet.yAxis;
-	y.labelOffset = CPTDecimalDoubleValue(plotSpace.xRange.end);
+	_floatingY.orthogonalCoordinateDecimal = plotSpace.xRange.location;
 }
 @end

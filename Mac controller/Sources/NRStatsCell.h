@@ -9,11 +9,12 @@
 #import <Cocoa/Cocoa.h>
 #import "NRStats.h"
 
-@class CPTGraphHostingView, CPTXYGraph;
+@class CPTGraphHostingView, CPTXYGraph, CPTXYAxis;
 @interface NRStatsCell : NSTableCellView {
 	IBOutlet CPTGraphHostingView *hostView;
 	NRStats *_stats;
 	CPTXYGraph *_graph;
+	CPTXYAxis *_floatingY;
 	NSTimeInterval latestTaggedPoint;
 }
 @property(nonatomic,retain) NRStats *stats;
