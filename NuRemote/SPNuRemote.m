@@ -1,12 +1,5 @@
-//
-//  SPNuRemote.m
-//  NuRemoting
-//
-//  Created by Joachim Bengtsson on 11/5/10.
-//  Copyright 2010 Third Cog Software. All rights reserved.
-//
-
 #import "SPNuRemote.h"
+#import "NRStats.h"
 
 #if !TARGET_OS_IPHONE
 #import <SystemConfiguration/SystemConfiguration.h>
@@ -22,7 +15,7 @@
 
 @interface SPNuRemote ()
 @property(nonatomic,readonly) NSMutableArray *clients;
-@property(nonatomic,readonly) NSMutableDictionary *datasets;
+@property(nonatomic,readonly) NSMutableArray *datasets;
 @end
 
 
@@ -115,12 +108,13 @@
 }
 -(void)sendInitialDatasets;
 {
-	for(NSString *setName in parent.datasets.allKeys) {
-		NSMutableDictionary *dataset = [parent.datasets objectForKey:setName];
-		NSData *data = [NSKeyedArchiver archivedDataWithRootObject:dataset];
-		NSData *header = [[NSString stringWithFormat:@"702 Dataset Priming\t\nSet-Name: %@\nContent-Length: %d\n\n", setName, [data length]] dataUsingEncoding:NSUTF8StringEncoding];
+	for(NRStats *dataset in parent.datasets) {
+		NSData *data = [NSKeyedArchiver archivedDataWithRootObject:dataset.dictionaryRepresentation];
+		NSData *header = [[NSString stringWithFormat:@"702 Dataset Priming\t\nSet-Name: %@\nContent-Length: %d\n\n", dataset.name, [data length]] dataUsingEncoding:NSUTF8StringEncoding];
 		[sock writeData:header withTimeout:-1 tag:0];
 		[sock writeData:data withTimeout:-1 tag:0];
+		/*for(int i = 0, c = dataset.data.count; i < c; i++)
+			[self addDataPoint:[[dataset.data objectAtIndex:i] floatValue] atTime:[[dataset.times objectAtIndex:i] doubleValue] toDataSet:dataset.name];*/
 	}
 
 }
@@ -129,11 +123,11 @@
 
 
 @implementation SPNuRemote
-@synthesize listenSocket, publisher, delegate, clients, datasets;
+@synthesize listenSocket, publisher, clients, datasets;
 -(id)init;
 {
 	clients = [NSMutableArray new];
-	datasets = [NSMutableDictionary new];
+	datasets = [NSMutableArray new];
 
 	return self;
 }
@@ -213,17 +207,23 @@
 		[client writeLogLine:line logLevel:level];
 }
 
+-(NRStats*)statsNamed:(NSString*)name;
+{
+	for(NRStats *stats in datasets)
+		if([stats.name isEqual:name]) return stats;
+	NRStats *stats = [[[NRStats alloc] initWithName:name] autorelease];
+	[[self mutableArrayValueForKey:@"datasets"] addObject:stats];
+	return stats;
+}
+
 -(void)addDataPoint:(float)data toDataSet:(NSString*)setName;
 {
-	NSMutableDictionary *dataset = [datasets objectForKey:setName];
-	if(!dataset) {
-		dataset = [NSMutableDictionary dictionaryWithCapacity:1000];
-		[datasets setObject:dataset forKey:setName];
-	}
-	
+	NRStats *stats = [self statsNamed:setName];
+
 	NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
 	
-	[dataset setObject:[NSNumber numberWithFloat:data] forKey:[NSNumber numberWithDouble:now]];
+	[stats addPoint:data atTime:now];
+	
 	for(SPNRClient *client in clients)
 		[client addDataPoint:data atTime:now toDataSet:setName];
 }
