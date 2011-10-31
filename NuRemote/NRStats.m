@@ -6,7 +6,7 @@
 @end
 
 @implementation NRStats
-@synthesize name = _name, times = _times, data = _data, delegate = _delegate, maximumDataAge = _maximumDataAge;
+@synthesize name = _name, times = _times, data = _data, delegate = _delegate, maximumDataAge = _maximumDataAge, timeGranuality = _timeGranuality;
 -(id)initWithName:(NSString*)name;
 {
 	if(!(self = [super init])) return nil;
@@ -15,6 +15,7 @@
 	_times = [NSMutableArray new];
 	_data = [NSMutableArray new];
 	_maximumDataAge = 60;
+	_timeGranuality = 0.05;
 	
 	return self;
 }
@@ -28,6 +29,9 @@
 
 -(void)addPoint:(float)point atTime:(NSTimeInterval)interval;
 {
+	NSTimeInterval latest = [[_times lastObject] doubleValue];
+	if(interval - latest < _timeGranuality) return;
+	
 	[_times addObject:[NSNumber numberWithDouble:interval]];
 	[_data addObject:[NSNumber numberWithFloat:point]];
 	[_delegate stats:self addedPoint:point at:interval];

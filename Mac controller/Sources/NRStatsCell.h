@@ -14,6 +14,7 @@
 	IBOutlet CPTGraphHostingView *hostView;
 	NRStats *_stats;
 	CPTXYGraph *_graph;
+	NSTimeInterval latestTaggedPoint;
 }
 @property(nonatomic,retain) NRStats *stats;
 

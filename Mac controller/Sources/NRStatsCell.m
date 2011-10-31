@@ -96,8 +96,11 @@ static NSString *const NRStatsPlotIdentifier = @"NRStatsPlot";
 
 -(CPTLayer *)dataLabelForPlot:(CPTPlot *)plot recordIndex:(NSUInteger)index;
 {
-	int m = _stats.data.count / 6; if(m == 0) m = 1;
-	if(index%m == 0) return nil;
+	NSTimeInterval current = [[_stats.times objectAtIndex:index] doubleValue];
+	if(current > latestTaggedPoint + 5) {
+		latestTaggedPoint = current;
+		return nil;
+	}
 	return (id)[NSNull null];
 }
 
