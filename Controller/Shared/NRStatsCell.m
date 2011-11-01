@@ -1,13 +1,9 @@
-//
-//  NRStatsCell.m
-//  NuRemoter
-//
-//  Created by Joachim Bengtsson on 2011-10-31.
-//  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
-//
-
 #import "NRStatsCell.h"
+#if TARGET_OS_IPHONE
+#import "CorePlot-CocoaTouch.h"
+#else
 #import <CorePlot/CorePlot.h>
+#endif
 
 static NSString *const NRStatsPlotIdentifier = @"NRStatsPlot";
 
@@ -16,10 +12,36 @@ static NSString *const NRStatsPlotIdentifier = @"NRStatsPlot";
 @end
 
 @implementation NRStatsCell
-@synthesize stats = _stats;
+@synthesize stats = _stats, hostView;
+#if TARGET_OS_IPHONE
+-(id)init;
+{
+	if(!(self = [super initWithFrame:CGRectMake(0, 0, 320, 100)])) return nil;
+	
+	hostView = [[CPTGraphHostingView alloc] initWithFrame:CGRectMake(0, 16, 320, 100-16)];
+	//hostView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+	[self addSubview:hostView];
+	
+//	self.textLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleBottomMargin;
+	self.textLabel.font = [UIFont boldSystemFontOfSize:12];
+	
+	[self awakeFromNib];
+	
+	return self;
+}
+-(void)layoutSubviews;
+{
+	self.textLabel.frame = CGRectMake(0, 0, 100, 16);
+}
+#endif
+
 -(void)awakeFromNib;
 {
+#if TARGET_OS_IPHONE
+    _graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame:hostView.bounds];
+#else
     _graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame:NSRectToCGRect(hostView.bounds)];
+#endif
     hostView.hostedGraph = _graph;
 	_graph.paddingTop = _graph.paddingRight = _graph.paddingBottom = _graph.paddingLeft = 0;
 	
@@ -59,7 +81,7 @@ static NSString *const NRStatsPlotIdentifier = @"NRStatsPlot";
 	y.labelingPolicy = CPTAxisLabelingPolicyNone;
     y.majorGridLineStyle = majorGridLineStyle;
 	
-	_floatingY = [[(CPTXYAxis *)[CPTXYAxis alloc] initWithFrame:CGRectZero] autorelease];
+	_floatingY = [(CPTXYAxis *)[CPTXYAxis alloc] initWithFrame:CGRectZero];
     _floatingY.labelingPolicy = CPTAxisLabelingPolicyAutomatic;
     _floatingY.labelOffset = -50.;
     _floatingY.coordinate = CPTCoordinateY;
@@ -73,6 +95,17 @@ static NSString *const NRStatsPlotIdentifier = @"NRStatsPlot";
 	
 	_graph.axisSet.axes = [NSArray arrayWithObjects:x, y, _floatingY, nil];
 }
+-(void)dealloc;
+{
+	[hostView release];
+	[_stats release];
+	[_graph release];
+	[_floatingY release];
+	[super dealloc];
+
+}
+
+
 -(void)setStats:(NRStats *)stats;
 {
 	if(stats == _stats) return;
@@ -82,15 +115,22 @@ static NSString *const NRStatsPlotIdentifier = @"NRStatsPlot";
 	_stats.delegate = self;
 	if(!_stats) return;
 	
+#if TARGET_OS_IPHONE
+	self.textLabel.text = stats.name;
+#else
 	self.textField.stringValue = stats.name;
+#endif
 	[_graph reloadData];
 	[self updateRanges];
 }
+#if !TARGET_OS_IPHONE
 -(void)setObjectValue:(id)objectValue;
 {
 	[self setStats:objectValue];
+
 	[super setObjectValue:objectValue];
 }
+#endif
 
 -(NSUInteger)numberOfRecordsForPlot:(CPTPlot *)plot
 {

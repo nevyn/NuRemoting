@@ -14,6 +14,7 @@
 		0511A75A145DEF8C0060519A /* libffi.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0511A759145DEF8C0060519A /* libffi.dylib */; };
 		0511A75C145DEFA90060519A /* libreadline.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0511A75B145DEFA90060519A /* libreadline.dylib */; };
 		0511A75E145DF1440060519A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0511A75D145DF1440060519A /* SystemConfiguration.framework */; };
+		05E678B314602125006E0499 /* NRStats.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E678B214602125006E0499 /* NRStats.m */; };
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		256AC3DA0F4B6AC300CF3369 /* NuRemotingAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* NuRemotingAppDelegate.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
@@ -34,6 +35,8 @@
 		0511A759145DEF8C0060519A /* libffi.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libffi.dylib; path = SDKs/MacOSX10.7.sdk/usr/lib/libffi.dylib; sourceTree = DEVELOPER_DIR; };
 		0511A75B145DEFA90060519A /* libreadline.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libreadline.dylib; path = SDKs/MacOSX10.7.sdk/usr/lib/libreadline.dylib; sourceTree = DEVELOPER_DIR; };
 		0511A75D145DF1440060519A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = SDKs/MacOSX10.7.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
+		05E678B114602125006E0499 /* NRStats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRStats.h; sourceTree = "<group>"; };
+		05E678B214602125006E0499 /* NRStats.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRStats.m; sourceTree = "<group>"; };
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
@@ -94,6 +97,8 @@
 				0511A753145DD9970060519A /* Shared.h */,
 				0511A754145DD9970060519A /* SPNuRemote.h */,
 				0511A755145DD9970060519A /* SPNuRemote.m */,
+				05E678B114602125006E0499 /* NRStats.h */,
+				05E678B214602125006E0499 /* NRStats.m */,
 			);
 			name = NuRemote;
 			path = ../../NuRemote;
@@ -241,6 +246,7 @@
 				0511A756145DD9970060519A /* AsyncSocket.m in Sources */,
 				0511A757145DD9970060519A /* RemotingClient.m in Sources */,
 				0511A758145DD9970060519A /* SPNuRemote.m in Sources */,
+				05E678B314602125006E0499 /* NRStats.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
