@@ -84,7 +84,7 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0511A707145B65310060519A /* NuRemote */ = {
+		0511A707145B65310060519A /* Shared */ = {
 			isa = PBXGroup;
 			children = (
 				0511A708145B65310060519A /* AsyncSocket.h */,
@@ -95,7 +95,7 @@
 				0511A7EF145EDB4A0060519A /* NRStats.h */,
 				0511A7F0145EDB4A0060519A /* NRStats.m */,
 			);
-			name = NuRemote;
+			name = Shared;
 			path = ../NuRemote;
 			sourceTree = "<group>";
 		};
@@ -106,6 +106,16 @@
 				0511A7C6145EA3010060519A /* UnitTests.octest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		0550BFBF145FF8ED00BF8366 /* Mac */ = {
+			isa = PBXGroup;
+			children = (
+				080E96DDFE201D6D7F000001 /* Sources */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+			);
+			name = Mac;
 			sourceTree = "<group>";
 		};
 		080E96DDFE201D6D7F000001 /* Sources */ = {
@@ -120,8 +130,11 @@
 				05F6CEE1134F31ED009FB3B1 /* TemplateController.m */,
 				0511A7CE145EAE3A0060519A /* NRStatsCell.h */,
 				0511A7CF145EAE3A0060519A /* NRStatsCell.m */,
+				256AC3F00F4B6AF500CF3369 /* NuRemoter_Prefix.pch */,
+				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
-			path = Sources;
+			name = Sources;
+			path = Mac/Sources;
 			sourceTree = "<group>";
 		};
 		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
@@ -153,24 +166,12 @@
 		29B97314FDCFA39411CA2CEA /* NuRemoter */ = {
 			isa = PBXGroup;
 			children = (
-				0511A707145B65310060519A /* NuRemote */,
-				080E96DDFE201D6D7F000001 /* Sources */,
-				0511A7BA145EA3010060519A /* CorePlot.xcodeproj */,
-				29B97315FDCFA39411CA2CEA /* Sources */,
-				29B97317FDCFA39411CA2CEA /* Resources */,
-				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				0511A707145B65310060519A /* Shared */,
+				0550BFBF145FF8ED00BF8366 /* Mac */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				0511A7BA145EA3010060519A /* CorePlot.xcodeproj */,
 			);
 			name = NuRemoter;
-			sourceTree = "<group>";
-		};
-		29B97315FDCFA39411CA2CEA /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				256AC3F00F4B6AF500CF3369 /* NuRemoter_Prefix.pch */,
-				29B97316FDCFA39411CA2CEA /* main.m */,
-			);
-			path = Sources;
 			sourceTree = "<group>";
 		};
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
@@ -181,7 +182,8 @@
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
 				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
 			);
-			path = Resources;
+			name = Resources;
+			path = Mac/Resources;
 			sourceTree = "<group>";
 		};
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
@@ -323,8 +325,8 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Sources/NuRemoter_Prefix.pch;
-				INFOPLIST_FILE = "Resources/NuRemoter-Info.plist";
+				GCC_PREFIX_HEADER = Mac/Sources/NuRemoter_Prefix.pch;
+				INFOPLIST_FILE = "Mac/Resources/NuRemoter-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = NuRemoter;
 				SDKROOT = macosx10.7;
@@ -338,8 +340,8 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = Sources/NuRemoter_Prefix.pch;
-				INFOPLIST_FILE = "Resources/NuRemoter-Info.plist";
+				GCC_PREFIX_HEADER = Mac/Sources/NuRemoter_Prefix.pch;
+				INFOPLIST_FILE = "Mac/Resources/NuRemoter-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = NuRemoter;
 				SDKROOT = macosx10.7;
