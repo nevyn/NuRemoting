@@ -36,6 +36,7 @@
 		056EE58B1338EB0200FA0A60 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 056EE58A1338EB0200FA0A60 /* icon.icns */; };
 		05E678AC14601B8F006E0499 /* LogViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E678AB14601B8F006E0499 /* LogViewer.m */; };
 		05E678CD14602D4D006E0499 /* CorePlot.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0511A7C4145EA3010060519A /* CorePlot.framework */; };
+		05E6791F14605575006E0499 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 05E6791E14605575006E0499 /* icon.png */; };
 		05F6CEE2134F31ED009FB3B1 /* TemplateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05F6CEE1134F31ED009FB3B1 /* TemplateController.m */; };
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		256AC3DA0F4B6AC300CF3369 /* NuRemoterAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* NuRemoterAppDelegate.m */; };
@@ -120,6 +121,7 @@
 		056EE58A1338EB0200FA0A60 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
 		05E678AA14601B8F006E0499 /* LogViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogViewer.h; sourceTree = "<group>"; };
 		05E678AB14601B8F006E0499 /* LogViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogViewer.m; sourceTree = "<group>"; };
+		05E6791E14605575006E0499 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		05F6CEE0134F31ED009FB3B1 /* TemplateController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateController.h; sourceTree = "<group>"; };
 		05F6CEE1134F31ED009FB3B1 /* TemplateController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateController.m; sourceTree = "<group>"; };
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 		0550BFCE145FF9D800BF8366 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				05E6791E14605575006E0499 /* icon.png */,
 				0550BFCF145FF9D800BF8366 /* MobileNuRemoter-Info.plist */,
 				0550BFD0145FF9D800BF8366 /* InfoPlist.strings */,
 				0550BFD3145FF9D800BF8366 /* main.m */,
@@ -445,6 +448,7 @@
 				0550BFD2145FF9D800BF8366 /* InfoPlist.strings in Resources */,
 				0550BFE2145FFC8700BF8366 /* NRHostFinder.xib in Resources */,
 				0550BFF41460030100BF8366 /* NRStatsViewer.xib in Resources */,
+				05E6791F14605575006E0499 /* icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -562,7 +566,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Spotify Ltd";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -577,6 +581,7 @@
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = NuRemoter;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "E0DB03CA-7D29-4A99-AED3-995DF13B4D28";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "CorePlot/framework CorePlot/framework/iPhoneOnly CorePlot/framework/Source";
