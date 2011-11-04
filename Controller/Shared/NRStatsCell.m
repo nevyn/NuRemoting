@@ -97,12 +97,17 @@ static NSString *const NRStatsPlotIdentifier = @"NRStatsPlot";
 }
 -(void)dealloc;
 {
+	_stats.delegate = nil;
 	[hostView release];
 	[_stats release];
 	[_graph release];
 	[_floatingY release];
 	[super dealloc];
+}
 
+-(void)prepareForReuse;
+{
+	[self setStats:nil];
 }
 
 
