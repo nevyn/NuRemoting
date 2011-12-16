@@ -4,6 +4,7 @@
 #if !TARGET_OS_IPHONE
 #import <SystemConfiguration/SystemConfiguration.h>
 #endif
+#import <sys/sysctl.h>
 
 //#import <Nu/Nu.h>
 @interface NSObject (NuStuff)
@@ -13,9 +14,10 @@
 @end
 
 
-@interface SPNuRemote ()
+@interface SPNuRemote () <NSNetServiceDelegate>
 @property(nonatomic,readonly) NSMutableArray *clients;
 @property(nonatomic,readonly) NSMutableArray *datasets;
+-(void)publishAndAvoidCollision:(BOOL)avoidCollision;
 @end
 
 
@@ -138,23 +140,6 @@
 
 	self.listenSocket = [[[AsyncSocket alloc] initWithDelegate:self] autorelease];
 	
-	NSString *appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
-	
-#if TARGET_OS_IPHONE
-	NSString *deviceName = [UIDevice currentDevice].name;
-#else
-	SCDynamicStoreRef dynstore = SCDynamicStoreCreate(kCFAllocatorSystemDefault, (CFStringRef)appName, nil, nil);
-	NSDictionary *computerNameEntry = [(id)SCDynamicStoreCopyValue(dynstore,(CFStringRef)@"Setup:/System") autorelease];
-	CFRelease(dynstore);
-	NSString *deviceName = [computerNameEntry objectForKey:@"ComputerName"];
-#endif
-	NSString *pubName = [NSString stringWithFormat:@"%@: %@",
-		deviceName,
-		appName
-	];
-	
-	self.publisher = [[[NSNetService alloc] initWithDomain:@"" type:kNuRemotingBonjourType name:pubName	port:kNuRemotingPort] autorelease];
-	
 #if TARGET_OS_IPHONE
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(activated) name:UIApplicationDidBecomeActiveNotification object:nil];
 #endif
@@ -166,7 +151,7 @@
 	}
 	
 
-	[publisher publish];
+	[self publishAndAvoidCollision:NO];
 }
 -(void)dealloc;
 {
@@ -186,7 +171,7 @@
 	if(![listenSocket acceptOnPort:kNuRemotingPort error:&err])
 		NSLog(@"SPNuRemote listen failure: %@", err);
 	else
-		[self.publisher publish];
+		[self publishAndAvoidCollision:NO];
 }
 
 
@@ -227,4 +212,67 @@
 	for(SPNRClient *client in clients)
 		[client addDataPoint:data atTime:now toDataSet:setName];
 }
+
+#pragma mark Bonjour
+-(void)publishAndAvoidCollision:(BOOL)avoidCollision;
+{
+	NSString *appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
+	
+#if TARGET_IPHONE_SIMULATOR
+	char buf[512];
+	size_t buf_size = sizeof(buf) - 1;
+	sysctlbyname("kern.hostname", buf, &buf_size, NULL, 0);
+	NSString *deviceName = [NSString stringWithUTF8String:buf];
+#elif TARGET_OS_IPHONE
+	NSString *deviceName = [UIDevice currentDevice].name;
+#else
+	SCDynamicStoreRef dynstore = SCDynamicStoreCreate(kCFAllocatorSystemDefault, (CFStringRef)appName, nil, nil);
+	NSDictionary *computerNameEntry = [(id)SCDynamicStoreCopyValue(dynstore,(CFStringRef)@"Setup:/System") autorelease];
+	CFRelease(dynstore);
+	NSString *deviceName = [computerNameEntry objectForKey:@"ComputerName"];
+#endif
+	
+	NSString *collisionAvoidance = @"";
+	if(avoidCollision) {
+		NSArray *components = [self.publisher.name componentsSeparatedByString:@" "];
+		int v = [[components lastObject] intValue];
+		collisionAvoidance = [NSString stringWithFormat:@" %d", v + 1];
+	}
+	
+	NSString *pubName = [NSString stringWithFormat:@"%@: %@%@",
+		deviceName,
+		appName,
+		collisionAvoidance
+	];
+	
+	[self.publisher stop];
+	self.publisher = [[[NSNetService alloc] initWithDomain:@"" type:kNuRemotingBonjourType name:pubName	port:kNuRemotingPort] autorelease];
+	self.publisher.delegate = self;
+	[self.publisher publish];
+}
+
+/* Sent to the NSNetService instance's delegate when the publication of the instance is complete and successful.
+*/
+- (void)netServiceDidPublish:(NSNetService *)sender;
+{
+	NSLog(@"SPNuRemote successfully published");
+}
+
+/* Sent to the NSNetService instance's delegate when an error in publishing the instance occurs. The error dictionary will contain two key/value pairs representing the error domain and code (see the NSNetServicesError enumeration above for error code constants). It is possible for an error to occur after a successful publication.
+*/
+- (void)netService:(NSNetService *)sender didNotPublish:(NSDictionary *)errorDict;
+{
+	NSLog(@"SPNuRemote failed to publish: %@", errorDict);
+	
+	if([[errorDict valueForKey:NSNetServicesErrorCode] intValue] == NSNetServicesCollisionError)
+		[self publishAndAvoidCollision:YES];
+}
+
+/* Sent to the NSNetService instance's delegate when an error in resolving the instance occurs. The error dictionary will contain two key/value pairs representing the error domain and code (see the NSNetServicesError enumeration above for error code constants).
+*/
+- (void)netService:(NSNetService *)sender didNotResolve:(NSDictionary *)errorDict;
+{
+	NSLog(@"SPNuRemote resolution failed: %@", errorDict);
+}
+
 @end
