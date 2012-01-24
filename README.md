@@ -26,3 +26,7 @@ If you plug things in the right way, you even get your console log messages warp
 (Secret magic: the ugly combo box at the top allows you to load and save code snippets, that end up cluttering your Documents folder. You can also do "#require foobar" to include the snippet 'foobar' into the current one, e g for setting up commonly used state).
 
 Recently, I also duct-taped in remote graphing, so that you can track some variable in your app and make sure it's at sane levels. Check out the iOS example project for usage.
+
+Protocol
+========
+The protocol is described in [the SPNuRemote header](NuRemote/SPNuRemote.h).
