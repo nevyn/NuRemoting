@@ -181,7 +181,7 @@ static NSString *const NRStatsPlotIdentifier = @"NRStatsPlot";
 	CPTPlot *dataSourceLinePlot = [_graph plotWithIdentifier:NRStatsPlotIdentifier];
     [plotSpace scaleToFitPlots:[NSArray arrayWithObject:dataSourceLinePlot]];
 	
-	CPTPlotRange *yRange = plotSpace.yRange;
+	CPTMutablePlotRange *yRange = [[plotSpace.yRange mutableCopy] autorelease];
     [yRange unionPlotRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0) length:CPTDecimalFromDouble(0)]]; // always include 0
 	[yRange expandRangeByFactor:CPTDecimalFromDouble(1.5)];
     plotSpace.yRange = yRange;
