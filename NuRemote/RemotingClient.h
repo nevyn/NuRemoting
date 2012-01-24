@@ -30,6 +30,7 @@
 	NSString *name;
 	NSString *incomingDatasetName;
 	NSMutableDictionary *delegateResponseMap;
+	NSData *messageSeparator;
 }
 @property(nonatomic,assign) id<RemotingClientDelegate> delegate;
 @property(nonatomic,copy) NSString *name;

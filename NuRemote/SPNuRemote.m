@@ -23,66 +23,86 @@
 
 @interface SPNRClient : NSObject
 {
+@public
 	AsyncSocket *sock;
 	id parser;
 	SPNuRemote *parent;
+	NSData *_messageSeparator;
+	BOOL _statsEnabled;
+	BOOL _loggingEnabled;
 }
 -(id)init:(AsyncSocket*)s :(SPNuRemote*)parent_;
 -(void)sendInitialDatasets;
-@end
-@implementation SPNRClient
-+(NSData*)doubleNewline;
-{
-	static NSData *dnl = nil;
-	if(!dnl) dnl = [[NSData dataWithBytes:"\xa\xa" length:2] retain];
-	return dnl;
-}
 
+// Public API over wire
+@property (retain) NSData *messageSeparator;
+-(void)useETBForMessageSeparator;
+@property(nonatomic) BOOL statsEnabled;
+@property(nonatomic) BOOL loggingEnabled;
+@end
+
+@implementation SPNRClient
+@synthesize messageSeparator = _messageSeparator;
+@synthesize statsEnabled = _statsEnabled;
+@synthesize loggingEnabled = _loggingEnabled;
 -(id)init:(AsyncSocket*)s :(SPNuRemote*)parent_;
 {
+	if(!(self = [super init])) return nil;
+	
 	parser = [[NSClassFromString(@"Nu") parser] retain];
-	if(!parser)
+	if(!parser) {
+		[self release];
 		return nil;
+	}
+	
+	self.messageSeparator = [NSData dataWithBytes:"\xa\xa" length:2];
 	
 	parent = parent_;
 	sock = [s retain];
 	[parser parseEval:@"(set log (NuBridgedFunction functionWithName:\"NSLog\" signature:\"v@\"))"];
+	[parser setValue:self forKey:@"connection"];
+	[parser setValue:parent_ forKey:@"remote"];
 	
 	[sock setDelegate:self];
-	[sock readDataToData:[SPNRClient doubleNewline] withTimeout:-1 tag:0];
+	[sock readDataToData:self.messageSeparator withTimeout:-1 tag:0];
 	
-	[self sendInitialDatasets];
 	return self;
 }
 -(void)dealloc;
 {
+	self.messageSeparator = nil;
 	[sock release];
 	[parser release];
 	[super dealloc];
 }
 - (void)onSocketDidDisconnect:(AsyncSocket *)sock_;
 {
+	[parser setValue:nil forKey:@"connection"];
+	[parser setValue:nil forKey:@"remote"];
 	[sock release]; sock = nil;
 	[parent.clients removeObject:self]; // I will be deallocated now
 }
 -(void)reply:(NSString*)code :(NSString*)reply;
 {
-	NSData *d = [[NSString stringWithFormat:@"%@\t%@\n\n", code, reply] dataUsingEncoding:NSUTF8StringEncoding];
+	NSData *d = [[NSString stringWithFormat:@"%@\t%@", code, reply] dataUsingEncoding:NSUTF8StringEncoding];
 	[sock writeData:d withTimeout:-1 tag:0];
-	[sock readDataToData:[SPNRClient doubleNewline] withTimeout:-1 tag:0];
+	[sock writeData:self.messageSeparator withTimeout:-1 tag:0];
+	[sock readDataToData:self.messageSeparator withTimeout:-1 tag:0];
 }
 
 -(void)replyData:(NSData*)data
 {
-	NSData *header = [[NSString stringWithFormat:@"201 OK data transfer\t\nContent-Length: %d\n\n", [data length]] dataUsingEncoding:NSUTF8StringEncoding];
+	NSData *header = [[NSString stringWithFormat:@"201 OK data transfer\t\nContent-Length: %d", [data length]] dataUsingEncoding:NSUTF8StringEncoding];
 	[sock writeData:header withTimeout:-1 tag:0];
+	[sock writeData:self.messageSeparator withTimeout:-1 tag:0];
 	[sock writeData:data withTimeout:-1 tag:0];
-	[sock readDataToData:[SPNRClient doubleNewline] withTimeout:-1 tag:0];
+	[sock readDataToData:self.messageSeparator withTimeout:-1 tag:0];
 }
 
 
 - (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag;
 {
+	data = [data subdataWithRange:NSMakeRange(0, data.length-self.messageSeparator.length)];
 	NSString *cmd = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
 	if(!cmd) return [self reply:@"501 Bad Request" :@"Command not UTF8"];
 	
@@ -100,10 +120,14 @@
 }
 -(void)writeLogLine:(NSString*)line logLevel:(int)logLevel;
 {
+	if(!_loggingEnabled) return;
+	
 	[self reply:[NSString stringWithFormat:@"6%02d Log message", logLevel] :[line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
 }
 -(void)addDataPoint:(float)data atTime:(NSTimeInterval)interval toDataSet:(NSString*)setName;
 {
+	if(!_statsEnabled) return;
+	
 	[self reply:@"701 New Data Point" :[NSString stringWithFormat:@"%@\n%f\n%f", 
 		setName, interval, data
 	]];
@@ -112,13 +136,24 @@
 {
 	for(NRStats *dataset in parent.datasets) {
 		NSData *data = [NSKeyedArchiver archivedDataWithRootObject:dataset.dictionaryRepresentation];
-		NSData *header = [[NSString stringWithFormat:@"702 Dataset Priming\t\nSet-Name: %@\nContent-Length: %d\n\n", dataset.name, [data length]] dataUsingEncoding:NSUTF8StringEncoding];
+		NSData *header = [[NSString stringWithFormat:@"702 Dataset Priming\t\nSet-Name: %@\nContent-Length: %d", dataset.name, [data length]] dataUsingEncoding:NSUTF8StringEncoding];
 		[sock writeData:header withTimeout:-1 tag:0];
+		[sock writeData:self.messageSeparator withTimeout:-1 tag:0];
 		[sock writeData:data withTimeout:-1 tag:0];
 		/*for(int i = 0, c = dataset.data.count; i < c; i++)
 			[self addDataPoint:[[dataset.data objectAtIndex:i] floatValue] atTime:[[dataset.times objectAtIndex:i] doubleValue] toDataSet:dataset.name];*/
 	}
-
+}
+-(void)useETBForMessageSeparator;
+{
+	self.messageSeparator = [NSData dataWithBytes:(char[]){23} length:1];
+}
+-(void)setStatsEnabled:(BOOL)wantStats;
+{
+	_statsEnabled = wantStats;
+	
+	if(wantStats)
+		[self sendInitialDatasets];
 }
 @end
 
@@ -157,6 +192,10 @@
 {
 	self.listenSocket = nil;
 	self.publisher = nil;
+	for(SPNRClient *client in clients) {
+		client->parent = nil;
+		[client->sock disconnect];
+	}
 	[clients release];
 	[datasets release];
 	[super dealloc];

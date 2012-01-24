@@ -115,6 +115,8 @@
 		0550C006146005F200BF8366 /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "CorePlot/framework/CorePlot-CocoaTouch.xcodeproj"; sourceTree = "<group>"; };
 		0550C0281460079000BF8366 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		0550C02A1460159000BF8366 /* NRStatsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NRStatsCell.xib; sourceTree = "<group>"; };
+		0559FC8A14CEE3DF0054F8F6 /* SPNuRemote.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPNuRemote.h; sourceTree = "<group>"; };
+		0559FC8B14CEE3DF0054F8F6 /* SPNuRemote.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPNuRemote.m; sourceTree = "<group>"; };
 		056EE44C1338DE1200FA0A60 /* ClientController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClientController.h; sourceTree = "<group>"; };
 		056EE44D1338DE1200FA0A60 /* ClientController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClientController.m; sourceTree = "<group>"; };
 		056EE44E1338DE1200FA0A60 /* ClientController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClientController.xib; sourceTree = "<group>"; };
@@ -174,6 +176,8 @@
 				0511A70C145B65310060519A /* Shared.h */,
 				0511A7EF145EDB4A0060519A /* NRStats.h */,
 				0511A7F0145EDB4A0060519A /* NRStats.m */,
+				0559FC8A14CEE3DF0054F8F6 /* SPNuRemote.h */,
+				0559FC8B14CEE3DF0054F8F6 /* SPNuRemote.m */,
 			);
 			name = NuRemoting;
 			path = ../NuRemote;
