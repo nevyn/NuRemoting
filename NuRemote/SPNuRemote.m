@@ -77,8 +77,8 @@
 }
 - (void)onSocketDidDisconnect:(AsyncSocket *)sock_;
 {
-	[parser setValue:nil forKey:@"connection"];
-	[parser setValue:nil forKey:@"remote"];
+	[parser removeObjectForKey:@"connection"];
+	[parser removeObjectForKey:@"remote"];
 	[sock release]; sock = nil;
 	[parent.clients removeObject:self]; // I will be deallocated now
 }
