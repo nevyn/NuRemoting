@@ -18,6 +18,10 @@
 @property(nonatomic,readonly) NSMutableArray *clients;
 @property(nonatomic,readonly) NSMutableArray *datasets;
 -(void)publishAndAvoidCollision:(BOOL)avoidCollision;
+
+#if TARGET_OS_IPHONE
+-(void)activated;
+#endif
 @end
 
 
