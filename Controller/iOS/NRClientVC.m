@@ -18,7 +18,7 @@
 	_client = [client retain];
 	_client.delegate = self;
 	
-	_stats = [[NRStatsViewer alloc] initWithClient:_client];
+	_stats = [[NRStatsViewer alloc] init];
 	_log = [LogViewer new];
 	
 	self.viewControllers = [NSArray arrayWithObjects:

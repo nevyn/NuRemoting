@@ -39,6 +39,7 @@ static NSString *const NRStatsPlotIdentifier = @"NRStatsPlot";
 {
 #if TARGET_OS_IPHONE
     _graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame:hostView.bounds];
+    hostView.userInteractionEnabled = NO;
 #else
     _graph = [(CPTXYGraph *)[CPTXYGraph alloc] initWithFrame:NSRectToCGRect(hostView.bounds)];
 #endif

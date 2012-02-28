@@ -34,6 +34,7 @@
 		056EE44F1338DE1200FA0A60 /* ClientController.m in Sources */ = {isa = PBXBuildFile; fileRef = 056EE44D1338DE1200FA0A60 /* ClientController.m */; };
 		056EE4501338DE1200FA0A60 /* ClientController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 056EE44E1338DE1200FA0A60 /* ClientController.xib */; };
 		056EE58B1338EB0200FA0A60 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 056EE58A1338EB0200FA0A60 /* icon.icns */; };
+		05AFC26C14FD46580093BB1F /* NRTextOnlyStatsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 05AFC26B14FD46580093BB1F /* NRTextOnlyStatsCell.m */; };
 		05E678AC14601B8F006E0499 /* LogViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E678AB14601B8F006E0499 /* LogViewer.m */; };
 		05E678CD14602D4D006E0499 /* CorePlot.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0511A7C4145EA3010060519A /* CorePlot.framework */; };
 		05E6791F14605575006E0499 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 05E6791E14605575006E0499 /* icon.png */; };
@@ -121,6 +122,8 @@
 		056EE44D1338DE1200FA0A60 /* ClientController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClientController.m; sourceTree = "<group>"; };
 		056EE44E1338DE1200FA0A60 /* ClientController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClientController.xib; sourceTree = "<group>"; };
 		056EE58A1338EB0200FA0A60 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
+		05AFC26A14FD46580093BB1F /* NRTextOnlyStatsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRTextOnlyStatsCell.h; sourceTree = "<group>"; };
+		05AFC26B14FD46580093BB1F /* NRTextOnlyStatsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRTextOnlyStatsCell.m; sourceTree = "<group>"; };
 		05E678AA14601B8F006E0499 /* LogViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogViewer.h; sourceTree = "<group>"; };
 		05E678AB14601B8F006E0499 /* LogViewer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogViewer.m; sourceTree = "<group>"; };
 		05E6791E14605575006E0499 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
@@ -254,6 +257,8 @@
 			children = (
 				0550BFF61460053000BF8366 /* NRStatsCell.h */,
 				0550BFF71460053000BF8366 /* NRStatsCell.m */,
+				05AFC26A14FD46580093BB1F /* NRTextOnlyStatsCell.h */,
+				05AFC26B14FD46580093BB1F /* NRTextOnlyStatsCell.m */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -485,6 +490,7 @@
 				0550BFF51460030100BF8366 /* NRClientVC.m in Sources */,
 				0550BFF91460053000BF8366 /* NRStatsCell.m in Sources */,
 				05E678AC14601B8F006E0499 /* LogViewer.m in Sources */,
+				05AFC26C14FD46580093BB1F /* NRTextOnlyStatsCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
