@@ -1,5 +1,11 @@
 #import "NRStats.h"
 
+@interface NRDescFormatter : NSFormatter
+@end
+@interface NRByteSizeFormatter : NSFormatter
+@end
+
+
 @interface NRStats ()
 @property(nonatomic,copy,readwrite) NSString *name;
 @property(nonatomic,retain,readwrite) NSMutableArray *times, *data;
@@ -7,6 +13,7 @@
 
 @implementation NRStats
 @synthesize name = _name, times = _times, data = _data, delegate = _delegate, maximumDataAge = _maximumDataAge, timeGranuality = _timeGranuality;
+@synthesize formatter = _formatter;
 -(id)initWithName:(NSString*)name;
 {
 	if(!(self = [super init])) return nil;
@@ -16,6 +23,10 @@
 	_data = [NSMutableArray new];
 	_maximumDataAge = 60;
 	_timeGranuality = 0.05;
+    if([name rangeOfString:@"memory"].location != NSNotFound)
+        _formatter = [NRByteSizeFormatter new];
+    else
+        _formatter = [NRDescFormatter new];
 	
 	return self;
 }
@@ -24,6 +35,7 @@
 	self.name = nil;
 	self.times = nil;
 	self.data = nil;
+    self.formatter = nil;
 	[super dealloc];
 }
 
@@ -52,5 +64,36 @@
 	for(int i = 0, c = _data.count; i < c; i++)
 		[d setObject:[_data objectAtIndex:i] forKey:[_times objectAtIndex:i]];
 	return d;
+}
+@end
+
+@implementation NRDescFormatter
+-(NSString*)stringForObjectValue:(id)obj;
+{
+    return [obj description];
+}
+@end
+@implementation NRByteSizeFormatter
+-(NSString*)stringForObjectValue:(id)obj;
+{
+    float val = [obj floatValue];
+    
+    if(val < 1024)
+        return [NSString stringWithFormat:@"%.0fB", val];
+    
+    val /= 1024.;
+    if(val < 1024)
+        return [NSString stringWithFormat:@"%.2fKB", val];
+
+    val /= 1024.;
+    if(val < 1024)
+        return [NSString stringWithFormat:@"%.2fMB", val];
+    
+    val /= 1024.;
+    if(val < 1024)
+        return [NSString stringWithFormat:@"%.2fGB", val];
+    
+    val /= 1024.;
+    return [NSString stringWithFormat:@"%.2fTB", val];
 }
 @end

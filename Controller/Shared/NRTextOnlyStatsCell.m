@@ -26,11 +26,11 @@
 	_stats.delegate = self;
 	
 	self.textLabel.text = stats.name;
-    self.detailTextLabel.text = [stats.data.lastObject description];
+    self.detailTextLabel.text = [stats.formatter stringForObjectValue:stats.data.lastObject];
 }
 -(void)stats:(NRStats*)stats addedPoint:(float)pt at:(NSTimeInterval)when;
 {
-    self.detailTextLabel.text = [stats.data.lastObject description];
+    self.detailTextLabel.text = [stats.formatter stringForObjectValue:stats.data.lastObject];
 }
 -(void)stats:(NRStats *)stats prunedPoints:(NSUInteger)deletedCount;
 {}

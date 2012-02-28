@@ -129,9 +129,11 @@ static NSString *const NRStatsPlotIdentifier = @"NRStatsPlot";
     
 	if(!_stats) return;
 	
+    _floatingY.labelFormatter = (id)_stats.formatter;
+    
 #if TARGET_OS_IPHONE
 	self.textLabel.text = stats.name;
-    self.detailTextLabel.text = [stats.data.lastObject description];
+    self.detailTextLabel.text = [stats.formatter stringForObjectValue:stats.data.lastObject];
 #else
 	self.textField.stringValue = stats.name;
 #endif
@@ -181,7 +183,7 @@ static NSString *const NRStatsPlotIdentifier = @"NRStatsPlot";
 	[self updateRanges];
     
 #if TARGET_OS_IPHONE
-    self.detailTextLabel.text = [stats.data.lastObject description];
+    self.detailTextLabel.text = [stats.formatter stringForObjectValue:stats.data.lastObject];
 #endif
 }
 -(void)stats:(NRStats *)stats prunedPoints:(NSUInteger)deletedCount;

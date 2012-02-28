@@ -13,10 +13,12 @@
 	id<NRStatsDelegate> _delegate;
 	NSTimeInterval _maximumDataAge;
 	NSTimeInterval _timeGranuality;
+    NSFormatter *_formatter;
 }
 @property(nonatomic,copy,readonly) NSString *name;
 @property(nonatomic,retain,readonly) NSMutableArray *times, *data;
 @property(nonatomic) NSTimeInterval maximumDataAge; // default 60
+@property(nonatomic,retain) NSFormatter *formatter; // default -[description]
 
 /// will throw away data if received faster than this.
 /// default 0.05
