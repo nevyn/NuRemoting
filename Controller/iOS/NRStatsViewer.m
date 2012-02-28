@@ -1,19 +1,15 @@
 #import "NRStatsViewer.h"
-#import	"RemotingClient.h"
 #import "NRStats.h"
 #import "NRStatsCell.h"
 
 @implementation NRStatsViewer {
-	RemotingClient *_client;
 	NSMutableArray *statSets;
 }
--(id)initWithClient:(RemotingClient*)client;
+-(id)init;
 {
 	if(!(self = [super initWithNibName:NSStringFromClass([self class]) bundle:nil])) return nil;
 	
 	statSets = [NSMutableArray new];
-	
-	_client = client;
 	
 	self.title = @"Stats";
 	
@@ -21,7 +17,6 @@
 }
 -(void)dealloc;
 {
-	_client = nil;
 	[statSets release];
 	[super dealloc];
 }
