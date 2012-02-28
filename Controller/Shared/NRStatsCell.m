@@ -16,14 +16,15 @@ static NSString *const NRStatsPlotIdentifier = @"NRStatsPlot";
 #if TARGET_OS_IPHONE
 -(id)init;
 {
-	if(!(self = [super initWithFrame:CGRectMake(0, 0, 320, 100)])) return nil;
+	if(!(self = [super initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"StatsCell"]))
+        return nil;
 	
 	hostView = [[CPTGraphHostingView alloc] initWithFrame:CGRectMake(0, 16, 320, 100-16)];
-	//hostView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
 	[self addSubview:hostView];
 	
-//	self.textLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleBottomMargin;
 	self.textLabel.font = [UIFont boldSystemFontOfSize:12];
+    self.detailTextLabel.font = [UIFont systemFontOfSize:12];
+    self.detailTextLabel.textAlignment = UITextAlignmentRight;
 	
 	[self awakeFromNib];
 	
@@ -32,6 +33,8 @@ static NSString *const NRStatsPlotIdentifier = @"NRStatsPlot";
 -(void)layoutSubviews;
 {
 	self.textLabel.frame = CGRectMake(0, 0, 100, 16);
+	self.detailTextLabel.frame = CGRectMake(self.frame.size.width-100, 0, 100, 16);
+    hostView.frame = CGRectMake(0, 16, self.frame.size.width, self.frame.size.height-16);
 }
 #endif
 
@@ -98,6 +101,7 @@ static NSString *const NRStatsPlotIdentifier = @"NRStatsPlot";
 }
 -(void)dealloc;
 {
+    if(_stats.delegate == self)
 	_stats.delegate = nil;
 	[hostView release];
 	[_stats release];
@@ -115,14 +119,19 @@ static NSString *const NRStatsPlotIdentifier = @"NRStatsPlot";
 -(void)setStats:(NRStats *)stats;
 {
 	if(stats == _stats) return;
-	_stats.delegate = nil;
+    
+    if(_stats.delegate == self)
+        _stats.delegate = nil;
 	[_stats release];
+    
 	_stats = [stats retain];
 	_stats.delegate = self;
+    
 	if(!_stats) return;
 	
 #if TARGET_OS_IPHONE
 	self.textLabel.text = stats.name;
+    self.detailTextLabel.text = [stats.data.lastObject description];
 #else
 	self.textField.stringValue = stats.name;
 #endif
@@ -170,6 +179,10 @@ static NSString *const NRStatsPlotIdentifier = @"NRStatsPlot";
 		[plot insertDataAtIndex:_stats.data.count-1 numberOfRecords:1];
 		
 	[self updateRanges];
+    
+#if TARGET_OS_IPHONE
+    self.detailTextLabel.text = [stats.data.lastObject description];
+#endif
 }
 -(void)stats:(NRStats *)stats prunedPoints:(NSUInteger)deletedCount;
 {
