@@ -9,7 +9,7 @@
 }
 -(id)init;
 {
-	if(!(self = [super initWithNibName:NSStringFromClass([self class]) bundle:nil])) return nil;
+	if(!(self = [super initWithNibName:@"NRStatsViewer" bundle:nil])) return nil;
 	
 	statSets = [NSMutableArray new];
     expandedSetNames = [NSMutableSet new];
