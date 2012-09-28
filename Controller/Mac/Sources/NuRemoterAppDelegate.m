@@ -5,6 +5,9 @@
 @implementation NuRemoterAppDelegate
 
 @synthesize window;
+@synthesize customConnectField;
+@synthesize customPortField;
+
 -(id)init;
 {
 	foundServices = [NSMutableArray new];
@@ -34,6 +37,23 @@
 	service.delegate = self;
 	[service resolveWithTimeout:5.0];
 }
+
+-(IBAction)customConnect:(id)sender
+{
+    NSString *host = [customConnectField stringValue];
+    int port = [customPortField intValue];
+    [[sender window] close];
+    
+    NSError *err = nil;
+	RemotingClient *client = [[[RemotingClient alloc] initWithHost:host port:port error:&err] autorelease];
+	if(!client) {
+		[NSApp presentError:err];
+		return;
+	}
+	ClientController *controller = [(ClientController*)[ClientController alloc] initWithClient:client];
+	[controller showWindow:nil];
+}
+
 - (void)netServiceDidResolveAddress:(NSNetService *)service;
 {
 	NSError *err = nil;

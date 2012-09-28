@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0511A70F145B65310060519A /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 0511A709145B65310060519A /* AsyncSocket.m */; };
 		0511A710145B65310060519A /* RemotingClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0511A70B145B65310060519A /* RemotingClient.m */; };
-		0511A7C8145EA3150060519A /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0511A7C4145EA3010060519A /* CorePlot.framework */; };
 		0511A7F1145EDB4B0060519A /* NRStats.m in Sources */ = {isa = PBXBuildFile; fileRef = 0511A7F0145EDB4A0060519A /* NRStats.m */; };
 		0550BFC8145FF9D800BF8366 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0550BFC7145FF9D800BF8366 /* UIKit.framework */; };
 		0550BFCA145FF9D800BF8366 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0550BFC9145FF9D800BF8366 /* Foundation.framework */; };
@@ -34,6 +33,7 @@
 		056EE44F1338DE1200FA0A60 /* ClientController.m in Sources */ = {isa = PBXBuildFile; fileRef = 056EE44D1338DE1200FA0A60 /* ClientController.m */; };
 		056EE4501338DE1200FA0A60 /* ClientController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 056EE44E1338DE1200FA0A60 /* ClientController.xib */; };
 		056EE58B1338EB0200FA0A60 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 056EE58A1338EB0200FA0A60 /* icon.icns */; };
+		059920F61615F79C009FC7BD /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 059920F51615F79C009FC7BD /* CorePlot.framework */; };
 		05AFC26C14FD46580093BB1F /* NRTextOnlyStatsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 05AFC26B14FD46580093BB1F /* NRTextOnlyStatsCell.m */; };
 		05E678AC14601B8F006E0499 /* LogViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E678AB14601B8F006E0499 /* LogViewer.m */; };
 		05E678CD14602D4D006E0499 /* CorePlot.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0511A7C4145EA3010060519A /* CorePlot.framework */; };
@@ -67,6 +67,13 @@
 			proxyType = 2;
 			remoteGlobalIDString = BC9B83470FB8A0A40035D8DA;
 			remoteInfo = "CorePlot-CocoaTouch";
+		};
+		05AADF071615F76F0082AED0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0511A7BA145EA3010060519A /* CorePlot.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
+			remoteInfo = CorePlot;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -122,6 +129,7 @@
 		056EE44D1338DE1200FA0A60 /* ClientController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClientController.m; sourceTree = "<group>"; };
 		056EE44E1338DE1200FA0A60 /* ClientController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClientController.xib; sourceTree = "<group>"; };
 		056EE58A1338EB0200FA0A60 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
+		059920F51615F79C009FC7BD /* CorePlot.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CorePlot.framework; path = CorePlot/build/Debug/CorePlot.framework; sourceTree = "<group>"; };
 		05AFC26A14FD46580093BB1F /* NRTextOnlyStatsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRTextOnlyStatsCell.h; sourceTree = "<group>"; };
 		05AFC26B14FD46580093BB1F /* NRTextOnlyStatsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRTextOnlyStatsCell.m; sourceTree = "<group>"; };
 		05E678AA14601B8F006E0499 /* LogViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogViewer.h; sourceTree = "<group>"; };
@@ -161,7 +169,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0511A7C8145EA3150060519A /* CorePlot.framework in Frameworks */,
+				059920F61615F79C009FC7BD /* CorePlot.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -318,6 +326,7 @@
 		29B97314FDCFA39411CA2CEA /* NuRemoter */ = {
 			isa = PBXGroup;
 			children = (
+				059920F51615F79C009FC7BD /* CorePlot.framework */,
 				0511A707145B65310060519A /* NuRemoting */,
 				0550BFE81460028A00BF8366 /* Shared */,
 				0550BFBF145FF8ED00BF8366 /* Mac */,
@@ -382,6 +391,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				05AADF081615F76F0082AED0 /* PBXTargetDependency */,
 			);
 			name = NuRemoter;
 			productInstallPath = "$(HOME)/Applications";
@@ -511,6 +521,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		05AADF081615F76F0082AED0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = CorePlot;
+			targetProxy = 05AADF071615F76F0082AED0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		0550BFD0145FF9D800BF8366 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
@@ -605,6 +623,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/CorePlot/build/Debug\"",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -623,6 +645,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/CorePlot/build/Debug\"",
+				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Mac/Sources/NuRemoter_Prefix.pch;
