@@ -19,6 +19,9 @@ static NSColor *DarkGreen() {
 {
 	if(![super initWithWindowNibName:@"ClientController"])
 		return nil;
+    
+    client_.loggingEnabled = YES;
+    client_.statsEnabled = YES;
 	
 	self.client = client_;
 	self.client.delegate = self;
@@ -87,6 +90,11 @@ static NSColor *DarkGreen() {
 }
 -(void)remotingClient:(RemotingClient*)client receivedOutput:(NSString*)str withStatusCode:(int)code;
 {
+    if(code == RemotingStatusOutput) {
+        [self appendString:str color:[NSColor purpleColor] italic:YES to:output];
+        return;
+    }
+    
 	if(code >= 600 && code < 700) {
 		int level = code-600;
 		
@@ -155,7 +163,6 @@ static NSColor *DarkGreen() {
 		NSString *templateName = [outputString substringWithRange:NSMakeRange(r.location+r.length, toNewline.location-r.location-r.length)];
 		[outputString replaceCharactersInRange:NSMakeRange(r.location, toNewline.location-r.location) withString:[templates contentsOfSnippetNamed:templateName]];
 	}
-	[self appendString:outputString color:[NSColor purpleColor] italic:YES to:output];
 	[client sendCommand:outputString];
 }
 

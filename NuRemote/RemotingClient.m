@@ -36,6 +36,8 @@ NSDictionary *SPKeyValueStringToDict(NSString *kvString) {
 
 @implementation RemotingClient
 @synthesize delegate = _delegate, socket, name, incomingDatasetName, messageSeparator;
+@synthesize statsEnabled = _statsEnabled;
+@synthesize loggingEnabled = _loggingEnabled;
 
 +(void)performSearchOnBrowser:(NSNetServiceBrowser*)browser;
 {
@@ -116,11 +118,10 @@ NSDictionary *SPKeyValueStringToDict(NSString *kvString) {
 	[self sendCommand:@"(connection useETBForMessageSeparator)"];
 	self.messageSeparator = [NSData dataWithBytes:(char[]){23} length:1];
 	[socket readDataToData:self.messageSeparator withTimeout:-1 tag:kReadingCommand];
+    _hasHandshaked = YES;
 	
-	if(DelegateResponds(remotingClient:receivedOutput:withStatusCode:))
-		[_delegate remotingClient:self receivedOutput:@"Enabling logging and stats...." withStatusCode:1];
-	[self sendCommand:@"(connection setLoggingEnabled:1)"];
-	[self sendCommand:@"(connection setStatsEnabled:1)"];
+    self.statsEnabled = _statsEnabled;
+    self.loggingEnabled = _loggingEnabled;
 	
 	if(DelegateResponds(remotingClientConnected:))
 		[_delegate remotingClientConnected:self];
@@ -173,14 +174,14 @@ NSDictionary *SPKeyValueStringToDict(NSString *kvString) {
 		
 	} else if (tag == kReadingData) {
 		if(DelegateResponds(remotingClient:receivedOutput:withStatusCode:))
-			[_delegate remotingClient:self receivedOutput:[NSString stringWithFormat:@"Received %d bytes of data.", [data length]] withStatusCode:201];
+			[_delegate remotingClient:self receivedOutput:[NSString stringWithFormat:@"Received %ld bytes of data.", [data length]] withStatusCode:RemotingStatusStatus];
 		if(DelegateResponds(remotingClient:receivedData:))
 			[_delegate remotingClient:self receivedData:data];
 		[socket readDataToData:self.messageSeparator withTimeout:-1 tag:kReadingCommand];
 	} else if (tag == kReadingDatasetPriming) {
 		NSDictionary *primedStats = [NSKeyedUnarchiver unarchiveObjectWithData:data];
 		if(DelegateResponds(remotingClient:receivedOutput:withStatusCode:))
-			[_delegate remotingClient:self receivedOutput:[NSString stringWithFormat:@"Primed %@ with %d data points.", self.incomingDatasetName, [primedStats count]] withStatusCode:201];
+			[_delegate remotingClient:self receivedOutput:[NSString stringWithFormat:@"Primed %@ with %ld data points.", self.incomingDatasetName, [primedStats count]] withStatusCode:RemotingStatusStatus];
 		
 		if(DelegateResponds(remotingClient:receivedPoint:at:inSet:))
 			for(NSNumber *when in [[primedStats allKeys] sortedArrayUsingSelector:@selector(compare:)])
@@ -197,7 +198,30 @@ NSDictionary *SPKeyValueStringToDict(NSString *kvString) {
 	[data appendData:[commands dataUsingEncoding:NSUTF8StringEncoding]];
 	[data appendData:self.messageSeparator];
 	[socket writeData:data withTimeout:-1 tag:0];
+    
+	if(DelegateResponds(remotingClient:receivedOutput:withStatusCode:))
+        [_delegate remotingClient:self receivedOutput:commands withStatusCode:RemotingStatusOutput];
 }
 
+- (void)setStatsEnabled:(BOOL)statsEnabled
+{
+	if(DelegateResponds(remotingClient:receivedOutput:withStatusCode:))
+		[_delegate remotingClient:self receivedOutput:[NSString stringWithFormat:@"%@abling stats", statsEnabled?@"en":@"dis"] withStatusCode:RemotingStatusStatus];
 
+    _statsEnabled = statsEnabled;
+
+    if(_hasHandshaked)
+        [self sendCommand:[NSString stringWithFormat:@"(connection setStatsEnabled:%d)", statsEnabled]];
+}
+
+- (void)setLoggingEnabled:(BOOL)loggingEnabled
+{
+	if(DelegateResponds(remotingClient:receivedOutput:withStatusCode:))
+		[_delegate remotingClient:self receivedOutput:[NSString stringWithFormat:@"%@abling logging", loggingEnabled?@"en":@"dis"] withStatusCode:RemotingStatusStatus];
+
+    _loggingEnabled = loggingEnabled;
+    
+    if(_hasHandshaked)
+        [self sendCommand:[NSString stringWithFormat:@"(connection setLoggingEnabled:%d)", loggingEnabled]];
+}
 @end

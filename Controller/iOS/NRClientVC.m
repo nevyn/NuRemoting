@@ -16,6 +16,8 @@
 	if(!(self = [super init])) return nil;
 	
 	_client = [client retain];
+    _client.loggingEnabled = YES;
+    _client.statsEnabled = YES;
 	_client.delegate = self;
 	
 	_stats = [[NRStatsViewer alloc] init];
