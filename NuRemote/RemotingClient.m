@@ -174,14 +174,14 @@ NSDictionary *SPKeyValueStringToDict(NSString *kvString) {
 		
 	} else if (tag == kReadingData) {
 		if(DelegateResponds(remotingClient:receivedOutput:withStatusCode:))
-			[_delegate remotingClient:self receivedOutput:[NSString stringWithFormat:@"Received %ld bytes of data.", [data length]] withStatusCode:RemotingStatusStatus];
+			[_delegate remotingClient:self receivedOutput:[NSString stringWithFormat:@"Received %d bytes of data.", (int)[data length]] withStatusCode:RemotingStatusStatus];
 		if(DelegateResponds(remotingClient:receivedData:))
 			[_delegate remotingClient:self receivedData:data];
 		[socket readDataToData:self.messageSeparator withTimeout:-1 tag:kReadingCommand];
 	} else if (tag == kReadingDatasetPriming) {
 		NSDictionary *primedStats = [NSKeyedUnarchiver unarchiveObjectWithData:data];
 		if(DelegateResponds(remotingClient:receivedOutput:withStatusCode:))
-			[_delegate remotingClient:self receivedOutput:[NSString stringWithFormat:@"Primed %@ with %ld data points.", self.incomingDatasetName, [primedStats count]] withStatusCode:RemotingStatusStatus];
+			[_delegate remotingClient:self receivedOutput:[NSString stringWithFormat:@"Primed %@ with %d data points.", self.incomingDatasetName, (int)[primedStats count]] withStatusCode:RemotingStatusStatus];
 		
 		if(DelegateResponds(remotingClient:receivedPoint:at:inSet:))
 			for(NSNumber *when in [[primedStats allKeys] sortedArrayUsingSelector:@selector(compare:)])
