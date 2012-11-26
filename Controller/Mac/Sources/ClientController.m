@@ -21,7 +21,6 @@ static NSColor *DarkGreen() {
 		return nil;
     
     client_.loggingEnabled = YES;
-    client_.statsEnabled = YES;
 	
 	self.client = client_;
 	self.client.delegate = self;
@@ -154,6 +153,8 @@ static NSColor *DarkGreen() {
 		return;
 	} else if([outputString isEqual:@"/stats"]) {
 		[statsDrawer open];
+        if(!self.client.statsEnabled)
+            self.client.statsEnabled = YES;
 		return;
 	}
 	
