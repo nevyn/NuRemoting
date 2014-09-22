@@ -3,21 +3,16 @@
 #import "ClientController.h"
 
 @interface NuRemoterAppDelegate() {
-    NSWindow *__weak window;
     NSNetServiceBrowser *browser;
     NSMutableArray *foundServices; // <NSNetService>
-    IBOutlet NSTableView *tableView;
-    NSTextField *__weak customConnectField;
-    NSTextField *__weak customPortField;
 }
+@property (weak) IBOutlet NSWindow *window;
+@property (weak) IBOutlet NSTextField *customConnectField;
+@property (weak) IBOutlet NSTextField *customPortField;
+@property (weak) IBOutlet NSTableView *tableView;
 @end
 
 @implementation NuRemoterAppDelegate
-
-@synthesize window;
-@synthesize customConnectField;
-@synthesize customPortField;
-
 -(instancetype)init;
 {
 	foundServices = [NSMutableArray new];
@@ -27,8 +22,8 @@
 }
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
 	[RemotingClient performSearchOnBrowser:browser];
-	[tableView setTarget:self];
-	[tableView setDoubleAction:@selector(connect:)];
+	[self.tableView setTarget:self];
+	[self.tableView setDoubleAction:@selector(connect:)];
 }
 - (void)netServiceBrowser:(NSNetServiceBrowser *)aNetServiceBrowser didFindService:(NSNetService *)aNetService moreComing:(BOOL)moreComing;
 {
@@ -50,8 +45,8 @@
 
 -(IBAction)customConnect:(id)sender
 {
-    NSString *host = [customConnectField stringValue];
-    int port = [customPortField intValue];
+    NSString *host = [self.customConnectField stringValue];
+    int port = [self.customPortField intValue];
     [[sender window] close];
     
     NSError *err = nil;

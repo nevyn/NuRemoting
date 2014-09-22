@@ -1,10 +1,8 @@
 #import "TemplateController.h"
 
-@interface TemplateController() {
-    IBOutlet NSTextView *destination;
-    IBOutlet NSComboBox *comboBox;
-}
-
+@interface TemplateController()
+@property(assign) IBOutlet NSTextView *destination;
+@property(weak) IBOutlet NSComboBox *comboBox;
 @end
 
 @implementation TemplateController
@@ -36,9 +34,9 @@
 }
 -(void)comboBoxSelectionDidChange2;
 {
-	NSString *contents = [self contentsOfSnippetNamed:[comboBox stringValue]];
+	NSString *contents = [self contentsOfSnippetNamed:[self.comboBox stringValue]];
 	if(contents)
-		[destination.textStorage replaceCharactersInRange:NSMakeRange(0, destination.textStorage.string.length) withString:contents];
+		[self.destination.textStorage replaceCharactersInRange:NSMakeRange(0, self.destination.textStorage.string.length) withString:contents];
 
 }
 - (void)comboBoxSelectionDidChange:(NSNotification *)notification;
@@ -48,9 +46,9 @@
 -(IBAction)save:(id)sender;
 {
 	[[NSFileManager defaultManager] createDirectoryAtPath:[[self class] snippetFolder] withIntermediateDirectories:YES attributes:nil error:nil];
-	NSString *snippetPath = [[[self class] snippetFolder] stringByAppendingPathComponent:[comboBox stringValue]];
+	NSString *snippetPath = [[[self class] snippetFolder] stringByAppendingPathComponent:[self.comboBox stringValue]];
 	NSError *err = nil;
-	if(![destination.textStorage.string writeToFile:snippetPath atomically:YES encoding:NSUTF8StringEncoding error:&err])
+	if(![self.destination.textStorage.string writeToFile:snippetPath atomically:YES encoding:NSUTF8StringEncoding error:&err])
 		[NSApp presentError:err];
 }
 -(NSString*)contentsOfSnippetNamed:(NSString*)name;

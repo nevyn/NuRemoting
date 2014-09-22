@@ -7,17 +7,18 @@ static NSColor *DarkGreen() {
 
 @interface ClientController () {
     RemotingClient *client;
-    IBOutlet NSTextView *logOutput;
-    IBOutlet NSTextView *output;
-    IBOutlet NSTextView *input;
     NSString *oldHost; int oldPort;
     int reconnectCount;
-    IBOutlet TemplateController *templates;
-    NSDrawer *__weak statsDrawer;
-    NSTableView *__weak statsTable;
     NSMutableArray *statSets;
     BOOL hasAutoshownStats;
 }
+@property(weak) IBOutlet NSDrawer *statsDrawer;
+@property(weak) IBOutlet NSTableView *statsTable;
+@property(assign) IBOutlet NSTextView *logOutput;  // NSTextView does not support weak
+@property(assign) IBOutlet NSTextView *output;
+@property(assign) IBOutlet NSTextView *input;
+@property(weak) IBOutlet TemplateController *templates;
+
 @property (readwrite, strong) RemotingClient *client;
 @property (copy) NSString *oldHost;
 -(void)appendString:(NSString*)str color:(NSColor*)color italic:(BOOL)italic to:(NSTextView*)dest;
@@ -25,7 +26,7 @@ static NSColor *DarkGreen() {
 
 
 @implementation ClientController
-@synthesize client, oldHost, statsDrawer, statsTable;
+@synthesize client, oldHost;
 
 -(instancetype)initWithClient:(RemotingClient*)client_;
 {
@@ -76,19 +77,19 @@ static NSColor *DarkGreen() {
 	self.oldHost = client_.socket.connectedHost;
 	oldPort = client_.socket.connectedPort;
 	reconnectCount = 0;
-	[self appendString:@"Connected" color:DarkGreen() italic:NO to:output];
+	[self appendString:@"Connected" color:DarkGreen() italic:NO to:self.output];
 }
 -(void)remotingClient:(RemotingClient*)client willDisconnectWithError:(NSError*)err;
 {
-	[self appendString:[NSString stringWithFormat:@"Error: %@", [err localizedDescription]] color:[NSColor redColor] italic:NO to:output];
+	[self appendString:[NSString stringWithFormat:@"Error: %@", [err localizedDescription]] color:[NSColor redColor] italic:NO to:self.output];
 }
 -(void)remotingClientDisconnected:(RemotingClient*)client;
 {
 	if(reconnectCount < 5) {
-		[self appendString:@"Disconnected; reconnecting in 5…" color:[NSColor redColor] italic:NO to:output];
+		[self appendString:@"Disconnected; reconnecting in 5…" color:[NSColor redColor] italic:NO to:self.output];
 		[self performSelector:@selector(reconnect) withObject:nil afterDelay:5];
 	} else {
-		[self appendString:@"Permanently disconnected, type /reconnect to try again" color:[NSColor redColor] italic:NO to:output];
+		[self appendString:@"Permanently disconnected, type /reconnect to try again" color:[NSColor redColor] italic:NO to:self.output];
 	}
 }
 -(void)remotingClient:(RemotingClient*)client receivedOutput:(NSString*)str withStatusCode:(int)code;
@@ -110,10 +111,10 @@ static NSColor *DarkGreen() {
 		else if(level > 6) // debug1-7
 			color = [NSColor colorWithCalibratedHue:.3 saturation:.5-((level-6)/7./2.) brightness:.7 alpha:1];
 
-		[self appendString:str color:color italic:YES to:logOutput];
+		[self appendString:str color:color italic:YES to:self.logOutput];
 		return;
 	}
-	[self appendString:str color:(code!=RemotingStatusOK)?[NSColor redColor]:[NSColor blackColor] italic:NO to:output];
+	[self appendString:str color:(code!=RemotingStatusOK)?[NSColor redColor]:[NSColor blackColor] italic:NO to:self.output];
 }
 -(void)remotingClient:(RemotingClient*)client receivedData:(NSData*)data;
 {
@@ -129,7 +130,7 @@ static NSColor *DarkGreen() {
 -(void)reconnect;
 {
 	reconnectCount++;
-	[self appendString:[NSString stringWithFormat:@"Reconnect try %d to %@…", reconnectCount, self.oldHost] color:[NSColor darkGrayColor] italic:YES to:output];
+	[self appendString:[NSString stringWithFormat:@"Reconnect try %d to %@…", reconnectCount, self.oldHost] color:[NSColor darkGrayColor] italic:YES to:self.output];
 	
 	NSError *err = nil;
 	RemotingClient *cl = nil;
@@ -138,7 +139,7 @@ static NSColor *DarkGreen() {
 	if(!cl) {
 		NSString *error = @"No host to connect to; aborting";
 		if(err) error = [NSString stringWithFormat:@"%@; aborting", [err localizedDescription]];
-		[self appendString:error color:[NSColor redColor] italic:YES to:output];
+		[self appendString:error color:[NSColor redColor] italic:YES to:self.output];
 	}
 	self.client = cl;
 	self.client.delegate = self;
@@ -146,12 +147,12 @@ static NSColor *DarkGreen() {
 
 -(IBAction)sendCommand:(id)sender;
 {
-	NSMutableString *outputString = [[input string] mutableCopy];
+	NSMutableString *outputString = [[self.input string] mutableCopy];
 	if([outputString isEqual:@"/reconnect"]) {
 		[self reconnect];
 		return;
 	} else if([outputString isEqual:@"/stats"]) {
-		[statsDrawer open];
+		[self.statsDrawer open];
 		return;
 	}
 	
@@ -159,9 +160,9 @@ static NSColor *DarkGreen() {
 	while(r = [outputString rangeOfString:@"#require "], r.location != NSNotFound) {
 		NSRange toNewline = [outputString rangeOfString:@"\n" options:0 range:NSMakeRange(r.location+r.length, outputString.length-r.location-r.length)];
 		NSString *templateName = [outputString substringWithRange:NSMakeRange(r.location+r.length, toNewline.location-r.location-r.length)];
-		[outputString replaceCharactersInRange:NSMakeRange(r.location, toNewline.location-r.location) withString:[templates contentsOfSnippetNamed:templateName]];
+		[outputString replaceCharactersInRange:NSMakeRange(r.location, toNewline.location-r.location) withString:[self.templates contentsOfSnippetNamed:templateName]];
 	}
-	[self appendString:outputString color:[NSColor purpleColor] italic:YES to:output];
+	[self appendString:outputString color:[NSColor purpleColor] italic:YES to:self.output];
 	[client sendCommand:outputString];
 }
 
@@ -178,9 +179,9 @@ static NSColor *DarkGreen() {
 {
 	[[self statsNamed:datasetName] addPoint:pt atTime:sinceRef];
 	
-	if(!hasAutoshownStats && statsDrawer.state == NSDrawerClosedState) {
+	if(!hasAutoshownStats && self.statsDrawer.state == NSDrawerClosedState) {
 		hasAutoshownStats = YES;
-		[statsDrawer open];
+		[self.statsDrawer open];
 	}
 }
 @end

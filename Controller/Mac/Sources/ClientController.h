@@ -4,8 +4,6 @@
 
 @interface ClientController : NSWindowController
 <RemotingClientDelegate, NSTableViewDelegate, NSTableViewDataSource>
-@property(readonly,weak) IBOutlet NSDrawer *statsDrawer;
-@property(readonly,weak) IBOutlet NSTableView *statsTable;
 
 @property(readonly,strong) RemotingClient *client;
 
