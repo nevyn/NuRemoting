@@ -8,7 +8,7 @@
 @synthesize customConnectField;
 @synthesize customPortField;
 
--(id)init;
+-(instancetype)init;
 {
 	foundServices = [NSMutableArray new];
 	browser = [NSNetServiceBrowser new];
@@ -33,7 +33,7 @@
 {
 	NSInteger r = sender.selectedRow;
 	if(r < 0 || r >= [foundServices count]) return;
-	NSNetService *service = [foundServices objectAtIndex:r];
+	NSNetService *service = foundServices[r];
 	service.delegate = self;
 	[service resolveWithTimeout:5.0];
 }

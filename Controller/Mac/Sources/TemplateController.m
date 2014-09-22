@@ -4,7 +4,7 @@
 @implementation TemplateController
 +(NSString*)snippetFolder;
 {
-	NSString *docs = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+	NSString *docs = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
 	NSString *snippetFolder = [docs stringByAppendingPathComponent:@"NuRemoter Snippets"];
 	return snippetFolder;
 }
@@ -22,7 +22,7 @@
 }
 - (id)comboBox:(NSComboBox *)aComboBox objectValueForItemAtIndex:(NSInteger)index;
 {
-	return [[self snippets] objectAtIndex:index];
+	return [self snippets][index];
 }
 - (NSUInteger)comboBox:(NSComboBox *)aComboBox indexOfItemWithStringValue:(NSString *)string;
 {

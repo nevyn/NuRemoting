@@ -15,7 +15,7 @@ static NSColor *DarkGreen() {
 @implementation ClientController
 @synthesize client, oldHost, statsDrawer, statsTable;
 
--(id)initWithClient:(RemotingClient*)client_;
+-(instancetype)initWithClient:(RemotingClient*)client_;
 {
 	if(![super initWithWindowNibName:@"ClientController"])
 		return nil;
@@ -44,9 +44,9 @@ static NSColor *DarkGreen() {
 	NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
 	if(italic) {
 		NSFont *italic = [[NSFontManager sharedFontManager] convertFont:[NSFont systemFontOfSize:12] toHaveTrait:NSItalicFontMask];
-		[attrs setObject:italic forKey:NSFontAttributeName];
+		attrs[NSFontAttributeName] = italic;
 	}
-	[attrs setObject:color forKey:NSForegroundColorAttributeName];
+	attrs[NSForegroundColorAttributeName] = color;
 	NSAttributedString * astr = [[NSAttributedString alloc] initWithString:[str stringByAppendingString:@"\n"] attributes:attrs];
 	
 	NSScrollView *scroll = [dest enclosingScrollView];

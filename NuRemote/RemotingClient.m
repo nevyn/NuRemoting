@@ -14,11 +14,11 @@
 @property(nonatomic,copy) NSData *messageSeparator;
 @end
 
-typedef enum {
+typedef NS_ENUM(NSInteger, ReadingType) {
 	kReadingCommand = 0,
 	kReadingData = 1,
 	kReadingDatasetPriming = 2,
-} ReadingType;
+} ;
 
 NSDictionary *SPKeyValueStringToDict(NSString *kvString);
 NSDictionary *SPKeyValueStringToDict(NSString *kvString) {
@@ -27,9 +27,9 @@ NSDictionary *SPKeyValueStringToDict(NSString *kvString) {
 	for (NSString *line in lines) {
 		NSArray *keyAndValue = [line componentsSeparatedByString:@":"];
 		if([keyAndValue count] != 2) continue;
-		NSString *key = [[keyAndValue objectAtIndex:0] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-		NSString *value = [[keyAndValue objectAtIndex:1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-		[dict setObject:value forKey:key];
+		NSString *key = [keyAndValue[0] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+		NSString *value = [keyAndValue[1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+		dict[key] = value;
 	}
 	return dict;
 }
@@ -41,14 +41,14 @@ NSDictionary *SPKeyValueStringToDict(NSString *kvString) {
 {
 	[browser searchForServicesOfType:kNuRemotingBonjourType inDomain:@""];
 }
--(id)initWithService:(NSNetService*)service error:(NSError**)err;
+-(instancetype)initWithService:(NSNetService*)service error:(NSError**)err;
 {
 	self.messageSeparator = [NSData dataWithBytes:"\xa\xa" length:2];
 	
 	self.socket = [[AsyncSocket alloc] initWithDelegate:self];
-	[self.socket setRunLoopModes:[NSArray arrayWithObject:NSRunLoopCommonModes]];
+	[self.socket setRunLoopModes:@[NSRunLoopCommonModes]];
 
-	if(![socket connectToAddress:[service.addresses objectAtIndex:0] error:err]) {
+	if(![socket connectToAddress:(service.addresses)[0] error:err]) {
 		return nil;
 	}
 	
@@ -57,12 +57,12 @@ NSDictionary *SPKeyValueStringToDict(NSString *kvString) {
 	
 	return self;
 }
--(id)initWithHost:(NSString*)host port:(int)port error:(NSError**)err;
+-(instancetype)initWithHost:(NSString*)host port:(int)port error:(NSError**)err;
 {
 	self.messageSeparator = [NSData dataWithBytes:"\xa\xa" length:2];
 	
 	self.socket = [[AsyncSocket alloc] initWithDelegate:self];
-	[self.socket setRunLoopModes:[NSArray arrayWithObject:NSRunLoopCommonModes]];
+	[self.socket setRunLoopModes:@[NSRunLoopCommonModes]];
 
 	if(![socket connectToHost:host onPort:port error:err]) {
 		return nil;
@@ -134,10 +134,10 @@ NSDictionary *SPKeyValueStringToDict(NSString *kvString) {
 		
 		if(SPRemoteHasDataAttachment([code intValue])) {
 			NSDictionary *settings = SPKeyValueStringToDict(output);
-			int length = [[settings objectForKey:@"Content-Length"] intValue];
+			int length = [settings[@"Content-Length"] intValue];
 			
 			if([code intValue] == RemotingStatusStatsPriming) {
-				self.incomingDatasetName = [settings objectForKey:@"Set-Name"];
+				self.incomingDatasetName = settings[@"Set-Name"];
 				if(DelegateResponds(remotingClient:receivedOutput:withStatusCode:))
 					[_delegate remotingClient:self receivedOutput:[NSString stringWithFormat:@"Receiving %d bytes of stats...", length] withStatusCode:[code intValue]];
 				
@@ -153,9 +153,9 @@ NSDictionary *SPKeyValueStringToDict(NSString *kvString) {
 				NSAssert([components count] == 3, @"Missing component in data set");
 				
 				[_delegate remotingClient:self
-					receivedPoint:[[components objectAtIndex:2] floatValue]
-					at:[[components objectAtIndex:1] doubleValue]
-					inSet:[components objectAtIndex:0]
+					receivedPoint:[components[2] floatValue]
+					at:[components[1] doubleValue]
+					inSet:components[0]
 				];
 			}
 			[socket readDataToData:self.messageSeparator withTimeout:-1 tag:kReadingCommand];
@@ -179,7 +179,7 @@ NSDictionary *SPKeyValueStringToDict(NSString *kvString) {
 		
 		if(DelegateResponds(remotingClient:receivedPoint:at:inSet:))
 			for(NSNumber *when in [[primedStats allKeys] sortedArrayUsingSelector:@selector(compare:)])
-				[_delegate remotingClient:self receivedPoint:[[primedStats objectForKey:when] floatValue] at:[when floatValue] inSet:self.incomingDatasetName];
+				[_delegate remotingClient:self receivedPoint:[primedStats[when] floatValue] at:[when floatValue] inSet:self.incomingDatasetName];
 		
 		self.incomingDatasetName = nil;
 

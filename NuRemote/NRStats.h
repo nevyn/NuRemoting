@@ -26,7 +26,7 @@
 
 @property(nonatomic,unsafe_unretained) id<NRStatsDelegate> delegate;
 
--(id)initWithName:(NSString*)name;
+-(instancetype)initWithName:(NSString*)name NS_DESIGNATED_INITIALIZER;
 -(void)addPoint:(float)point atTime:(NSTimeInterval)interval;
 -(NSDictionary*)dictionaryRepresentation;
 @end

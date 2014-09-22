@@ -22,6 +22,6 @@
 
 @property(readonly,strong) RemotingClient *client;
 
--(id)initWithClient:(RemotingClient*)client_;
+-(instancetype)initWithClient:(RemotingClient*)client_ NS_DESIGNATED_INITIALIZER;
 -(IBAction)sendCommand:(id)sender;
 @end

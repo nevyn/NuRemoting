@@ -95,9 +95,9 @@ static NSString *const NRStatsPlotIdentifier = @"NRStatsPlot";
 	sciFormatter.numberStyle = NSNumberFormatterScientificStyle;
 	_floatingY.labelFormatter = sciFormatter;
 	_floatingY.labelTextStyle = font;
-	_floatingY.labelExclusionRanges = [NSArray arrayWithObject:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(-0.01) length:CPTDecimalFromDouble(0.02)]];
+	_floatingY.labelExclusionRanges = @[[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(-0.01) length:CPTDecimalFromDouble(0.02)]];
 	
-	_graph.axisSet.axes = [NSArray arrayWithObjects:x, y, _floatingY, nil];
+	_graph.axisSet.axes = @[x, y, _floatingY];
 }
 -(void)dealloc;
 {
@@ -151,9 +151,9 @@ static NSString *const NRStatsPlotIdentifier = @"NRStatsPlot";
 -(NSNumber *)numberForPlot:(CPTPlot *)plot field:(NSUInteger)fieldEnum recordIndex:(NSUInteger)index;
 {
 	if(fieldEnum == CPTScatterPlotFieldX) {
-		return [_stats.times objectAtIndex:index];
+		return (_stats.times)[index];
 	} else if(fieldEnum == CPTScatterPlotFieldY) {
-		return [_stats.data objectAtIndex:index];
+		return (_stats.data)[index];
 	}
 	return nil;
 }
@@ -189,7 +189,7 @@ static NSString *const NRStatsPlotIdentifier = @"NRStatsPlot";
 {
     CPTXYPlotSpace *plotSpace = (CPTXYPlotSpace *)_graph.defaultPlotSpace;
 	CPTPlot *dataSourceLinePlot = [_graph plotWithIdentifier:NRStatsPlotIdentifier];
-    [plotSpace scaleToFitPlots:[NSArray arrayWithObject:dataSourceLinePlot]];
+    [plotSpace scaleToFitPlots:@[dataSourceLinePlot]];
 	
 	CPTMutablePlotRange *yRange = [plotSpace.yRange mutableCopy];
     [yRange unionPlotRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0) length:CPTDecimalFromDouble(0)]]; // always include 0
