@@ -7,6 +7,5 @@
 
 @property(readonly,strong) RemotingClient *client;
 
--(instancetype)initWithClient:(RemotingClient*)client_ NS_DESIGNATED_INITIALIZER;
--(IBAction)sendCommand:(id)sender;
+-(instancetype)initWithClient:(RemotingClient*)client_;
 @end
