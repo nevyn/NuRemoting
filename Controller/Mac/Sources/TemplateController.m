@@ -1,5 +1,11 @@
 #import "TemplateController.h"
 
+@interface TemplateController() {
+    IBOutlet NSTextView *destination;
+    IBOutlet NSComboBox *comboBox;
+}
+
+@end
 
 @implementation TemplateController
 +(NSString*)snippetFolder;

@@ -2,6 +2,16 @@
 #import "RemotingClient.h"
 #import "ClientController.h"
 
+@interface NuRemoterAppDelegate() {
+    NSWindow *__weak window;
+    NSNetServiceBrowser *browser;
+    NSMutableArray *foundServices; // <NSNetService>
+    IBOutlet NSTableView *tableView;
+    NSTextField *__weak customConnectField;
+    NSTextField *__weak customPortField;
+}
+@end
+
 @implementation NuRemoterAppDelegate
 
 @synthesize window;

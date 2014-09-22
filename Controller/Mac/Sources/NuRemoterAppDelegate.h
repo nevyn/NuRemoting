@@ -1,14 +1,6 @@
 #import <Cocoa/Cocoa.h>
 
-@interface NuRemoterAppDelegate : NSObject <NSApplicationDelegate, NSNetServiceBrowserDelegate, NSNetServiceDelegate> {
-    NSWindow *__weak window;
-	NSNetServiceBrowser *browser;
-	NSMutableArray *foundServices; // <NSNetService>
-	IBOutlet NSTableView *tableView;
-    NSTextField *__weak customConnectField;
-    NSTextField *__weak customPortField;
-}
-
+@interface NuRemoterAppDelegate : NSObject <NSApplicationDelegate, NSNetServiceBrowserDelegate, NSNetServiceDelegate>
 @property (weak) IBOutlet NSWindow *window;
 @property (weak) IBOutlet NSTextField *customConnectField;
 @property (weak) IBOutlet NSTextField *customPortField;

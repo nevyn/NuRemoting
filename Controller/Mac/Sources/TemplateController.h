@@ -1,11 +1,7 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface TemplateController : NSObject <NSComboBoxDataSource, NSComboBoxDelegate> {
-	IBOutlet NSTextView *destination;
-	IBOutlet NSComboBox *comboBox;
-}
-
+@interface TemplateController : NSObject <NSComboBoxDataSource, NSComboBoxDelegate>
 -(IBAction)save:(id)sender;
 -(NSString*)contentsOfSnippetNamed:(NSString*)name;
 @end

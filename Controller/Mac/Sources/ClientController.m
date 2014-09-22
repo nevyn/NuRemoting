@@ -5,7 +5,19 @@ static NSColor *DarkGreen() {
 	return [NSColor colorWithDeviceRed:0 green:.5 blue:0 alpha:1];
 }
 
-@interface ClientController ()
+@interface ClientController () {
+    RemotingClient *client;
+    IBOutlet NSTextView *logOutput;
+    IBOutlet NSTextView *output;
+    IBOutlet NSTextView *input;
+    NSString *oldHost; int oldPort;
+    int reconnectCount;
+    IBOutlet TemplateController *templates;
+    NSDrawer *__weak statsDrawer;
+    NSTableView *__weak statsTable;
+    NSMutableArray *statSets;
+    BOOL hasAutoshownStats;
+}
 @property (readwrite, strong) RemotingClient *client;
 @property (copy) NSString *oldHost;
 -(void)appendString:(NSString*)str color:(NSColor*)color italic:(BOOL)italic to:(NSTextView*)dest;

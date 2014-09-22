@@ -4,19 +4,6 @@
 
 @interface ClientController : NSWindowController
 <RemotingClientDelegate, NSTableViewDelegate, NSTableViewDataSource>
-{
-	RemotingClient *client;
-	IBOutlet NSTextView *logOutput;
-	IBOutlet NSTextView *output;
-	IBOutlet NSTextView *input;
-	NSString *oldHost; int oldPort;
-	int reconnectCount;
-	IBOutlet TemplateController *templates;
-	NSDrawer *__weak statsDrawer;
-	NSTableView *__weak statsTable;
-	NSMutableArray *statSets;
-	BOOL hasAutoshownStats;
-}
 @property(readonly,weak) IBOutlet NSDrawer *statsDrawer;
 @property(readonly,weak) IBOutlet NSTableView *statsTable;
 
