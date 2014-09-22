@@ -6,8 +6,7 @@ static NSColor *DarkGreen() {
 }
 
 @interface ClientController () {
-    RemotingClient *client;
-    NSString *oldHost; int oldPort;
+    int oldPort;
     int reconnectCount;
     NSMutableArray *statSets;
     BOOL hasAutoshownStats;
@@ -26,7 +25,6 @@ static NSColor *DarkGreen() {
 
 
 @implementation ClientController
-@synthesize client, oldHost;
 
 -(instancetype)initWithClient:(RemotingClient*)client
 {
@@ -137,7 +135,7 @@ static NSColor *DarkGreen() {
 	
 	NSError *err = nil;
 	RemotingClient *cl = nil;
-	if(oldHost)
+	if(self.oldHost)
 		cl = [[RemotingClient alloc] initWithHost:self.oldHost port:oldPort error:&err];
 	if(!cl) {
 		NSString *error = @"No host to connect to; aborting";
@@ -166,7 +164,7 @@ static NSColor *DarkGreen() {
 		[outputString replaceCharactersInRange:NSMakeRange(r.location, toNewline.location-r.location) withString:[self.templates contentsOfSnippetNamed:templateName]];
 	}
 	[self appendString:outputString color:[NSColor purpleColor] italic:YES to:self.output];
-	[client sendCommand:outputString];
+	[self.client sendCommand:outputString];
 }
 
 #pragma mark Stats
