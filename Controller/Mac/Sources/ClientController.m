@@ -28,14 +28,14 @@ static NSColor *DarkGreen() {
 @implementation ClientController
 @synthesize client, oldHost;
 
--(instancetype)initWithClient:(RemotingClient*)client_;
+-(instancetype)initWithClient:(RemotingClient*)client
 {
 	if(![super initWithWindowNibName:@"ClientController"])
 		return nil;
 	
-	self.client = client_;
+	self.client = client;
 	self.client.delegate = self;
-	self.window.title = client_.name;
+	self.window.title = client.name;
 	statSets = [NSMutableArray new];
 	
 	return self;
@@ -52,7 +52,7 @@ static NSColor *DarkGreen() {
 	return NO;
 }
 
--(void)appendString:(NSString*)str color:(NSColor*)color italic:(BOOL)italic to:(NSTextView*)dest;
+-(void)appendString:(NSString*)str color:(NSColor*)color italic:(BOOL)italic to:(NSTextView*)dest
 {
 	NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
 	if(italic) {
@@ -72,18 +72,20 @@ static NSColor *DarkGreen() {
 
 #pragma mark RemotingClient delegate
 
--(void)remotingClientConnected:(RemotingClient*)client_;
+-(void)remotingClientConnected:(RemotingClient*)client
 {
-	self.oldHost = client_.socket.connectedHost;
-	oldPort = client_.socket.connectedPort;
+	self.oldHost = client.socket.connectedHost;
+	oldPort = client.socket.connectedPort;
 	reconnectCount = 0;
 	[self appendString:@"Connected" color:DarkGreen() italic:NO to:self.output];
 }
--(void)remotingClient:(RemotingClient*)client willDisconnectWithError:(NSError*)err;
+
+-(void)remotingClient:(RemotingClient*)client willDisconnectWithError:(NSError*)err
 {
 	[self appendString:[NSString stringWithFormat:@"Error: %@", [err localizedDescription]] color:[NSColor redColor] italic:NO to:self.output];
 }
--(void)remotingClientDisconnected:(RemotingClient*)client;
+
+-(void)remotingClientDisconnected:(RemotingClient*)client
 {
 	if(reconnectCount < 5) {
 		[self appendString:@"Disconnected; reconnecting in 5…" color:[NSColor redColor] italic:NO to:self.output];
@@ -92,7 +94,7 @@ static NSColor *DarkGreen() {
 		[self appendString:@"Permanently disconnected, type /reconnect to try again" color:[NSColor redColor] italic:NO to:self.output];
 	}
 }
--(void)remotingClient:(RemotingClient*)client receivedOutput:(NSString*)str withStatusCode:(int)code;
+-(void)remotingClient:(RemotingClient*)client receivedOutput:(NSString*)str withStatusCode:(int)code
 {
 	if(code >= 600 && code < 700) {
 		int level = code-600;
@@ -116,7 +118,8 @@ static NSColor *DarkGreen() {
 	}
 	[self appendString:str color:(code!=RemotingStatusOK)?[NSColor redColor]:[NSColor blackColor] italic:NO to:self.output];
 }
--(void)remotingClient:(RemotingClient*)client receivedData:(NSData*)data;
+
+-(void)remotingClient:(RemotingClient*)client receivedData:(NSData*)data
 {
 	NSSavePanel *savePanel = [NSSavePanel savePanel];
 	[savePanel beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
@@ -127,7 +130,7 @@ static NSColor *DarkGreen() {
 
 #pragma mark Commands
 
--(void)reconnect;
+-(void)reconnect
 {
 	reconnectCount++;
 	[self appendString:[NSString stringWithFormat:@"Reconnect try %d to %@…", reconnectCount, self.oldHost] color:[NSColor darkGrayColor] italic:YES to:self.output];
@@ -145,7 +148,7 @@ static NSColor *DarkGreen() {
 	self.client.delegate = self;
 }
 
--(IBAction)sendCommand:(id)sender;
+-(IBAction)sendCommand:(id)sender
 {
 	NSMutableString *outputString = [[self.input string] mutableCopy];
 	if([outputString isEqual:@"/reconnect"]) {
@@ -167,7 +170,7 @@ static NSColor *DarkGreen() {
 }
 
 #pragma mark Stats
--(NRStats*)statsNamed:(NSString*)name;
+-(NRStats*)statsNamed:(NSString*)name
 {
 	for(NRStats *stats in statSets)
 		if([stats.name isEqual:name]) return stats;
@@ -175,7 +178,8 @@ static NSColor *DarkGreen() {
 	[[self mutableArrayValueForKey:@"statSets"] addObject:stats];
 	return stats;
 }
--(void)remotingClient:(RemotingClient *)client receivedPoint:(float)pt at:(NSTimeInterval)sinceRef inSet:(NSString *)datasetName;
+
+-(void)remotingClient:(RemotingClient *)client receivedPoint:(float)pt at:(NSTimeInterval)sinceRef inSet:(NSString *)datasetName
 {
 	[[self statsNamed:datasetName] addPoint:pt atTime:sinceRef];
 	
