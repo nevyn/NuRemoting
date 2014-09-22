@@ -50,7 +50,7 @@ static NSString *const NRStatsPlotIdentifier = @"NRStatsPlot";
 	_graph.paddingTop = _graph.paddingRight = _graph.paddingBottom = _graph.paddingLeft = 0;
 	
 	// Plot
-	CPTScatterPlot *dataSourceLinePlot = [[(CPTScatterPlot *)[CPTScatterPlot alloc] initWithFrame:_graph.bounds] autorelease];
+	CPTScatterPlot *dataSourceLinePlot = [(CPTScatterPlot *)[CPTScatterPlot alloc] initWithFrame:_graph.bounds];
 	dataSourceLinePlot.identifier = NRStatsPlotIdentifier;	
 	dataSourceLinePlot.dataSource = self;
 	
@@ -74,10 +74,10 @@ static NSString *const NRStatsPlotIdentifier = @"NRStatsPlot";
     CPTXYAxis *x = axisSet.xAxis;
     x.labelingPolicy = CPTAxisLabelingPolicyAutomatic;
     x.majorGridLineStyle = majorGridLineStyle;
-	NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 	[dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
 	[dateFormatter setDateStyle:NSDateFormatterNoStyle];
-	x.labelFormatter = [[[CPTTimeFormatter alloc] initWithDateFormatter:dateFormatter] autorelease];
+	x.labelFormatter = [[CPTTimeFormatter alloc] initWithDateFormatter:dateFormatter];
     x.labelOffset = -3;
 	x.labelTextStyle = font;
 
@@ -91,7 +91,7 @@ static NSString *const NRStatsPlotIdentifier = @"NRStatsPlot";
     _floatingY.coordinate = CPTCoordinateY;
     _floatingY.plotSpace = _graph.defaultPlotSpace;
 	_floatingY.orthogonalCoordinateDecimal = CPTDecimalFromDouble(10);
-	NSNumberFormatter *sciFormatter = [[NSNumberFormatter new] autorelease];
+	NSNumberFormatter *sciFormatter = [NSNumberFormatter new];
 	sciFormatter.numberStyle = NSNumberFormatterScientificStyle;
 	_floatingY.labelFormatter = sciFormatter;
 	_floatingY.labelTextStyle = font;
@@ -103,11 +103,6 @@ static NSString *const NRStatsPlotIdentifier = @"NRStatsPlot";
 {
     if(_stats.delegate == self)
 	_stats.delegate = nil;
-	[hostView release];
-	[_stats release];
-	[_graph release];
-	[_floatingY release];
-	[super dealloc];
 }
 
 -(void)prepareForReuse;
@@ -122,9 +117,8 @@ static NSString *const NRStatsPlotIdentifier = @"NRStatsPlot";
     
     if(_stats.delegate == self)
         _stats.delegate = nil;
-	[_stats release];
     
-	_stats = [stats retain];
+	_stats = stats;
 	_stats.delegate = self;
     
 	if(!_stats) return;
@@ -197,7 +191,7 @@ static NSString *const NRStatsPlotIdentifier = @"NRStatsPlot";
 	CPTPlot *dataSourceLinePlot = [_graph plotWithIdentifier:NRStatsPlotIdentifier];
     [plotSpace scaleToFitPlots:[NSArray arrayWithObject:dataSourceLinePlot]];
 	
-	CPTMutablePlotRange *yRange = [[plotSpace.yRange mutableCopy] autorelease];
+	CPTMutablePlotRange *yRange = [plotSpace.yRange mutableCopy];
     [yRange unionPlotRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0) length:CPTDecimalFromDouble(0)]]; // always include 0
 	[yRange expandRangeByFactor:CPTDecimalFromDouble(1.5)];
     plotSpace.yRange = yRange;

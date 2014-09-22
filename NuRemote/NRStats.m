@@ -8,7 +8,7 @@
 
 @interface NRStats ()
 @property(nonatomic,copy,readwrite) NSString *name;
-@property(nonatomic,retain,readwrite) NSMutableArray *times, *data;
+@property(nonatomic,strong,readwrite) NSMutableArray *times, *data;
 @end
 
 @implementation NRStats
@@ -29,14 +29,6 @@
         _formatter = [NRDescFormatter new];
 	
 	return self;
-}
--(void)dealloc;
-{
-	self.name = nil;
-	self.times = nil;
-	self.data = nil;
-    self.formatter = nil;
-	[super dealloc];
 }
 
 -(void)addPoint:(float)point atTime:(NSTimeInterval)interval;
@@ -60,7 +52,7 @@
 }
 -(NSDictionary*)dictionaryRepresentation;
 {
-	NSMutableDictionary *d = [[[NSMutableDictionary alloc] initWithCapacity:_data.count] autorelease];
+	NSMutableDictionary *d = [[NSMutableDictionary alloc] initWithCapacity:_data.count];
 	for(int i = 0, c = _data.count; i < c; i++)
 		[d setObject:[_data objectAtIndex:i] forKey:[_times objectAtIndex:i]];
 	return d;

@@ -6,7 +6,7 @@ static NSColor *DarkGreen() {
 }
 
 @interface ClientController ()
-@property (readwrite, retain) RemotingClient *client;
+@property (readwrite, strong) RemotingClient *client;
 @property (copy) NSString *oldHost;
 -(void)appendString:(NSString*)str color:(NSColor*)color italic:(BOOL)italic to:(NSTextView*)dest;
 @end
@@ -26,12 +26,6 @@ static NSColor *DarkGreen() {
 	statSets = [NSMutableArray new];
 	
 	return self;
-}
--(void)dealloc;
-{
-	self.client = nil;
-	self.oldHost = nil;
-	[super dealloc];
 }
 
 #pragma mark Text stuff
@@ -53,7 +47,7 @@ static NSColor *DarkGreen() {
 		[attrs setObject:italic forKey:NSFontAttributeName];
 	}
 	[attrs setObject:color forKey:NSForegroundColorAttributeName];
-	NSAttributedString * astr = [[[NSAttributedString alloc] initWithString:[str stringByAppendingString:@"\n"] attributes:attrs] autorelease];
+	NSAttributedString * astr = [[NSAttributedString alloc] initWithString:[str stringByAppendingString:@"\n"] attributes:attrs];
 	
 	NSScrollView *scroll = [dest enclosingScrollView];
 	BOOL scrollToEnd = [[scroll verticalScroller] floatValue] == 1 && dest.selectedRange.length==0;
@@ -128,7 +122,7 @@ static NSColor *DarkGreen() {
 	NSError *err = nil;
 	RemotingClient *cl = nil;
 	if(oldHost)
-		cl = [[[RemotingClient alloc] initWithHost:self.oldHost port:oldPort error:&err] autorelease];
+		cl = [[RemotingClient alloc] initWithHost:self.oldHost port:oldPort error:&err];
 	if(!cl) {
 		NSString *error = @"No host to connect to; aborting";
 		if(err) error = [NSString stringWithFormat:@"%@; aborting", [err localizedDescription]];
@@ -140,7 +134,7 @@ static NSColor *DarkGreen() {
 
 -(IBAction)sendCommand:(id)sender;
 {
-	NSMutableString *outputString = [[[input string] mutableCopy] autorelease];
+	NSMutableString *outputString = [[input string] mutableCopy];
 	if([outputString isEqual:@"/reconnect"]) {
 		[self reconnect];
 		return;
@@ -164,7 +158,7 @@ static NSColor *DarkGreen() {
 {
 	for(NRStats *stats in statSets)
 		if([stats.name isEqual:name]) return stats;
-	NRStats *stats = [[[NRStats alloc] initWithName:name] autorelease];
+	NRStats *stats = [[NRStats alloc] initWithName:name];
 	[[self mutableArrayValueForKey:@"statSets"] addObject:stats];
 	return stats;
 }

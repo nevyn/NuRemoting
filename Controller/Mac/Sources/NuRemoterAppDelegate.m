@@ -45,11 +45,13 @@
     [[sender window] close];
     
     NSError *err = nil;
-	RemotingClient *client = [[[RemotingClient alloc] initWithHost:host port:port error:&err] autorelease];
+	RemotingClient *client = [[RemotingClient alloc] initWithHost:host port:port error:&err];
 	if(!client) {
 		[NSApp presentError:err];
 		return;
 	}
+
+    // FIXME: Don't let the RemotingClient hold this reference through it's delegate property
 	ClientController *controller = [(ClientController*)[ClientController alloc] initWithClient:client];
 	[controller showWindow:nil];
 }
@@ -57,7 +59,7 @@
 - (void)netServiceDidResolveAddress:(NSNetService *)service;
 {
 	NSError *err = nil;
-	RemotingClient *client = [[[RemotingClient alloc] initWithService:service error:&err] autorelease];
+	RemotingClient *client = [[RemotingClient alloc] initWithService:service error:&err];
 	if(!client) {
 		[NSApp presentError:err];
 		return;

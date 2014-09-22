@@ -12,15 +12,15 @@
 	NSString *oldHost; int oldPort;
 	int reconnectCount;
 	IBOutlet TemplateController *templates;
-	NSDrawer *statsDrawer;
-	NSTableView *statsTable;
+	NSDrawer *__weak statsDrawer;
+	NSTableView *__weak statsTable;
 	NSMutableArray *statSets;
 	BOOL hasAutoshownStats;
 }
-@property(readonly,assign) IBOutlet NSDrawer *statsDrawer;
-@property(readonly,assign) IBOutlet NSTableView *statsTable;
+@property(readonly,weak) IBOutlet NSDrawer *statsDrawer;
+@property(readonly,weak) IBOutlet NSTableView *statsTable;
 
-@property(readonly,retain) RemotingClient *client;
+@property(readonly,strong) RemotingClient *client;
 
 -(id)initWithClient:(RemotingClient*)client_;
 -(IBAction)sendCommand:(id)sender;
