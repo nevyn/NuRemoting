@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0511A70F145B65310060519A /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 0511A709145B65310060519A /* AsyncSocket.m */; };
+		0511A70F145B65310060519A /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 0511A709145B65310060519A /* AsyncSocket.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		0511A710145B65310060519A /* RemotingClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0511A70B145B65310060519A /* RemotingClient.m */; };
 		0511A7F1145EDB4B0060519A /* NRStats.m in Sources */ = {isa = PBXBuildFile; fileRef = 0511A7F0145EDB4A0060519A /* NRStats.m */; };
 		0550BFC8145FF9D800BF8366 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0550BFC7145FF9D800BF8366 /* UIKit.framework */; };
