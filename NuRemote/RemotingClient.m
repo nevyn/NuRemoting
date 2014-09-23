@@ -21,10 +21,10 @@ typedef NS_ENUM(NSInteger, ReadingType) {
 	kReadingCommand = 0,
 	kReadingData = 1,
 	kReadingDatasetPriming = 2,
-} ;
+};
 
-NSDictionary *SPKeyValueStringToDict(NSString *kvString);
-NSDictionary *SPKeyValueStringToDict(NSString *kvString) {
+NSDictionary *SPKeyValueStringToDict(NSString *kvString)
+{
 	NSArray *lines = [kvString componentsSeparatedByString:@"\n"];
 	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:[lines count]];
 	for (NSString *line in lines) {
@@ -39,11 +39,12 @@ NSDictionary *SPKeyValueStringToDict(NSString *kvString) {
 
 @implementation RemotingClient
 
-+(void)performSearchOnBrowser:(NSNetServiceBrowser*)browser;
++ (void)performSearchOnBrowser:(NSNetServiceBrowser*)browser
 {
 	[browser searchForServicesOfType:kNuRemotingBonjourType inDomain:@""];
 }
--(instancetype)initWithService:(NSNetService*)service error:(NSError**)err;
+
+- (instancetype)initWithService:(NSNetService*)service error:(NSError**)err
 {
 	self.messageSeparator = [NSData dataWithBytes:"\xa\xa" length:2];
 	
@@ -59,7 +60,8 @@ NSDictionary *SPKeyValueStringToDict(NSString *kvString) {
 	
 	return self;
 }
--(instancetype)initWithHost:(NSString*)host port:(int)port error:(NSError**)err;
+
+- (instancetype)initWithHost:(NSString*)host port:(int)port error:(NSError**)err
 {
 	self.messageSeparator = [NSData dataWithBytes:"\xa\xa" length:2];
 	
@@ -74,9 +76,9 @@ NSDictionary *SPKeyValueStringToDict(NSString *kvString) {
 	delegateResponseMap = [NSMutableDictionary new];
 	
 	return self;
-
 }
--(void)dealloc;
+
+- (void)dealloc
 {
     _socket.delegate = nil;
     delegateResponseMap = nil;
@@ -84,7 +86,8 @@ NSDictionary *SPKeyValueStringToDict(NSString *kvString) {
 
 #define MapResponse(sel) [delegateResponseMap setObject:[NSNumber numberWithBool:[_delegate respondsToSelector:@selector(sel)]] forKey:NSStringFromSelector(@selector(sel))];
 #define DelegateResponds(sel) [[delegateResponseMap objectForKey:NSStringFromSelector(@selector(sel))] boolValue]
--(void)setDelegate:(id<RemotingClientDelegate>)delegate;
+
+- (void)setDelegate:(id<RemotingClientDelegate>)delegate
 {
 	_delegate = delegate;
 	MapResponse(remotingClient:receivedOutput:withStatusCode:);
@@ -95,19 +98,19 @@ NSDictionary *SPKeyValueStringToDict(NSString *kvString) {
 	MapResponse(remotingClientDisconnected:);
 }
 
-
-
-- (void)onSocket:(AsyncSocket *)sock willDisconnectWithError:(NSError *)err;
+- (void)onSocket:(AsyncSocket *)sock willDisconnectWithError:(NSError *)err
 {
 	if(DelegateResponds(remotingClient:willDisconnectWithError:))
 		[_delegate remotingClient:self willDisconnectWithError:err];
 }
+
 - (void)onSocketDidDisconnect:(AsyncSocket *)sock
 {
 	if(DelegateResponds(remotingClientDisconnected:))
 		[_delegate remotingClientDisconnected:self];
 	self.socket = nil;
 }
+
 - (void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
 {
 	[self sendCommand:@"(connection useETBForMessageSeparator)"];
@@ -122,6 +125,7 @@ NSDictionary *SPKeyValueStringToDict(NSString *kvString) {
 	if(DelegateResponds(remotingClientConnected:))
 		[_delegate remotingClientConnected:self];
 }
+
 - (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
 	if(tag == kReadingCommand) {
@@ -188,13 +192,13 @@ NSDictionary *SPKeyValueStringToDict(NSString *kvString) {
 		[self.socket readDataToData:self.messageSeparator withTimeout:-1 tag:kReadingCommand];
 	}
 }
--(void)sendCommand:(NSString*)commands;
+
+-(void)sendCommand:(NSString*)commands
 {
 	NSMutableData *data = [NSMutableData data];
 	[data appendData:[commands dataUsingEncoding:NSUTF8StringEncoding]];
 	[data appendData:self.messageSeparator];
 	[self.socket writeData:data withTimeout:-1 tag:0];
 }
-
 
 @end

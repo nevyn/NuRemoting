@@ -12,7 +12,8 @@
 @end
 
 @implementation NRStats
--(instancetype)initWithName:(NSString*)name;
+
+-(instancetype)initWithName:(NSString*)name
 {
 	if(!(self = [super init])) return nil;
 	
@@ -29,7 +30,7 @@
 	return self;
 }
 
--(void)addPoint:(float)point atTime:(NSTimeInterval)interval;
+-(void)addPoint:(float)point atTime:(NSTimeInterval)interval
 {
 	NSTimeInterval latest = [[_times lastObject] doubleValue];
 	if(interval - latest < _timeGranuality) return;
@@ -48,7 +49,8 @@
 	if(numDeletedPoints > 0)
 		[_delegate stats:self prunedPoints:numDeletedPoints];
 }
--(NSDictionary*)dictionaryRepresentation;
+
+-(NSDictionary*)dictionaryRepresentation
 {
 	NSMutableDictionary *d = [[NSMutableDictionary alloc] initWithCapacity:_data.count];
 	for(int i = 0, c = _data.count; i < c; i++)
@@ -57,14 +59,17 @@
 }
 @end
 
+
 @implementation NRDescFormatter
--(NSString*)stringForObjectValue:(id)obj;
+-(NSString*)stringForObjectValue:(id)obj
 {
     return [obj description];
 }
 @end
+
+
 @implementation NRByteSizeFormatter
--(NSString*)stringForObjectValue:(id)obj;
+-(NSString*)stringForObjectValue:(id)obj
 {
     float val = [obj floatValue];
     
