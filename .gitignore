@@ -1,3 +1,6 @@
 ### Xcode ###
 xcuserdata
 *.xcworkspace
+Podfile.lock
+Pods
+
