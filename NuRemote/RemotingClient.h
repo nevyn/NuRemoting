@@ -24,13 +24,7 @@
 @end
 
 
-@interface RemotingClient : NSObject {
-	AsyncSocket *socket;
-	NSString *name;
-	NSString *incomingDatasetName;
-	NSMutableDictionary *delegateResponseMap;
-	NSData *messageSeparator;
-}
+@interface RemotingClient : NSObject
 @property(nonatomic,strong) id<RemotingClientDelegate> delegate;
 @property(nonatomic,copy) NSString *name;
 @property(nonatomic,readonly,strong) AsyncSocket *socket;

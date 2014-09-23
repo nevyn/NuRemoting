@@ -46,9 +46,6 @@
 @end
 
 @implementation SPNRClient
-@synthesize messageSeparator = _messageSeparator;
-@synthesize statsEnabled = _statsEnabled;
-@synthesize loggingEnabled = _loggingEnabled;
 -(id)init:(AsyncSocket*)s :(SPNuRemote*)parent_;
 {
 	if(!(self = [super init])) return nil;

@@ -6,15 +6,7 @@
 -(void)stats:(NRStats *)stats prunedPoints:(NSUInteger)deletedCount;
 @end
 
-@interface NRStats : NSObject {
-	NSString *_name;
-	NSMutableArray *_times;
-	NSMutableArray *_data;
-	id<NRStatsDelegate> __unsafe_unretained _delegate;
-	NSTimeInterval _maximumDataAge;
-	NSTimeInterval _timeGranuality;
-    NSFormatter *_formatter;
-}
+@interface NRStats : NSObject
 @property(nonatomic,copy,readonly) NSString *name;
 @property(nonatomic,strong,readonly) NSMutableArray *times, *data;
 @property(nonatomic) NSTimeInterval maximumDataAge; // default 60

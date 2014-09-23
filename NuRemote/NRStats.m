@@ -12,8 +12,6 @@
 @end
 
 @implementation NRStats
-@synthesize name = _name, times = _times, data = _data, delegate = _delegate, maximumDataAge = _maximumDataAge, timeGranuality = _timeGranuality;
-@synthesize formatter = _formatter;
 -(instancetype)initWithName:(NSString*)name;
 {
 	if(!(self = [super init])) return nil;
