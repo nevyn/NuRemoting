@@ -46,10 +46,8 @@
 @end
 
 @implementation SPNRClient
-@synthesize messageSeparator = _messageSeparator;
-@synthesize statsEnabled = _statsEnabled;
-@synthesize loggingEnabled = _loggingEnabled;
--(id)init:(AsyncSocket*)s :(SPNuRemote*)parent_;
+
+- (id)init:(AsyncSocket*)s :(SPNuRemote*)parent_
 {
 	if(!(self = [super init])) return nil;
 	
@@ -72,20 +70,23 @@
 	
 	return self;
 }
--(void)dealloc;
+
+- (void)dealloc
 {
 	self.messageSeparator = nil;
 	[sock release];
 	[parser release];
 	[super dealloc];
 }
-- (void)onSocketDidDisconnect:(AsyncSocket *)sock_;
+
+- (void)onSocketDidDisconnect:(AsyncSocket *)sock_
 {
 	[parser parseEval:@"(set connection nil) (set remote nil)"];
 	[sock release]; sock = nil;
 	[parent.clients removeObject:self]; // I will be deallocated now
 }
--(void)reply:(NSString*)code :(NSString*)reply;
+
+- (void)reply:(NSString*)code :(NSString*)reply
 {
 	NSData *d = [[NSString stringWithFormat:@"%@\t%@", code, reply] dataUsingEncoding:NSUTF8StringEncoding];
 	[sock writeData:d withTimeout:-1 tag:0];
@@ -93,7 +94,7 @@
 	[sock readDataToData:self.messageSeparator withTimeout:-1 tag:0];
 }
 
--(void)replyData:(NSData*)data
+- (void)replyData:(NSData*)data
 {
 	NSData *header = [[NSString stringWithFormat:@"201 OK data transfer\t\nContent-Length: %d", [data length]] dataUsingEncoding:NSUTF8StringEncoding];
 	[sock writeData:header withTimeout:-1 tag:0];
@@ -102,8 +103,7 @@
 	[sock readDataToData:self.messageSeparator withTimeout:-1 tag:0];
 }
 
-
-- (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag;
+- (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
 	data = [data subdataWithRange:NSMakeRange(0, data.length-self.messageSeparator.length)];
 	NSString *cmd = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
@@ -121,13 +121,15 @@
 	
 	return [self reply:@"200 OK" :reply];
 }
--(void)writeLogLine:(NSString*)line logLevel:(int)logLevel;
+
+- (void)writeLogLine:(NSString*)line logLevel:(int)logLevel
 {
 	if(!_loggingEnabled) return;
 	
 	[self reply:[NSString stringWithFormat:@"6%02d Log message", logLevel] :[line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
 }
--(void)addDataPoint:(float)data atTime:(NSTimeInterval)interval toDataSet:(NSString*)setName;
+
+-(void)addDataPoint:(float)data atTime:(NSTimeInterval)interval toDataSet:(NSString*)setName
 {
 	if(!_statsEnabled) return;
 	
@@ -135,7 +137,8 @@
 		setName, interval, data
 	]];
 }
--(void)sendInitialDatasets;
+
+-(void)sendInitialDatasets
 {
 	for(NRStats *dataset in parent.datasets) {
 		NSData *data = [NSKeyedArchiver archivedDataWithRootObject:dataset.dictionaryRepresentation];
@@ -147,11 +150,13 @@
 			[self addDataPoint:[[dataset.data objectAtIndex:i] floatValue] atTime:[[dataset.times objectAtIndex:i] doubleValue] toDataSet:dataset.name];*/
 	}
 }
--(void)useETBForMessageSeparator;
+
+-(void)useETBForMessageSeparator
 {
 	self.messageSeparator = [NSData dataWithBytes:(char[]){23} length:1];
 }
--(void)setStatsEnabled:(BOOL)wantStats;
+
+-(void)setStatsEnabled:(BOOL)wantStats
 {
 	_statsEnabled = wantStats;
 	
@@ -163,15 +168,16 @@
 
 
 @implementation SPNuRemote
-@synthesize listenSocket, publisher, clients, datasets;
--(id)init;
+
+- (id)init
 {
 	clients = [NSMutableArray new];
 	datasets = [NSMutableArray new];
 
 	return self;
 }
--(void)run;
+
+- (void)run
 {
 	if(!NSClassFromString(@"Nu") || listenSocket)
 		return;
@@ -191,7 +197,8 @@
 
 	[self publishAndAvoidCollision:NO];
 }
--(void)dealloc;
+
+- (void)dealloc
 {
 	self.listenSocket = nil;
 	self.publisher = nil;
@@ -203,7 +210,8 @@
 	[datasets release];
 	[super dealloc];
 }
--(void)activated;
+
+- (void)activated
 {
 	[self.publisher stop];
 	listenSocket.delegate = nil;
@@ -216,25 +224,25 @@
 		[self publishAndAvoidCollision:NO];
 }
 
-
-- (void)onSocket:(AsyncSocket *)sock didAcceptNewSocket:(AsyncSocket *)newSocket;
+- (void)onSocket:(AsyncSocket *)sock didAcceptNewSocket:(AsyncSocket *)newSocket
 {
 	[clients addObject:[[[SPNRClient alloc] init:newSocket :self] autorelease]];
 }
-- (void)onSocketDidDisconnect:(AsyncSocket *)sock;
+
+- (void)onSocketDidDisconnect:(AsyncSocket *)sock
 {
 	self.listenSocket = nil;
 	self.publisher = nil;
 	[self activated];
 }
 
--(void)writeLogLine:(NSString *)line logLevel:(int)level;
+- (void)writeLogLine:(NSString *)line logLevel:(int)level
 {
 	for(SPNRClient *client in clients)
 		[client writeLogLine:line logLevel:level];
 }
 
--(NRStats*)statsNamed:(NSString*)name;
+- (NRStats*)statsNamed:(NSString*)name
 {
 	for(NRStats *stats in datasets)
 		if([stats.name isEqual:name]) return stats;
@@ -243,7 +251,7 @@
 	return stats;
 }
 
--(void)addDataPoint:(float)data toDataSet:(NSString*)setName;
+- (void)addDataPoint:(float)data toDataSet:(NSString*)setName
 {
 	NRStats *stats = [self statsNamed:setName];
 
@@ -256,7 +264,7 @@
 }
 
 #pragma mark Bonjour
--(void)publishAndAvoidCollision:(BOOL)avoidCollision;
+- (void)publishAndAvoidCollision:(BOOL)avoidCollision
 {
 	NSString *appName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
 	
@@ -295,14 +303,14 @@
 
 /* Sent to the NSNetService instance's delegate when the publication of the instance is complete and successful.
 */
-- (void)netServiceDidPublish:(NSNetService *)sender;
+- (void)netServiceDidPublish:(NSNetService *)sender
 {
 	NSLog(@"SPNuRemote successfully published");
 }
 
 /* Sent to the NSNetService instance's delegate when an error in publishing the instance occurs. The error dictionary will contain two key/value pairs representing the error domain and code (see the NSNetServicesError enumeration above for error code constants). It is possible for an error to occur after a successful publication.
 */
-- (void)netService:(NSNetService *)sender didNotPublish:(NSDictionary *)errorDict;
+- (void)netService:(NSNetService *)sender didNotPublish:(NSDictionary *)errorDict
 {
 	NSLog(@"SPNuRemote failed to publish: %@", errorDict);
 	
@@ -312,7 +320,7 @@
 
 /* Sent to the NSNetService instance's delegate when an error in resolving the instance occurs. The error dictionary will contain two key/value pairs representing the error domain and code (see the NSNetServicesError enumeration above for error code constants).
 */
-- (void)netService:(NSNetService *)sender didNotResolve:(NSDictionary *)errorDict;
+- (void)netService:(NSNetService *)sender didNotResolve:(NSDictionary *)errorDict
 {
 	NSLog(@"SPNuRemote resolution failed: %@", errorDict);
 }

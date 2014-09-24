@@ -1,14 +1,20 @@
 #import "TemplateController.h"
 
+@interface TemplateController()
+@property(assign) IBOutlet NSTextView *destination;
+@property(weak) IBOutlet NSComboBox *comboBox;
+@end
 
 @implementation TemplateController
-+(NSString*)snippetFolder;
+
++(NSString*)snippetFolder
 {
-	NSString *docs = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+	NSString *docs = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
 	NSString *snippetFolder = [docs stringByAppendingPathComponent:@"NuRemoter Snippets"];
 	return snippetFolder;
 }
--(NSArray*)snippets;
+
+-(NSArray*)snippets
 {
 	NSArray *files = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:[[self class] snippetFolder] error:nil];
 	NSMutableArray *matchingFiles = [NSMutableArray array];
@@ -16,38 +22,45 @@
 		if([file hasSuffix:@".nu"]) [matchingFiles addObject:file];
 	return matchingFiles;
 }
-- (NSInteger)numberOfItemsInComboBox:(NSComboBox *)aComboBox;
+
+- (NSInteger)numberOfItemsInComboBox:(NSComboBox *)aComboBox
 {
 	return [self snippets].count;
 }
-- (id)comboBox:(NSComboBox *)aComboBox objectValueForItemAtIndex:(NSInteger)index;
+
+- (id)comboBox:(NSComboBox *)aComboBox objectValueForItemAtIndex:(NSInteger)index
 {
-	return [[self snippets] objectAtIndex:index];
+	return [self snippets][index];
 }
-- (NSUInteger)comboBox:(NSComboBox *)aComboBox indexOfItemWithStringValue:(NSString *)string;
+
+- (NSUInteger)comboBox:(NSComboBox *)aComboBox indexOfItemWithStringValue:(NSString *)string
 {
 	return [[self snippets] indexOfObject:string];
 }
--(void)comboBoxSelectionDidChange2;
+
+-(void)comboBoxSelectionDidChange2
 {
-	NSString *contents = [self contentsOfSnippetNamed:[comboBox stringValue]];
+	NSString *contents = [self contentsOfSnippetNamed:[self.comboBox stringValue]];
 	if(contents)
-		[destination.textStorage replaceCharactersInRange:NSMakeRange(0, destination.textStorage.string.length) withString:contents];
+		[self.destination.textStorage replaceCharactersInRange:NSMakeRange(0, self.destination.textStorage.string.length) withString:contents];
 
 }
-- (void)comboBoxSelectionDidChange:(NSNotification *)notification;
+
+- (void)comboBoxSelectionDidChange:(NSNotification *)notification
 {
 	[self performSelector:@selector(comboBoxSelectionDidChange2) withObject:nil afterDelay:0];
 }
--(IBAction)save:(id)sender;
+
+-(IBAction)save:(id)sender
 {
 	[[NSFileManager defaultManager] createDirectoryAtPath:[[self class] snippetFolder] withIntermediateDirectories:YES attributes:nil error:nil];
-	NSString *snippetPath = [[[self class] snippetFolder] stringByAppendingPathComponent:[comboBox stringValue]];
+	NSString *snippetPath = [[[self class] snippetFolder] stringByAppendingPathComponent:[self.comboBox stringValue]];
 	NSError *err = nil;
-	if(![destination.textStorage.string writeToFile:snippetPath atomically:YES encoding:NSUTF8StringEncoding error:&err])
+	if(![self.destination.textStorage.string writeToFile:snippetPath atomically:YES encoding:NSUTF8StringEncoding error:&err])
 		[NSApp presentError:err];
 }
--(NSString*)contentsOfSnippetNamed:(NSString*)name;
+
+-(NSString*)contentsOfSnippetNamed:(NSString*)name
 {
 	NSString *snippetPath = [[[self class] snippetFolder] stringByAppendingPathComponent:name];
 	NSString *contents = [NSString stringWithContentsOfFile:snippetPath encoding:NSUTF8StringEncoding error:nil];

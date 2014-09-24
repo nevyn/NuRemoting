@@ -16,7 +16,7 @@
 	CPTXYAxis *_floatingY;
 	NSTimeInterval latestTaggedPoint;
 }
-@property(nonatomic,retain) IBOutlet CPTGraphHostingView *hostView;
-@property(nonatomic,retain) NRStats *stats;
+@property(nonatomic,strong) IBOutlet CPTGraphHostingView *hostView;
+@property(nonatomic,strong) NRStats *stats;
 
 @end

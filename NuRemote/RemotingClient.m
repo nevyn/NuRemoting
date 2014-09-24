@@ -8,48 +8,50 @@
 
 #import "RemotingClient.h"
 
-@interface RemotingClient ()
-@property(nonatomic,readwrite,retain) AsyncSocket *socket;
+@interface RemotingClient ()  {
+    NSMutableDictionary *delegateResponseMap;
+}
+
+@property(nonatomic,readwrite,strong) AsyncSocket *socket;
 @property(nonatomic,copy) NSString *incomingDatasetName;
 @property(nonatomic,copy) NSData *messageSeparator;
 @end
 
-typedef enum {
+typedef NS_ENUM(NSInteger, ReadingType) {
 	kReadingCommand = 0,
 	kReadingData = 1,
 	kReadingDatasetPriming = 2,
-} ReadingType;
+};
 
-NSDictionary *SPKeyValueStringToDict(NSString *kvString);
-NSDictionary *SPKeyValueStringToDict(NSString *kvString) {
+NSDictionary *SPKeyValueStringToDict(NSString *kvString)
+{
 	NSArray *lines = [kvString componentsSeparatedByString:@"\n"];
 	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:[lines count]];
 	for (NSString *line in lines) {
 		NSArray *keyAndValue = [line componentsSeparatedByString:@":"];
 		if([keyAndValue count] != 2) continue;
-		NSString *key = [[keyAndValue objectAtIndex:0] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-		NSString *value = [[keyAndValue objectAtIndex:1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-		[dict setObject:value forKey:key];
+		NSString *key = [keyAndValue[0] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+		NSString *value = [keyAndValue[1] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+		dict[key] = value;
 	}
 	return dict;
 }
 
 @implementation RemotingClient
-@synthesize delegate = _delegate, socket, name, incomingDatasetName, messageSeparator;
 
-+(void)performSearchOnBrowser:(NSNetServiceBrowser*)browser;
++ (void)performSearchOnBrowser:(NSNetServiceBrowser*)browser
 {
 	[browser searchForServicesOfType:kNuRemotingBonjourType inDomain:@""];
 }
--(id)initWithService:(NSNetService*)service error:(NSError**)err;
+
+- (instancetype)initWithService:(NSNetService*)service error:(NSError**)err
 {
 	self.messageSeparator = [NSData dataWithBytes:"\xa\xa" length:2];
 	
-	self.socket = [[[AsyncSocket alloc] initWithDelegate:self] autorelease];
-	[self.socket setRunLoopModes:[NSArray arrayWithObject:NSRunLoopCommonModes]];
+	_socket = [[AsyncSocket alloc] initWithDelegate:self];
+	[_socket setRunLoopModes:@[NSRunLoopCommonModes]];
 
-	if(![socket connectToAddress:[service.addresses objectAtIndex:0] error:err]) {
-		[self release];
+	if(![_socket connectToAddress:(service.addresses)[0] error:err]) {
 		return nil;
 	}
 	
@@ -58,15 +60,15 @@ NSDictionary *SPKeyValueStringToDict(NSString *kvString) {
 	
 	return self;
 }
--(id)initWithHost:(NSString*)host port:(int)port error:(NSError**)err;
+
+- (instancetype)initWithHost:(NSString*)host port:(int)port error:(NSError**)err
 {
 	self.messageSeparator = [NSData dataWithBytes:"\xa\xa" length:2];
 	
-	self.socket = [[[AsyncSocket alloc] initWithDelegate:self] autorelease];
-	[self.socket setRunLoopModes:[NSArray arrayWithObject:NSRunLoopCommonModes]];
+	_socket = [[AsyncSocket alloc] initWithDelegate:self];
+	[_socket setRunLoopModes:@[NSRunLoopCommonModes]];
 
-	if(![socket connectToHost:host onPort:port error:err]) {
-		[self release];
+	if(![_socket connectToHost:host onPort:port error:err]) {
 		return nil;
 	}
 	
@@ -74,20 +76,18 @@ NSDictionary *SPKeyValueStringToDict(NSString *kvString) {
 	delegateResponseMap = [NSMutableDictionary new];
 	
 	return self;
-
 }
--(void)dealloc;
+
+- (void)dealloc
 {
-	self.messageSeparator = nil;
-	self.socket.delegate = nil;
-	self.socket = nil;
-	[delegateResponseMap release]; delegateResponseMap = nil;
-	[super dealloc];
+    _socket.delegate = nil;
+    delegateResponseMap = nil;
 }
 
 #define MapResponse(sel) [delegateResponseMap setObject:[NSNumber numberWithBool:[_delegate respondsToSelector:@selector(sel)]] forKey:NSStringFromSelector(@selector(sel))];
 #define DelegateResponds(sel) [[delegateResponseMap objectForKey:NSStringFromSelector(@selector(sel))] boolValue]
--(void)setDelegate:(id<RemotingClientDelegate>)delegate;
+
+- (void)setDelegate:(id<RemotingClientDelegate>)delegate
 {
 	_delegate = delegate;
 	MapResponse(remotingClient:receivedOutput:withStatusCode:);
@@ -98,24 +98,24 @@ NSDictionary *SPKeyValueStringToDict(NSString *kvString) {
 	MapResponse(remotingClientDisconnected:);
 }
 
-
-
-- (void)onSocket:(AsyncSocket *)sock willDisconnectWithError:(NSError *)err;
+- (void)onSocket:(AsyncSocket *)sock willDisconnectWithError:(NSError *)err
 {
 	if(DelegateResponds(remotingClient:willDisconnectWithError:))
 		[_delegate remotingClient:self willDisconnectWithError:err];
 }
+
 - (void)onSocketDidDisconnect:(AsyncSocket *)sock
 {
 	if(DelegateResponds(remotingClientDisconnected:))
 		[_delegate remotingClientDisconnected:self];
 	self.socket = nil;
 }
+
 - (void)onSocket:(AsyncSocket *)sock didConnectToHost:(NSString *)host port:(UInt16)port
 {
 	[self sendCommand:@"(connection useETBForMessageSeparator)"];
 	self.messageSeparator = [NSData dataWithBytes:(char[]){23} length:1];
-	[socket readDataToData:self.messageSeparator withTimeout:-1 tag:kReadingCommand];
+	[self.socket readDataToData:self.messageSeparator withTimeout:-1 tag:kReadingCommand];
 	
 	if(DelegateResponds(remotingClient:receivedOutput:withStatusCode:))
 		[_delegate remotingClient:self receivedOutput:@"Enabling logging and stats...." withStatusCode:1];
@@ -125,12 +125,13 @@ NSDictionary *SPKeyValueStringToDict(NSString *kvString) {
 	if(DelegateResponds(remotingClientConnected:))
 		[_delegate remotingClientConnected:self];
 }
+
 - (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
 	if(tag == kReadingCommand) {
 		data = [data subdataWithRange:NSMakeRange(0, data.length-self.messageSeparator.length)];
 
-		NSString *cmd = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+		NSString *cmd = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 		NSString *code = [cmd substringToIndex:[cmd rangeOfString:@" "].location];
 		NSRange r;
 		r.location = [cmd rangeOfString:@"\t"].location + 1;
@@ -139,18 +140,18 @@ NSDictionary *SPKeyValueStringToDict(NSString *kvString) {
 		
 		if(SPRemoteHasDataAttachment([code intValue])) {
 			NSDictionary *settings = SPKeyValueStringToDict(output);
-			int length = [[settings objectForKey:@"Content-Length"] intValue];
+			int length = [settings[@"Content-Length"] intValue];
 			
 			if([code intValue] == RemotingStatusStatsPriming) {
-				self.incomingDatasetName = [settings objectForKey:@"Set-Name"];
+				self.incomingDatasetName = settings[@"Set-Name"];
 				if(DelegateResponds(remotingClient:receivedOutput:withStatusCode:))
 					[_delegate remotingClient:self receivedOutput:[NSString stringWithFormat:@"Receiving %d bytes of stats...", length] withStatusCode:[code intValue]];
 				
-				[socket readDataToLength:length withTimeout:-1 tag:kReadingDatasetPriming];
+				[self.socket readDataToLength:length withTimeout:-1 tag:kReadingDatasetPriming];
 			} else if([code intValue] == RemotingDataReply) {
 				if(DelegateResponds(remotingClient:receivedOutput:withStatusCode:))
 					[_delegate remotingClient:self receivedOutput:[NSString stringWithFormat:@"Receiving %d bytes of data...", length] withStatusCode:[code intValue]];
-				[socket readDataToLength:length withTimeout:-1 tag:kReadingData];
+				[self.socket readDataToLength:length withTimeout:-1 tag:kReadingData];
 			}
 		} else if([code intValue] == RemotingStatusStatsNewDataPoint) {
 			if(DelegateResponds(remotingClient:receivedPoint:at:inSet:)) {
@@ -158,46 +159,46 @@ NSDictionary *SPKeyValueStringToDict(NSString *kvString) {
 				NSAssert([components count] == 3, @"Missing component in data set");
 				
 				[_delegate remotingClient:self
-					receivedPoint:[[components objectAtIndex:2] floatValue]
-					at:[[components objectAtIndex:1] doubleValue]
-					inSet:[components objectAtIndex:0]
+					receivedPoint:[components[2] floatValue]
+					at:[components[1] doubleValue]
+					inSet:components[0]
 				];
 			}
-			[socket readDataToData:self.messageSeparator withTimeout:-1 tag:kReadingCommand];
+			[self.socket readDataToData:self.messageSeparator withTimeout:-1 tag:kReadingCommand];
 
 		} else {
 			if(DelegateResponds(remotingClient:receivedOutput:withStatusCode:))
 				[_delegate remotingClient:self receivedOutput:output withStatusCode:[code intValue]];
-			[socket readDataToData:self.messageSeparator withTimeout:-1 tag:kReadingCommand];
+			[self.socket readDataToData:self.messageSeparator withTimeout:-1 tag:kReadingCommand];
 		}
 		
 	} else if (tag == kReadingData) {
 		if(DelegateResponds(remotingClient:receivedOutput:withStatusCode:))
-			[_delegate remotingClient:self receivedOutput:[NSString stringWithFormat:@"Received %d bytes of data.", [data length]] withStatusCode:201];
+			[_delegate remotingClient:self receivedOutput:[NSString stringWithFormat:@"Received %lu bytes of data.", (unsigned long)[data length]] withStatusCode:201];
 		if(DelegateResponds(remotingClient:receivedData:))
 			[_delegate remotingClient:self receivedData:data];
-		[socket readDataToData:self.messageSeparator withTimeout:-1 tag:kReadingCommand];
+		[self.socket readDataToData:self.messageSeparator withTimeout:-1 tag:kReadingCommand];
 	} else if (tag == kReadingDatasetPriming) {
 		NSDictionary *primedStats = [NSKeyedUnarchiver unarchiveObjectWithData:data];
 		if(DelegateResponds(remotingClient:receivedOutput:withStatusCode:))
-			[_delegate remotingClient:self receivedOutput:[NSString stringWithFormat:@"Primed %@ with %d data points.", self.incomingDatasetName, [primedStats count]] withStatusCode:201];
+			[_delegate remotingClient:self receivedOutput:[NSString stringWithFormat:@"Primed %@ with %lu data points.", self.incomingDatasetName, (unsigned long)[primedStats count]] withStatusCode:201];
 		
 		if(DelegateResponds(remotingClient:receivedPoint:at:inSet:))
 			for(NSNumber *when in [[primedStats allKeys] sortedArrayUsingSelector:@selector(compare:)])
-				[_delegate remotingClient:self receivedPoint:[[primedStats objectForKey:when] floatValue] at:[when floatValue] inSet:self.incomingDatasetName];
+				[_delegate remotingClient:self receivedPoint:[primedStats[when] floatValue] at:[when floatValue] inSet:self.incomingDatasetName];
 		
 		self.incomingDatasetName = nil;
 
-		[socket readDataToData:self.messageSeparator withTimeout:-1 tag:kReadingCommand];
+		[self.socket readDataToData:self.messageSeparator withTimeout:-1 tag:kReadingCommand];
 	}
 }
--(void)sendCommand:(NSString*)commands;
+
+-(void)sendCommand:(NSString*)commands
 {
 	NSMutableData *data = [NSMutableData data];
 	[data appendData:[commands dataUsingEncoding:NSUTF8StringEncoding]];
 	[data appendData:self.messageSeparator];
-	[socket writeData:data withTimeout:-1 tag:0];
+	[self.socket writeData:data withTimeout:-1 tag:0];
 }
-
 
 @end
