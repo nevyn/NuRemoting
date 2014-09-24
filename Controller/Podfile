@@ -1,0 +1,4 @@
+platform :osx, '10.9'
+
+pod 'CorePlot', '>= 1.5.1'
+pod 'CocoaAsyncSocket', '>= 7.3.5'

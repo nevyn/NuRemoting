@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0511A70F145B65310060519A /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 0511A709145B65310060519A /* AsyncSocket.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		0511A710145B65310060519A /* RemotingClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0511A70B145B65310060519A /* RemotingClient.m */; };
 		0511A7F1145EDB4B0060519A /* NRStats.m in Sources */ = {isa = PBXBuildFile; fileRef = 0511A7F0145EDB4A0060519A /* NRStats.m */; };
 		0550BFC8145FF9D800BF8366 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0550BFC7145FF9D800BF8366 /* UIKit.framework */; };
@@ -18,7 +17,6 @@
 		0550BFD8145FF9D800BF8366 /* NRAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0550BFD7145FF9D800BF8366 /* NRAppDelegate.m */; };
 		0550BFE1145FFC8100BF8366 /* NRHostFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = 0550BFDD145FFC5600BF8366 /* NRHostFinder.m */; };
 		0550BFE2145FFC8700BF8366 /* NRHostFinder.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0550BFDE145FFC5600BF8366 /* NRHostFinder.xib */; };
-		0550BFE31460007000BF8366 /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 0511A709145B65310060519A /* AsyncSocket.m */; };
 		0550BFE41460007300BF8366 /* RemotingClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0511A70B145B65310060519A /* RemotingClient.m */; };
 		0550BFE51460007600BF8366 /* NRStats.m in Sources */ = {isa = PBXBuildFile; fileRef = 0511A7F0145EDB4A0060519A /* NRStats.m */; };
 		0550BFE71460008E00BF8366 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0550BFE61460008E00BF8366 /* CFNetwork.framework */; };
@@ -27,16 +25,13 @@
 		0550BFF51460030100BF8366 /* NRClientVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0550BFEF146002EF00BF8366 /* NRClientVC.m */; };
 		0550BFF81460053000BF8366 /* NRStatsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0550BFF71460053000BF8366 /* NRStatsCell.m */; };
 		0550BFF91460053000BF8366 /* NRStatsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0550BFF71460053000BF8366 /* NRStatsCell.m */; };
-		0550C0221460063800BF8366 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0550C00D146005F200BF8366 /* libCorePlot-CocoaTouch.a */; };
 		0550C0291460079000BF8366 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0550C0281460079000BF8366 /* QuartzCore.framework */; };
 		0550C02B1460159000BF8366 /* NRStatsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0550C02A1460159000BF8366 /* NRStatsCell.xib */; };
 		056EE44F1338DE1200FA0A60 /* ClientController.m in Sources */ = {isa = PBXBuildFile; fileRef = 056EE44D1338DE1200FA0A60 /* ClientController.m */; };
 		056EE4501338DE1200FA0A60 /* ClientController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 056EE44E1338DE1200FA0A60 /* ClientController.xib */; };
 		056EE58B1338EB0200FA0A60 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 056EE58A1338EB0200FA0A60 /* icon.icns */; };
-		059920F61615F79C009FC7BD /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 059920F51615F79C009FC7BD /* CorePlot.framework */; };
 		05AFC26C14FD46580093BB1F /* NRTextOnlyStatsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 05AFC26B14FD46580093BB1F /* NRTextOnlyStatsCell.m */; };
 		05E678AC14601B8F006E0499 /* LogViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E678AB14601B8F006E0499 /* LogViewer.m */; };
-		05E678CD14602D4D006E0499 /* CorePlot.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0511A7C4145EA3010060519A /* CorePlot.framework */; };
 		05E6791F14605575006E0499 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 05E6791E14605575006E0499 /* icon.png */; };
 		05F6CEE2134F31ED009FB3B1 /* TemplateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05F6CEE1134F31ED009FB3B1 /* TemplateController.m */; };
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
@@ -44,38 +39,8 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		F6A09EE8D52B49F488996427 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BA141C474F484144AC864A24 /* libPods.a */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		0511A7C3145EA3010060519A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0511A7BA145EA3010060519A /* CorePlot.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
-			remoteInfo = CorePlot;
-		};
-		0511A7C5145EA3010060519A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0511A7BA145EA3010060519A /* CorePlot.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 0730F600109492D800E95162;
-			remoteInfo = UnitTests;
-		};
-		0550C00C146005F200BF8366 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0550C006146005F200BF8366 /* CorePlot-CocoaTouch.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BC9B83470FB8A0A40035D8DA;
-			remoteInfo = "CorePlot-CocoaTouch";
-		};
-		05AADF071615F76F0082AED0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0511A7BA145EA3010060519A /* CorePlot.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
-			remoteInfo = CorePlot;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		05E678CC14602D3F006E0499 /* CopyFiles */ = {
@@ -84,19 +49,15 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				05E678CD14602D4D006E0499 /* CorePlot.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0511A708145B65310060519A /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
-		0511A709145B65310060519A /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncSocket.m; sourceTree = "<group>"; };
 		0511A70A145B65310060519A /* RemotingClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemotingClient.h; sourceTree = "<group>"; };
 		0511A70B145B65310060519A /* RemotingClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemotingClient.m; sourceTree = "<group>"; };
 		0511A70C145B65310060519A /* Shared.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shared.h; sourceTree = "<group>"; };
-		0511A7BA145EA3010060519A /* CorePlot.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CorePlot.xcodeproj; path = CorePlot/framework/CorePlot.xcodeproj; sourceTree = "<group>"; };
 		0511A7EF145EDB4A0060519A /* NRStats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRStats.h; sourceTree = "<group>"; };
 		0511A7F0145EDB4A0060519A /* NRStats.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRStats.m; sourceTree = "<group>"; };
 		0550BFC4145FF9D800BF8366 /* NuRemoter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NuRemoter.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -120,7 +81,6 @@
 		0550BFEF146002EF00BF8366 /* NRClientVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRClientVC.m; sourceTree = "<group>"; };
 		0550BFF61460053000BF8366 /* NRStatsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRStatsCell.h; sourceTree = "<group>"; };
 		0550BFF71460053000BF8366 /* NRStatsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRStatsCell.m; sourceTree = "<group>"; };
-		0550C006146005F200BF8366 /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "CorePlot/framework/CorePlot-CocoaTouch.xcodeproj"; sourceTree = "<group>"; };
 		0550C0281460079000BF8366 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		0550C02A1460159000BF8366 /* NRStatsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NRStatsCell.xib; sourceTree = "<group>"; };
 		0559FC8A14CEE3DF0054F8F6 /* SPNuRemote.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPNuRemote.h; sourceTree = "<group>"; };
@@ -129,7 +89,6 @@
 		056EE44D1338DE1200FA0A60 /* ClientController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClientController.m; sourceTree = "<group>"; };
 		056EE44E1338DE1200FA0A60 /* ClientController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClientController.xib; sourceTree = "<group>"; };
 		056EE58A1338EB0200FA0A60 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
-		059920F51615F79C009FC7BD /* CorePlot.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CorePlot.framework; path = CorePlot/build/Debug/CorePlot.framework; sourceTree = "<group>"; };
 		05AFC26A14FD46580093BB1F /* NRTextOnlyStatsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRTextOnlyStatsCell.h; sourceTree = "<group>"; };
 		05AFC26B14FD46580093BB1F /* NRTextOnlyStatsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRTextOnlyStatsCell.m; sourceTree = "<group>"; };
 		05E678AA14601B8F006E0499 /* LogViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogViewer.h; sourceTree = "<group>"; };
@@ -149,6 +108,8 @@
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		8D1107310486CEB800E47090 /* NuRemoter-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "NuRemoter-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* NuRemoter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NuRemoter.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA141C474F484144AC864A24 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB56DDD32EE54F73993E8CBC /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,7 +118,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0550C0291460079000BF8366 /* QuartzCore.framework in Frameworks */,
-				0550C0221460063800BF8366 /* libCorePlot-CocoaTouch.a in Frameworks */,
 				0550BFE71460008E00BF8366 /* CFNetwork.framework in Frameworks */,
 				0550BFC8145FF9D800BF8366 /* UIKit.framework in Frameworks */,
 				0550BFCA145FF9D800BF8366 /* Foundation.framework in Frameworks */,
@@ -169,8 +129,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				059920F61615F79C009FC7BD /* CorePlot.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+				F6A09EE8D52B49F488996427 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,8 +140,6 @@
 		0511A707145B65310060519A /* NuRemoting */ = {
 			isa = PBXGroup;
 			children = (
-				0511A708145B65310060519A /* AsyncSocket.h */,
-				0511A709145B65310060519A /* AsyncSocket.m */,
 				0511A70A145B65310060519A /* RemotingClient.h */,
 				0511A70B145B65310060519A /* RemotingClient.m */,
 				0511A70C145B65310060519A /* Shared.h */,
@@ -192,15 +150,6 @@
 			);
 			name = NuRemoting;
 			path = ../NuRemote;
-			sourceTree = "<group>";
-		};
-		0511A7BB145EA3010060519A /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				0511A7C4145EA3010060519A /* CorePlot.framework */,
-				0511A7C6145EA3010060519A /* UnitTests.octest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		0550BFBF145FF8ED00BF8366 /* Mac */ = {
@@ -271,14 +220,6 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
-		0550C007146005F200BF8366 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				0550C00D146005F200BF8366 /* libCorePlot-CocoaTouch.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		080E96DDFE201D6D7F000001 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -326,14 +267,13 @@
 		29B97314FDCFA39411CA2CEA /* NuRemoter */ = {
 			isa = PBXGroup;
 			children = (
-				059920F51615F79C009FC7BD /* CorePlot.framework */,
 				0511A707145B65310060519A /* NuRemoting */,
 				0550BFE81460028A00BF8366 /* Shared */,
 				0550BFBF145FF8ED00BF8366 /* Mac */,
 				0550BFCD145FF9D800BF8366 /* iOS */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				0550C006146005F200BF8366 /* CorePlot-CocoaTouch.xcodeproj */,
-				0511A7BA145EA3010060519A /* CorePlot.xcodeproj */,
+				DB56DDD32EE54F73993E8CBC /* Pods.xcconfig */,
+				B1A3357432A64B52B6E7DE97 /* Frameworks */,
 			);
 			name = NuRemoter;
 			sourceTree = "<group>";
@@ -355,6 +295,14 @@
 			children = (
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B1A3357432A64B52B6E7DE97 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				BA141C474F484144AC864A24 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -383,15 +331,16 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "NuRemoter" */;
 			buildPhases = (
+				D181DCBB18A540E8AF0C641F /* Check Pods Manifest.lock */,
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
 				05E678CC14602D3F006E0499 /* CopyFiles */,
+				C7F96E824C9C4048AE5E45D6 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				05AADF081615F76F0082AED0 /* PBXTargetDependency */,
 			);
 			name = NuRemoter;
 			productInstallPath = "$(HOME)/Applications";
@@ -419,16 +368,6 @@
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* NuRemoter */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 0550C007146005F200BF8366 /* Products */;
-					ProjectRef = 0550C006146005F200BF8366 /* CorePlot-CocoaTouch.xcodeproj */;
-				},
-				{
-					ProductGroup = 0511A7BB145EA3010060519A /* Products */;
-					ProjectRef = 0511A7BA145EA3010060519A /* CorePlot.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* NuRemoter */,
@@ -436,30 +375,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		0511A7C4145EA3010060519A /* CorePlot.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = CorePlot.framework;
-			remoteRef = 0511A7C3145EA3010060519A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		0511A7C6145EA3010060519A /* UnitTests.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = UnitTests.octest;
-			remoteRef = 0511A7C5145EA3010060519A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		0550C00D146005F200BF8366 /* libCorePlot-CocoaTouch.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libCorePlot-CocoaTouch.a";
-			remoteRef = 0550C00C146005F200BF8366 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		0550BFC2145FF9D800BF8366 /* Resources */ = {
@@ -487,6 +402,39 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		C7F96E824C9C4048AE5E45D6 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D181DCBB18A540E8AF0C641F /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		0550BFC0145FF9D800BF8366 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -495,7 +443,6 @@
 				0550BFD4145FF9D800BF8366 /* main.m in Sources */,
 				0550BFD8145FF9D800BF8366 /* NRAppDelegate.m in Sources */,
 				0550BFE1145FFC8100BF8366 /* NRHostFinder.m in Sources */,
-				0550BFE31460007000BF8366 /* AsyncSocket.m in Sources */,
 				0550BFE41460007300BF8366 /* RemotingClient.m in Sources */,
 				0550BFE51460007600BF8366 /* NRStats.m in Sources */,
 				0550BFF31460030100BF8366 /* NRStatsViewer.m in Sources */,
@@ -514,7 +461,6 @@
 				256AC3DA0F4B6AC300CF3369 /* NuRemoterAppDelegate.m in Sources */,
 				056EE44F1338DE1200FA0A60 /* ClientController.m in Sources */,
 				05F6CEE2134F31ED009FB3B1 /* TemplateController.m in Sources */,
-				0511A70F145B65310060519A /* AsyncSocket.m in Sources */,
 				0511A710145B65310060519A /* RemotingClient.m in Sources */,
 				0511A7F1145EDB4B0060519A /* NRStats.m in Sources */,
 				0550BFF81460053000BF8366 /* NRStatsCell.m in Sources */,
@@ -522,14 +468,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		05AADF081615F76F0082AED0 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = CorePlot;
-			targetProxy = 05AADF071615F76F0082AED0 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		0550BFD0145FF9D800BF8366 /* InfoPlist.strings */ = {
@@ -622,6 +560,7 @@
 		};
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DB56DDD32EE54F73993E8CBC /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
@@ -646,6 +585,7 @@
 		};
 		C01FCF4C08A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DB56DDD32EE54F73993E8CBC /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
