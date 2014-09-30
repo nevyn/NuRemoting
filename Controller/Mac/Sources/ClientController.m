@@ -1,11 +1,12 @@
 #import "ClientController.h"
 #import "NRStatsCell.h"
+#import <ACEView/ACEView.h>
 
 static NSColor *DarkGreen() {
 	return [NSColor colorWithDeviceRed:0 green:.5 blue:0 alpha:1];
 }
 
-@interface ClientController () {
+@interface ClientController () <ACEViewDelegate> {
     int oldPort;
     int reconnectCount;
     NSMutableArray *statSets;
@@ -15,7 +16,7 @@ static NSColor *DarkGreen() {
 @property(weak) IBOutlet NSTableView *statsTable;
 @property(assign) IBOutlet NSTextView *logOutput;  // NSTextView does not support weak
 @property(assign) IBOutlet NSTextView *output;
-@property(assign) IBOutlet NSTextView *input;
+@property(weak) IBOutlet ACEView *input;
 @property(weak) IBOutlet TemplateController *templates;
 
 @property (readwrite, strong) RemotingClient *client;
@@ -35,7 +36,12 @@ static NSColor *DarkGreen() {
 	self.client.delegate = self;
 	self.window.title = client.name;
 	statSets = [NSMutableArray new];
-	
+    
+    [self.input setDelegate:self];
+    [self.input setMode:ACEModeClojure];
+    [self.input setTheme:ACEThemeXcode];
+    [self.input setShowInvisibles:YES];
+    
 	return self;
 }
 
@@ -185,5 +191,11 @@ static NSColor *DarkGreen() {
 		hasAutoshownStats = YES;
 		[self.statsDrawer open];
 	}
+}
+
+#pragma mark - ACEViewDelegate
+- (void) textDidChange:(NSNotification *)notification
+{
+    NSLog(@"");
 }
 @end

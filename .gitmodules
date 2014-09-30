@@ -1,3 +1,6 @@
 [submodule "Controller/CorePlot"]
 	path = Controller/CorePlot
 	url = https://github.com/core-plot/core-plot.git
+[submodule "Controller/vendor/ACEView"]
+	path = Controller/vendor/ACEView
+	url = https://github.com/mhallendal/ACEView.git

@@ -41,6 +41,7 @@
 		05F6CEE2134F31ED009FB3B1 /* TemplateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05F6CEE1134F31ED009FB3B1 /* TemplateController.m */; };
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		256AC3DA0F4B6AC300CF3369 /* NuRemoterAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* NuRemoterAppDelegate.m */; };
+		40600AF619DB568300901E38 /* ACEView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 40600AEF19DB566C00901E38 /* ACEView.framework */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -74,6 +75,34 @@
 			proxyType = 1;
 			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = CorePlot;
+		};
+		40600AEE19DB566C00901E38 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40600AE819DB566B00901E38 /* ACEView.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7C8A728C15EA0769007E5EB8;
+			remoteInfo = ACEView;
+		};
+		40600AF019DB566C00901E38 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40600AE819DB566B00901E38 /* ACEView.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7C8A72E015EA0F0E007E5EB8;
+			remoteInfo = ACEVIewExample;
+		};
+		40600AF219DB566C00901E38 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40600AE819DB566B00901E38 /* ACEView.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 36F169E216B9346C00E8965C;
+			remoteInfo = ACEViewTests;
+		};
+		40600AF419DB567900901E38 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40600AE819DB566B00901E38 /* ACEView.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 7C8A728B15EA0769007E5EB8;
+			remoteInfo = ACEView;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -147,6 +176,7 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		40600AE819DB566B00901E38 /* ACEView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ACEView.xcodeproj; path = vendor/ACEView/ACEView.xcodeproj; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* NuRemoter-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "NuRemoter-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* NuRemoter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NuRemoter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -169,6 +199,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40600AF619DB568300901E38 /* ACEView.framework in Frameworks */,
 				059920F61615F79C009FC7BD /* CorePlot.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 			);
@@ -332,8 +363,7 @@
 				0550BFBF145FF8ED00BF8366 /* Mac */,
 				0550BFCD145FF9D800BF8366 /* iOS */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				0550C006146005F200BF8366 /* CorePlot-CocoaTouch.xcodeproj */,
-				0511A7BA145EA3010060519A /* CorePlot.xcodeproj */,
+				40600AE219DB565400901E38 /* Vendor */,
 			);
 			name = NuRemoter;
 			sourceTree = "<group>";
@@ -357,6 +387,26 @@
 				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		40600AE219DB565400901E38 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				40600AE819DB566B00901E38 /* ACEView.xcodeproj */,
+				0550C006146005F200BF8366 /* CorePlot-CocoaTouch.xcodeproj */,
+				0511A7BA145EA3010060519A /* CorePlot.xcodeproj */,
+			);
+			name = Vendor;
+			sourceTree = "<group>";
+		};
+		40600AE919DB566B00901E38 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				40600AEF19DB566C00901E38 /* ACEView.framework */,
+				40600AF119DB566C00901E38 /* ACE View Example.app */,
+				40600AF319DB566C00901E38 /* ACEViewTests.octest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -391,6 +441,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				40600AF519DB567900901E38 /* PBXTargetDependency */,
 				05AADF081615F76F0082AED0 /* PBXTargetDependency */,
 			);
 			name = NuRemoter;
@@ -420,6 +471,10 @@
 			mainGroup = 29B97314FDCFA39411CA2CEA /* NuRemoter */;
 			projectDirPath = "";
 			projectReferences = (
+				{
+					ProductGroup = 40600AE919DB566B00901E38 /* Products */;
+					ProjectRef = 40600AE819DB566B00901E38 /* ACEView.xcodeproj */;
+				},
 				{
 					ProductGroup = 0550C007146005F200BF8366 /* Products */;
 					ProjectRef = 0550C006146005F200BF8366 /* CorePlot-CocoaTouch.xcodeproj */;
@@ -457,6 +512,28 @@
 			fileType = archive.ar;
 			path = "libCorePlot-CocoaTouch.a";
 			remoteRef = 0550C00C146005F200BF8366 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		40600AEF19DB566C00901E38 /* ACEView.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ACEView.framework;
+			remoteRef = 40600AEE19DB566C00901E38 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		40600AF119DB566C00901E38 /* ACE View Example.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			name = "ACE View Example.app";
+			path = ACEVIewExample.app;
+			remoteRef = 40600AF019DB566C00901E38 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		40600AF319DB566C00901E38 /* ACEViewTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ACEViewTests.octest;
+			remoteRef = 40600AF219DB566C00901E38 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -528,6 +605,11 @@
 			isa = PBXTargetDependency;
 			name = CorePlot;
 			targetProxy = 05AADF071615F76F0082AED0 /* PBXContainerItemProxy */;
+		};
+		40600AF519DB567900901E38 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ACEView;
+			targetProxy = 40600AF419DB567900901E38 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
