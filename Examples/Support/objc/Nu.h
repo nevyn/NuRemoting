@@ -17,6 +17,10 @@
  */
 
 #import <Foundation/Foundation.h>
+#ifdef GNUSTEP
+#import <Foundation/NSRegularExpression.h>
+#import <Foundation/NSTextCheckingResult.h>
+#endif
 #import <objc/objc.h>
 #import <objc/runtime.h>
 
@@ -34,7 +38,7 @@
  the list is considered to be a special type of list called a property list (no relation to ObjC plists).
  Each member of a property list is evaluated and the resulting list is returned with no further evaluation.
  */
-@interface NuSymbol : NSObject <NSCoding>
+@interface NuSymbol : NSObject <NSCoding, NSCopying>
 
 /*! Get the global value of a symbol. */
 - (id) value;
@@ -244,7 +248,7 @@
  The Nu <b>macro</b> operator uses blocks to create macros.
  Since macros evaluate in their callers' contexts, no context information is kept for blocks used to create macros.
  
- When used in a class context, the <b>-</b> and <b>+</b> operators 
+ When used in a class context, the <b>-</b> and <b>+</b> operators
  use blocks to create new method implementations.
  When a block is called as a method implementation, its context includes the symbols
  <b>self</b> and <b>super</b>. This allows method implementations to send messages to
@@ -679,7 +683,7 @@
  @abstract A reader for Apple's BridgeSupport files.
  @discussion Methods of this class are used to read Apple's BridgeSupport files.
  */
-@interface NuBridgeSupport : NSObject 
+@interface NuBridgeSupport : NSObject
 /*! Import a dynamic library at the specified path. */
 + (void)importLibrary:(NSString *) libraryPath;
 /*! Import a BridgeSupport description of a framework from a specified path.  Store the results in the specified dictionary. */
@@ -708,7 +712,6 @@
 
 /*! Get the stack trace. */
 - (NSArray*)stackTrace;
-- (NSString*)dump;
 
 /*! Add to the stack trace. */
 - (NuException *)addFunction:(NSString *)function lineNumber:(int)line;
@@ -1108,7 +1111,7 @@
 
 // Let's make NSRegularExpression and NSTextCheckingResult look like our previous classes, NuRegex and NuRegexMatch
 
-@interface NSTextCheckingResult (NuRegexMatch) 
+@interface NSTextCheckingResult (NuRegexMatch)
 /*!
  @method regex
  The regular expression used to make this match. */
@@ -1136,7 +1139,7 @@
 
 @end
 
-@interface NSRegularExpression (NuRegex) 
+@interface NSRegularExpression (NuRegex)
 
 /*!
  @method regexWithPattern:
@@ -1275,3 +1278,28 @@ id _nuregex(const unsigned char *pattern, int options);
 id _nuregex_with_length(const unsigned char *pattern, int length, int options);
 id _nulist(id firstObject,...);
 id _nudata(const void *bytes, int length);
+
+@interface NuMarkupOperator : NuOperator
+{
+    NSString *tag;
+    NSString *prefix;
+    NSMutableArray *tagIds;
+    NSMutableArray *tagClasses;
+    id contents;
+    BOOL empty; // aka a "void element"
+}
+
++ (id) operatorWithTag:(NSString *) _tag;
++ (id) operatorWithTag:(NSString *) _tag prefix:(NSString *) _prefix;
++ (id) operatorWithTag:(NSString *) _tag prefix:(NSString *) _prefix contents:(id) _contents;
+
+- (id) initWithTag:(NSString *) tag;
+- (id) initWithTag:(NSString *) tag prefix:(NSString *) prefix contents:(id) contents;
+- (void) setEmpty:(BOOL) e;
+
+- (NSString *) tag;
+- (NSString *) prefix;
+- (id) contents;
+- (BOOL) empty;
+
+@end
