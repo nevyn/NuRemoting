@@ -29,11 +29,11 @@
 		0550BFF91460053000BF8366 /* NRStatsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0550BFF71460053000BF8366 /* NRStatsCell.m */; };
 		0550C0221460063800BF8366 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0550C00D146005F200BF8366 /* libCorePlot-CocoaTouch.a */; };
 		0550C0291460079000BF8366 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0550C0281460079000BF8366 /* QuartzCore.framework */; };
-		0550C02B1460159000BF8366 /* NRStatsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0550C02A1460159000BF8366 /* NRStatsCell.xib */; };
 		056EE44F1338DE1200FA0A60 /* ClientController.m in Sources */ = {isa = PBXBuildFile; fileRef = 056EE44D1338DE1200FA0A60 /* ClientController.m */; };
 		056EE4501338DE1200FA0A60 /* ClientController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 056EE44E1338DE1200FA0A60 /* ClientController.xib */; };
 		056EE58B1338EB0200FA0A60 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 056EE58A1338EB0200FA0A60 /* icon.icns */; };
 		059920F61615F79C009FC7BD /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 059920F51615F79C009FC7BD /* CorePlot.framework */; };
+		05AC14E81D5D42A000A6C469 /* NRStatsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0550C02A1460159000BF8366 /* NRStatsCell.xib */; };
 		05AFC26C14FD46580093BB1F /* NRTextOnlyStatsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 05AFC26B14FD46580093BB1F /* NRTextOnlyStatsCell.m */; };
 		05E678AC14601B8F006E0499 /* LogViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E678AB14601B8F006E0499 /* LogViewer.m */; };
 		05E678CD14602D4D006E0499 /* CorePlot.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0511A7C4145EA3010060519A /* CorePlot.framework */; };
@@ -74,6 +74,48 @@
 			proxyType = 1;
 			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
 			remoteInfo = CorePlot;
+		};
+		05AC14DC1D5D429C00A6C469 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0511A7BA145EA3010060519A /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C38A09781A46185200D45436;
+			remoteInfo = "CorePlot iOS";
+		};
+		05AC14DE1D5D429C00A6C469 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0511A7BA145EA3010060519A /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C38A09821A46185300D45436;
+			remoteInfo = "UnitTests iOS";
+		};
+		05AC14E01D5D429C00A6C469 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0511A7BA145EA3010060519A /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C38A09BA1A4619A900D45436;
+			remoteInfo = "CorePlot-CocoaTouch";
+		};
+		05AC14E21D5D429C00A6C469 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0511A7BA145EA3010060519A /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C38A09C41A4619A900D45436;
+			remoteInfo = "CorePlot-CocoaTouchTests";
+		};
+		05AC14E41D5D429C00A6C469 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0511A7BA145EA3010060519A /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C37EA6921BC83F2A0091C8F7;
+			remoteInfo = "CorePlot tvOS";
+		};
+		05AC14E61D5D429C00A6C469 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0511A7BA145EA3010060519A /* CorePlot.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C37EA6B71BC83F2D0091C8F7;
+			remoteInfo = "UnitTests tvOS";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -198,7 +240,13 @@
 			isa = PBXGroup;
 			children = (
 				0511A7C4145EA3010060519A /* CorePlot.framework */,
-				0511A7C6145EA3010060519A /* UnitTests.octest */,
+				0511A7C6145EA3010060519A /* UnitTests.xctest */,
+				05AC14DD1D5D429C00A6C469 /* CorePlot.framework */,
+				05AC14DF1D5D429C00A6C469 /* UnitTests iOS.xctest */,
+				05AC14E11D5D429C00A6C469 /* libCorePlot-CocoaTouch.a */,
+				05AC14E31D5D429C00A6C469 /* CorePlot-CocoaTouchTests.xctest */,
+				05AC14E51D5D429C00A6C469 /* CorePlot.framework */,
+				05AC14E71D5D429C00A6C469 /* UnitTests tvOS.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -445,10 +493,10 @@
 			remoteRef = 0511A7C3145EA3010060519A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		0511A7C6145EA3010060519A /* UnitTests.octest */ = {
+		0511A7C6145EA3010060519A /* UnitTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = UnitTests.octest;
+			path = UnitTests.xctest;
 			remoteRef = 0511A7C5145EA3010060519A /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -457,6 +505,48 @@
 			fileType = archive.ar;
 			path = "libCorePlot-CocoaTouch.a";
 			remoteRef = 0550C00C146005F200BF8366 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		05AC14DD1D5D429C00A6C469 /* CorePlot.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CorePlot.framework;
+			remoteRef = 05AC14DC1D5D429C00A6C469 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		05AC14DF1D5D429C00A6C469 /* UnitTests iOS.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "UnitTests iOS.xctest";
+			remoteRef = 05AC14DE1D5D429C00A6C469 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		05AC14E11D5D429C00A6C469 /* libCorePlot-CocoaTouch.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libCorePlot-CocoaTouch.a";
+			remoteRef = 05AC14E01D5D429C00A6C469 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		05AC14E31D5D429C00A6C469 /* CorePlot-CocoaTouchTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "CorePlot-CocoaTouchTests.xctest";
+			remoteRef = 05AC14E21D5D429C00A6C469 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		05AC14E51D5D429C00A6C469 /* CorePlot.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = CorePlot.framework;
+			remoteRef = 05AC14E41D5D429C00A6C469 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		05AC14E71D5D429C00A6C469 /* UnitTests tvOS.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "UnitTests tvOS.xctest";
+			remoteRef = 05AC14E61D5D429C00A6C469 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -469,6 +559,7 @@
 				0550BFD2145FF9D800BF8366 /* InfoPlist.strings in Resources */,
 				0550BFE2145FFC8700BF8366 /* NRHostFinder.xib in Resources */,
 				0550BFF41460030100BF8366 /* NRStatsViewer.xib in Resources */,
+				05AC14E81D5D42A000A6C469 /* NRStatsCell.xib in Resources */,
 				05E6791F14605575006E0499 /* icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -481,7 +572,6 @@
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
 				056EE4501338DE1200FA0A60 /* ClientController.xib in Resources */,
 				056EE58B1338EB0200FA0A60 /* icon.icns in Resources */,
-				0550C02B1460159000BF8366 /* NRStatsCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -90,12 +90,12 @@ static NSString *const NRStatsPlotIdentifier = @"NRStatsPlot";
     _floatingY.labelOffset = -50.;
     _floatingY.coordinate = CPTCoordinateY;
     _floatingY.plotSpace = _graph.defaultPlotSpace;
-	_floatingY.orthogonalCoordinateDecimal = CPTDecimalFromDouble(10);
+	_floatingY.orthogonalPosition = @10;
 	NSNumberFormatter *sciFormatter = [NSNumberFormatter new];
 	sciFormatter.numberStyle = NSNumberFormatterScientificStyle;
 	_floatingY.labelFormatter = sciFormatter;
 	_floatingY.labelTextStyle = font;
-	_floatingY.labelExclusionRanges = @[[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(-0.01) length:CPTDecimalFromDouble(0.02)]];
+	_floatingY.labelExclusionRanges = @[[CPTPlotRange plotRangeWithLocation:@-0.01 length:@0.02]];
 	
 	_graph.axisSet.axes = @[x, y, _floatingY];
 }
@@ -192,10 +192,10 @@ static NSString *const NRStatsPlotIdentifier = @"NRStatsPlot";
     [plotSpace scaleToFitPlots:@[dataSourceLinePlot]];
 	
 	CPTMutablePlotRange *yRange = [plotSpace.yRange mutableCopy];
-    [yRange unionPlotRange:[CPTPlotRange plotRangeWithLocation:CPTDecimalFromDouble(0) length:CPTDecimalFromDouble(0)]]; // always include 0
-	[yRange expandRangeByFactor:CPTDecimalFromDouble(1.5)];
+    [yRange unionPlotRange:[CPTPlotRange plotRangeWithLocation:@0 length:@0]]; // always include 0
+	[yRange expandRangeByFactor:@1.5];
     plotSpace.yRange = yRange;
 	
-	_floatingY.orthogonalCoordinateDecimal = plotSpace.xRange.location;
+	_floatingY.orthogonalPosition = plotSpace.xRange.location;
 }
 @end

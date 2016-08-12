@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0511A74C145DD98E0060519A /* Nu.m in Sources */ = {isa = PBXBuildFile; fileRef = 0511A745145DD98E0060519A /* Nu.m */; };
+		0511A74C145DD98E0060519A /* Nu.m in Sources */ = {isa = PBXBuildFile; fileRef = 0511A745145DD98E0060519A /* Nu.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0511A756145DD9970060519A /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 0511A750145DD9970060519A /* AsyncSocket.m */; };
-		0511A757145DD9970060519A /* RemotingClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0511A752145DD9970060519A /* RemotingClient.m */; };
-		0511A758145DD9970060519A /* SPNuRemote.m in Sources */ = {isa = PBXBuildFile; fileRef = 0511A755145DD9970060519A /* SPNuRemote.m */; };
+		0511A757145DD9970060519A /* RemotingClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0511A752145DD9970060519A /* RemotingClient.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		0511A758145DD9970060519A /* SPNuRemote.m in Sources */ = {isa = PBXBuildFile; fileRef = 0511A755145DD9970060519A /* SPNuRemote.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0511A75A145DEF8C0060519A /* libffi.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0511A759145DEF8C0060519A /* libffi.dylib */; };
 		0511A75C145DEFA90060519A /* libreadline.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0511A75B145DEFA90060519A /* libreadline.dylib */; };
 		0511A75E145DF1440060519A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0511A75D145DF1440060519A /* SystemConfiguration.framework */; };
@@ -207,6 +207,8 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "NuRemoting" */;
 			compatibilityVersion = "Xcode 3.1";
 			developmentRegion = English;
@@ -276,6 +278,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -286,8 +289,9 @@
 				GCC_PREFIX_HEADER = NuRemoting_Prefix.pch;
 				INFOPLIST_FILE = "NuRemoting-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = NuRemoting;
-				SDKROOT = macosx10.7;
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -295,6 +299,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_OBJC_ARC = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_MODEL_TUNING = G5;
@@ -302,8 +307,9 @@
 				GCC_PREFIX_HEADER = NuRemoting_Prefix.pch;
 				INFOPLIST_FILE = "NuRemoting-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = NuRemoting;
-				SDKROOT = macosx10.7;
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};

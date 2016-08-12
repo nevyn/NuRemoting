@@ -10,8 +10,7 @@
 
 @class SPNuRemote;
 @interface NuRemotingAppDelegate : NSObject <NSApplicationDelegate> {
-    NSWindow *window;
-	SPNuRemote *remote;
+	SPNuRemote *_remote;
 }
 
 @property (assign) IBOutlet NSWindow *window;

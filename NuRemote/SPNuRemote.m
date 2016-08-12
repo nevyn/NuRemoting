@@ -171,15 +171,15 @@
 
 - (id)init
 {
-	clients = [NSMutableArray new];
-	datasets = [NSMutableArray new];
+	_clients = [NSMutableArray new];
+	_datasets = [NSMutableArray new];
 
 	return self;
 }
 
 - (void)run
 {
-	if(!NSClassFromString(@"Nu") || listenSocket)
+	if(!NSClassFromString(@"Nu") || _listenSocket)
 		return;
 
 	self.listenSocket = [[[AsyncSocket alloc] initWithDelegate:self] autorelease];
@@ -189,7 +189,7 @@
 #endif
 	
 	NSError *err = nil;
-	if(![listenSocket acceptOnPort:kNuRemotingPort error:&err]) {
+	if(![_listenSocket acceptOnPort:kNuRemotingPort error:&err]) {
 		NSLog(@"SPNuRemote listen failure: %@", err);
 		return;
 	}
@@ -202,23 +202,23 @@
 {
 	self.listenSocket = nil;
 	self.publisher = nil;
-	for(SPNRClient *client in clients) {
+	for(SPNRClient *client in _clients) {
 		client->parent = nil;
 		[client->sock disconnect];
 	}
-	[clients release];
-	[datasets release];
+	[_clients release];
+	[_datasets release];
 	[super dealloc];
 }
 
 - (void)activated
 {
 	[self.publisher stop];
-	listenSocket.delegate = nil;
-	[listenSocket disconnect];
-	listenSocket.delegate = self;
+	_listenSocket.delegate = nil;
+	[_listenSocket disconnect];
+	_listenSocket.delegate = self;
 	NSError *err = nil;
-	if(![listenSocket acceptOnPort:kNuRemotingPort error:&err])
+	if(![_listenSocket acceptOnPort:kNuRemotingPort error:&err])
 		NSLog(@"SPNuRemote listen failure: %@", err);
 	else
 		[self publishAndAvoidCollision:NO];
@@ -226,7 +226,7 @@
 
 - (void)onSocket:(AsyncSocket *)sock didAcceptNewSocket:(AsyncSocket *)newSocket
 {
-	[clients addObject:[[[SPNRClient alloc] init:newSocket :self] autorelease]];
+	[_clients addObject:[[[SPNRClient alloc] init:newSocket :self] autorelease]];
 }
 
 - (void)onSocketDidDisconnect:(AsyncSocket *)sock
@@ -238,13 +238,13 @@
 
 - (void)writeLogLine:(NSString *)line logLevel:(int)level
 {
-	for(SPNRClient *client in clients)
+	for(SPNRClient *client in _clients)
 		[client writeLogLine:line logLevel:level];
 }
 
 - (NRStats*)statsNamed:(NSString*)name
 {
-	for(NRStats *stats in datasets)
+	for(NRStats *stats in _datasets)
 		if([stats.name isEqual:name]) return stats;
 	NRStats *stats = [[[NRStats alloc] initWithName:name] autorelease];
 	[[self mutableArrayValueForKey:@"datasets"] addObject:stats];
@@ -259,7 +259,7 @@
 	
 	[stats addPoint:data atTime:now];
 	
-	for(SPNRClient *client in clients)
+	for(SPNRClient *client in _clients)
 		[client addDataPoint:data atTime:now toDataSet:setName];
 }
 
