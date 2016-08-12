@@ -1,3 +1,4 @@
 ### Xcode ###
 xcuserdata
 *.xcworkspace
+Pods

@@ -27,110 +27,23 @@
 		0550BFF51460030100BF8366 /* NRClientVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0550BFEF146002EF00BF8366 /* NRClientVC.m */; };
 		0550BFF81460053000BF8366 /* NRStatsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0550BFF71460053000BF8366 /* NRStatsCell.m */; };
 		0550BFF91460053000BF8366 /* NRStatsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0550BFF71460053000BF8366 /* NRStatsCell.m */; };
-		0550C0221460063800BF8366 /* libCorePlot-CocoaTouch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0550C00D146005F200BF8366 /* libCorePlot-CocoaTouch.a */; };
 		0550C0291460079000BF8366 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0550C0281460079000BF8366 /* QuartzCore.framework */; };
 		056EE44F1338DE1200FA0A60 /* ClientController.m in Sources */ = {isa = PBXBuildFile; fileRef = 056EE44D1338DE1200FA0A60 /* ClientController.m */; };
 		056EE4501338DE1200FA0A60 /* ClientController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 056EE44E1338DE1200FA0A60 /* ClientController.xib */; };
 		056EE58B1338EB0200FA0A60 /* icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 056EE58A1338EB0200FA0A60 /* icon.icns */; };
-		059920F61615F79C009FC7BD /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 059920F51615F79C009FC7BD /* CorePlot.framework */; };
 		05AC14E81D5D42A000A6C469 /* NRStatsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0550C02A1460159000BF8366 /* NRStatsCell.xib */; };
 		05AFC26C14FD46580093BB1F /* NRTextOnlyStatsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 05AFC26B14FD46580093BB1F /* NRTextOnlyStatsCell.m */; };
 		05E678AC14601B8F006E0499 /* LogViewer.m in Sources */ = {isa = PBXBuildFile; fileRef = 05E678AB14601B8F006E0499 /* LogViewer.m */; };
-		05E678CD14602D4D006E0499 /* CorePlot.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 0511A7C4145EA3010060519A /* CorePlot.framework */; };
 		05E6791F14605575006E0499 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 05E6791E14605575006E0499 /* icon.png */; };
 		05F6CEE2134F31ED009FB3B1 /* TemplateController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05F6CEE1134F31ED009FB3B1 /* TemplateController.m */; };
+		182D68DCDF0990F06E9EEE31 /* libPods-MobileNuRemoter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 114DEA3454C2AE3205BDDC16 /* libPods-MobileNuRemoter.a */; };
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		256AC3DA0F4B6AC300CF3369 /* NuRemoterAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* NuRemoterAppDelegate.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		AC173DBB32534FE99761C8CF /* libPods-NuRemoter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 68816E5ABFB55D14AAF78F45 /* libPods-NuRemoter.a */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		0511A7C3145EA3010060519A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0511A7BA145EA3010060519A /* CorePlot.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8DC2EF5B0486A6940098B216;
-			remoteInfo = CorePlot;
-		};
-		0511A7C5145EA3010060519A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0511A7BA145EA3010060519A /* CorePlot.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 0730F600109492D800E95162;
-			remoteInfo = UnitTests;
-		};
-		0550C00C146005F200BF8366 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0550C006146005F200BF8366 /* CorePlot-CocoaTouch.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = BC9B83470FB8A0A40035D8DA;
-			remoteInfo = "CorePlot-CocoaTouch";
-		};
-		05AADF071615F76F0082AED0 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0511A7BA145EA3010060519A /* CorePlot.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8DC2EF4F0486A6940098B216;
-			remoteInfo = CorePlot;
-		};
-		05AC14DC1D5D429C00A6C469 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0511A7BA145EA3010060519A /* CorePlot.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C38A09781A46185200D45436;
-			remoteInfo = "CorePlot iOS";
-		};
-		05AC14DE1D5D429C00A6C469 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0511A7BA145EA3010060519A /* CorePlot.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C38A09821A46185300D45436;
-			remoteInfo = "UnitTests iOS";
-		};
-		05AC14E01D5D429C00A6C469 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0511A7BA145EA3010060519A /* CorePlot.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C38A09BA1A4619A900D45436;
-			remoteInfo = "CorePlot-CocoaTouch";
-		};
-		05AC14E21D5D429C00A6C469 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0511A7BA145EA3010060519A /* CorePlot.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C38A09C41A4619A900D45436;
-			remoteInfo = "CorePlot-CocoaTouchTests";
-		};
-		05AC14E41D5D429C00A6C469 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0511A7BA145EA3010060519A /* CorePlot.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C37EA6921BC83F2A0091C8F7;
-			remoteInfo = "CorePlot tvOS";
-		};
-		05AC14E61D5D429C00A6C469 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0511A7BA145EA3010060519A /* CorePlot.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = C37EA6B71BC83F2D0091C8F7;
-			remoteInfo = "UnitTests tvOS";
-		};
-/* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		05E678CC14602D3F006E0499 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				05E678CD14602D4D006E0499 /* CorePlot.framework in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0511A708145B65310060519A /* AsyncSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncSocket.h; sourceTree = "<group>"; };
@@ -138,7 +51,6 @@
 		0511A70A145B65310060519A /* RemotingClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemotingClient.h; sourceTree = "<group>"; };
 		0511A70B145B65310060519A /* RemotingClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemotingClient.m; sourceTree = "<group>"; };
 		0511A70C145B65310060519A /* Shared.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shared.h; sourceTree = "<group>"; };
-		0511A7BA145EA3010060519A /* CorePlot.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = CorePlot.xcodeproj; path = CorePlot/framework/CorePlot.xcodeproj; sourceTree = "<group>"; };
 		0511A7EF145EDB4A0060519A /* NRStats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRStats.h; sourceTree = "<group>"; };
 		0511A7F0145EDB4A0060519A /* NRStats.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRStats.m; sourceTree = "<group>"; };
 		0550BFC4145FF9D800BF8366 /* NuRemoter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NuRemoter.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -162,7 +74,6 @@
 		0550BFEF146002EF00BF8366 /* NRClientVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRClientVC.m; sourceTree = "<group>"; };
 		0550BFF61460053000BF8366 /* NRStatsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRStatsCell.h; sourceTree = "<group>"; };
 		0550BFF71460053000BF8366 /* NRStatsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRStatsCell.m; sourceTree = "<group>"; };
-		0550C006146005F200BF8366 /* CorePlot-CocoaTouch.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "CorePlot-CocoaTouch.xcodeproj"; path = "CorePlot/framework/CorePlot-CocoaTouch.xcodeproj"; sourceTree = "<group>"; };
 		0550C0281460079000BF8366 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.0.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		0550C02A1460159000BF8366 /* NRStatsCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NRStatsCell.xib; sourceTree = "<group>"; };
 		0559FC8A14CEE3DF0054F8F6 /* SPNuRemote.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPNuRemote.h; sourceTree = "<group>"; };
@@ -171,7 +82,6 @@
 		056EE44D1338DE1200FA0A60 /* ClientController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClientController.m; sourceTree = "<group>"; };
 		056EE44E1338DE1200FA0A60 /* ClientController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClientController.xib; sourceTree = "<group>"; };
 		056EE58A1338EB0200FA0A60 /* icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = icon.icns; sourceTree = "<group>"; };
-		059920F51615F79C009FC7BD /* CorePlot.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CorePlot.framework; path = CorePlot/build/Debug/CorePlot.framework; sourceTree = "<group>"; };
 		05AFC26A14FD46580093BB1F /* NRTextOnlyStatsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRTextOnlyStatsCell.h; sourceTree = "<group>"; };
 		05AFC26B14FD46580093BB1F /* NRTextOnlyStatsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRTextOnlyStatsCell.m; sourceTree = "<group>"; };
 		05E678AA14601B8F006E0499 /* LogViewer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogViewer.h; sourceTree = "<group>"; };
@@ -181,6 +91,7 @@
 		05F6CEE1134F31ED009FB3B1 /* TemplateController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateController.m; sourceTree = "<group>"; };
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		114DEA3454C2AE3205BDDC16 /* libPods-MobileNuRemoter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MobileNuRemoter.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		1DDD58150DA1D0A300B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		256AC3D80F4B6AC300CF3369 /* NuRemoterAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NuRemoterAppDelegate.h; sourceTree = "<group>"; };
@@ -189,8 +100,13 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		68816E5ABFB55D14AAF78F45 /* libPods-NuRemoter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NuRemoter.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8966E18BC34BF79C800F1FD4 /* Pods-MobileNuRemoter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileNuRemoter.release.xcconfig"; path = "Pods/Target Support Files/Pods-MobileNuRemoter/Pods-MobileNuRemoter.release.xcconfig"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* NuRemoter-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "NuRemoter-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* NuRemoter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NuRemoter.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DECC511957855C5A0AABB2DC /* Pods-NuRemoter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NuRemoter.release.xcconfig"; path = "Pods/Target Support Files/Pods-NuRemoter/Pods-NuRemoter.release.xcconfig"; sourceTree = "<group>"; };
+		DFDE1D95DA49BA1153EF44E2 /* Pods-MobileNuRemoter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MobileNuRemoter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MobileNuRemoter/Pods-MobileNuRemoter.debug.xcconfig"; sourceTree = "<group>"; };
+		FD5F13A29EF827BCD10354EE /* Pods-NuRemoter.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NuRemoter.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NuRemoter/Pods-NuRemoter.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,11 +115,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				0550C0291460079000BF8366 /* QuartzCore.framework in Frameworks */,
-				0550C0221460063800BF8366 /* libCorePlot-CocoaTouch.a in Frameworks */,
 				0550BFE71460008E00BF8366 /* CFNetwork.framework in Frameworks */,
 				0550BFC8145FF9D800BF8366 /* UIKit.framework in Frameworks */,
 				0550BFCA145FF9D800BF8366 /* Foundation.framework in Frameworks */,
 				0550BFCC145FF9D800BF8366 /* CoreGraphics.framework in Frameworks */,
+				182D68DCDF0990F06E9EEE31 /* libPods-MobileNuRemoter.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,8 +127,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				059920F61615F79C009FC7BD /* CorePlot.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+				AC173DBB32534FE99761C8CF /* libPods-NuRemoter.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,21 +150,6 @@
 			);
 			name = NuRemoting;
 			path = ../NuRemote;
-			sourceTree = "<group>";
-		};
-		0511A7BB145EA3010060519A /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				0511A7C4145EA3010060519A /* CorePlot.framework */,
-				0511A7C6145EA3010060519A /* UnitTests.xctest */,
-				05AC14DD1D5D429C00A6C469 /* CorePlot.framework */,
-				05AC14DF1D5D429C00A6C469 /* UnitTests iOS.xctest */,
-				05AC14E11D5D429C00A6C469 /* libCorePlot-CocoaTouch.a */,
-				05AC14E31D5D429C00A6C469 /* CorePlot-CocoaTouchTests.xctest */,
-				05AC14E51D5D429C00A6C469 /* CorePlot.framework */,
-				05AC14E71D5D429C00A6C469 /* UnitTests tvOS.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		0550BFBF145FF8ED00BF8366 /* Mac */ = {
@@ -319,14 +220,6 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
-		0550C007146005F200BF8366 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				0550C00D146005F200BF8366 /* libCorePlot-CocoaTouch.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		080E96DDFE201D6D7F000001 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -374,14 +267,13 @@
 		29B97314FDCFA39411CA2CEA /* NuRemoter */ = {
 			isa = PBXGroup;
 			children = (
-				059920F51615F79C009FC7BD /* CorePlot.framework */,
 				0511A707145B65310060519A /* NuRemoting */,
 				0550BFE81460028A00BF8366 /* Shared */,
 				0550BFBF145FF8ED00BF8366 /* Mac */,
 				0550BFCD145FF9D800BF8366 /* iOS */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				0550C006146005F200BF8366 /* CorePlot-CocoaTouch.xcodeproj */,
-				0511A7BA145EA3010060519A /* CorePlot.xcodeproj */,
+				AC581F52F8E6B55FDAF77465 /* Pods */,
+				DA669385ADE0DCD74017ADB5 /* Frameworks */,
 			);
 			name = NuRemoter;
 			sourceTree = "<group>";
@@ -407,6 +299,26 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		AC581F52F8E6B55FDAF77465 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DFDE1D95DA49BA1153EF44E2 /* Pods-MobileNuRemoter.debug.xcconfig */,
+				8966E18BC34BF79C800F1FD4 /* Pods-MobileNuRemoter.release.xcconfig */,
+				FD5F13A29EF827BCD10354EE /* Pods-NuRemoter.debug.xcconfig */,
+				DECC511957855C5A0AABB2DC /* Pods-NuRemoter.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		DA669385ADE0DCD74017ADB5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				114DEA3454C2AE3205BDDC16 /* libPods-MobileNuRemoter.a */,
+				68816E5ABFB55D14AAF78F45 /* libPods-NuRemoter.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -414,9 +326,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0550BFD9145FF9D800BF8366 /* Build configuration list for PBXNativeTarget "MobileNuRemoter" */;
 			buildPhases = (
+				E18D905024CA1B037930702D /* [CP] Check Pods Manifest.lock */,
 				0550BFC0145FF9D800BF8366 /* Sources */,
 				0550BFC1145FF9D800BF8366 /* Frameworks */,
 				0550BFC2145FF9D800BF8366 /* Resources */,
+				98921831DF4BD48641439263 /* [CP] Embed Pods Frameworks */,
+				F3C2A228089A7CA9927DEC0A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -431,15 +346,16 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "NuRemoter" */;
 			buildPhases = (
+				5F13213FD58E4B62AEEAEB99 /* [CP] Check Pods Manifest.lock */,
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
 				8D11072E0486CEB800E47090 /* Frameworks */,
-				05E678CC14602D3F006E0499 /* CopyFiles */,
+				90F20B82B71AC8D7FAA56CBC /* [CP] Embed Pods Frameworks */,
+				00A2EB6D965ED7A704E2AE2F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				05AADF081615F76F0082AED0 /* PBXTargetDependency */,
 			);
 			name = NuRemoter;
 			productInstallPath = "$(HOME)/Applications";
@@ -467,16 +383,6 @@
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* NuRemoter */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 0550C007146005F200BF8366 /* Products */;
-					ProjectRef = 0550C006146005F200BF8366 /* CorePlot-CocoaTouch.xcodeproj */;
-				},
-				{
-					ProductGroup = 0511A7BB145EA3010060519A /* Products */;
-					ProjectRef = 0511A7BA145EA3010060519A /* CorePlot.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				8D1107260486CEB800E47090 /* NuRemoter */,
@@ -484,72 +390,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		0511A7C4145EA3010060519A /* CorePlot.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = CorePlot.framework;
-			remoteRef = 0511A7C3145EA3010060519A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		0511A7C6145EA3010060519A /* UnitTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = UnitTests.xctest;
-			remoteRef = 0511A7C5145EA3010060519A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		0550C00D146005F200BF8366 /* libCorePlot-CocoaTouch.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libCorePlot-CocoaTouch.a";
-			remoteRef = 0550C00C146005F200BF8366 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		05AC14DD1D5D429C00A6C469 /* CorePlot.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = CorePlot.framework;
-			remoteRef = 05AC14DC1D5D429C00A6C469 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		05AC14DF1D5D429C00A6C469 /* UnitTests iOS.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "UnitTests iOS.xctest";
-			remoteRef = 05AC14DE1D5D429C00A6C469 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		05AC14E11D5D429C00A6C469 /* libCorePlot-CocoaTouch.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libCorePlot-CocoaTouch.a";
-			remoteRef = 05AC14E01D5D429C00A6C469 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		05AC14E31D5D429C00A6C469 /* CorePlot-CocoaTouchTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "CorePlot-CocoaTouchTests.xctest";
-			remoteRef = 05AC14E21D5D429C00A6C469 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		05AC14E51D5D429C00A6C469 /* CorePlot.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = CorePlot.framework;
-			remoteRef = 05AC14E41D5D429C00A6C469 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		05AC14E71D5D429C00A6C469 /* UnitTests tvOS.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = "UnitTests tvOS.xctest";
-			remoteRef = 05AC14E61D5D429C00A6C469 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		0550BFC2145FF9D800BF8366 /* Resources */ = {
@@ -576,6 +416,99 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		00A2EB6D965ED7A704E2AE2F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NuRemoter/Pods-NuRemoter-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5F13213FD58E4B62AEEAEB99 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		90F20B82B71AC8D7FAA56CBC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NuRemoter/Pods-NuRemoter-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		98921831DF4BD48641439263 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MobileNuRemoter/Pods-MobileNuRemoter-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E18D905024CA1B037930702D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F3C2A228089A7CA9927DEC0A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MobileNuRemoter/Pods-MobileNuRemoter-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0550BFC0145FF9D800BF8366 /* Sources */ = {
@@ -613,14 +546,6 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		05AADF081615F76F0082AED0 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = CorePlot;
-			targetProxy = 05AADF071615F76F0082AED0 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin PBXVariantGroup section */
 		0550BFD0145FF9D800BF8366 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
@@ -651,6 +576,7 @@
 /* Begin XCBuildConfiguration section */
 		0550BFDA145FF9D800BF8366 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DFDE1D95DA49BA1153EF44E2 /* Pods-MobileNuRemoter.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
@@ -683,6 +609,7 @@
 		};
 		0550BFDB145FF9D800BF8366 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8966E18BC34BF79C800F1FD4 /* Pods-MobileNuRemoter.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
@@ -712,15 +639,11 @@
 		};
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FD5F13A29EF827BCD10354EE /* Pods-NuRemoter.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/CorePlot/build/Debug\"",
-				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
@@ -736,15 +659,11 @@
 		};
 		C01FCF4C08A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DECC511957855C5A0AABB2DC /* Pods-NuRemoter.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)/CorePlot/build/Debug\"",
-				);
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Mac/Sources/NuRemoter_Prefix.pch;

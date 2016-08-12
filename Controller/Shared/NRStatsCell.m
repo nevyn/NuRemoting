@@ -2,7 +2,7 @@
 #if TARGET_OS_IPHONE
 #import "CorePlot-CocoaTouch.h"
 #else
-#import <CorePlot/CorePlot.h>
+#import <CorePlot/osx/CorePlot.h>
 #endif
 
 static NSString *const NRStatsPlotIdentifier = @"NRStatsPlot";
