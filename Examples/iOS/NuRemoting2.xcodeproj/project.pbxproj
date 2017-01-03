@@ -273,6 +273,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = M4Q2TE45WT;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/..\"",
@@ -292,6 +293,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
+				DEVELOPMENT_TEAM = M4Q2TE45WT;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/..\"",
@@ -318,6 +320,7 @@
 					../../,
 					../Support,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PREBINDING = NO;
 				SDKROOT = iphoneos;
 			};
@@ -336,6 +339,7 @@
 					../../,
 					../Support,
 				);
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PREBINDING = NO;
 				SDKROOT = iphoneos;
