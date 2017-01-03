@@ -1,0 +1,4 @@
+ffi with 64bit and closure support.
+cocoapods is just 32bit
+ffi-mini is without coroutines
+next, try to build my own ffi ios dist with macros
