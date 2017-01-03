@@ -13,7 +13,7 @@
 		0511A722145DCEA90060519A /* SPNuRemote.m in Sources */ = {isa = PBXBuildFile; fileRef = 0511A71F145DCEA90060519A /* SPNuRemote.m */; };
 		0511A72F145DCF630060519A /* ffi.c in Sources */ = {isa = PBXBuildFile; fileRef = 0511A725145DCF630060519A /* ffi.c */; };
 		0511A730145DCF630060519A /* ffi.S in Sources */ = {isa = PBXBuildFile; fileRef = 0511A727145DCF630060519A /* ffi.S */; };
-		0511A734145DCF630060519A /* Nu.m in Sources */ = {isa = PBXBuildFile; fileRef = 0511A72D145DCF630060519A /* Nu.m */; };
+		0511A734145DCF630060519A /* Nu.m in Sources */ = {isa = PBXBuildFile; fileRef = 0511A72D145DCF630060519A /* Nu.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		05F08E221285F81000CB9E22 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05F08E211285F81000CB9E22 /* CFNetwork.framework */; };
 		1D3623260D0F684500981E51 /* NuRemoting2AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* NuRemoting2AppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
@@ -212,6 +212,8 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "NuRemoting2" */;
 			compatibilityVersion = "Xcode 3.1";
 			developmentRegion = English;
@@ -270,7 +272,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = armv6;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -290,7 +291,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = armv6;
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -309,11 +309,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = ../../;
+				HEADER_SEARCH_PATHS = (
+					../../,
+					../Support,
+				);
 				PREBINDING = NO;
 				SDKROOT = iphoneos;
 			};
@@ -323,11 +327,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				HEADER_SEARCH_PATHS = ../../;
+				HEADER_SEARCH_PATHS = (
+					../../,
+					../Support,
+				);
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PREBINDING = NO;
 				SDKROOT = iphoneos;

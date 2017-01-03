@@ -20,7 +20,7 @@
 #pragma mark Application lifecycle
 
 - (void)awakeFromNib {    
-    
+    [super awakeFromNib];
     RootViewController *rootViewController = (RootViewController *)[navigationController topViewController];
     rootViewController.managedObjectContext = self.managedObjectContext;
 }
@@ -31,7 +31,7 @@
     // Override point for customization after application launch.
 
     // Add the navigation controller's view to the window and display.
-    [window addSubview:navigationController.view];
+    window.rootViewController = navigationController;
     [window makeKeyAndVisible];
 	
 	remote = [SPNuRemote new];
@@ -85,7 +85,7 @@
     
     NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
     if (coordinator != nil) {
-        managedObjectContext_ = [[NSManagedObjectContext alloc] init];
+        managedObjectContext_ = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
         [managedObjectContext_ setPersistentStoreCoordinator:coordinator];
     }
     return managedObjectContext_;
@@ -173,19 +173,6 @@
      Free up as much memory as possible by purging cached data objects that can be recreated (or reloaded from disk) later.
      */
 }
-
-
-- (void)dealloc {
-    
-    [managedObjectContext_ release];
-    [managedObjectModel_ release];
-    [persistentStoreCoordinator_ release];
-    
-    [navigationController release];
-    [window release];
-    [super dealloc];
-}
-
 
 @end
 

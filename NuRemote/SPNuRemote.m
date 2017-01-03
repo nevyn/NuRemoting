@@ -30,7 +30,7 @@
 @public
 	AsyncSocket *sock;
 	id parser;
-	SPNuRemote *parent;
+	__weak SPNuRemote *parent;
 	NSData *_messageSeparator;
 	BOOL _statsEnabled;
 	BOOL _loggingEnabled;
@@ -51,16 +51,15 @@
 {
 	if(!(self = [super init])) return nil;
 	
-	parser = [[NSClassFromString(@"Nu") parser] retain];
+	parser = [NSClassFromString(@"Nu") parser];
 	if(!parser) {
-		[self release];
 		return nil;
 	}
 	
 	self.messageSeparator = [NSData dataWithBytes:"\xa\xa" length:2];
 	
 	parent = parent_;
-	sock = [s retain];
+	sock = s;
 	[parser parseEval:@"(set log (NuBridgedFunction functionWithName:\"NSLog\" signature:\"v@\"))"];
 	[parser setValue:self forKey:@"connection"];
 	[parser setValue:parent_ forKey:@"remote"];
@@ -74,15 +73,12 @@
 - (void)dealloc
 {
 	self.messageSeparator = nil;
-	[sock release];
-	[parser release];
-	[super dealloc];
 }
 
 - (void)onSocketDidDisconnect:(AsyncSocket *)sock_
 {
 	[parser parseEval:@"(set connection nil) (set remote nil)"];
-	[sock release]; sock = nil;
+	sock = nil;
 	[parent.clients removeObject:self]; // I will be deallocated now
 }
 
@@ -106,7 +102,7 @@
 - (void)onSocket:(AsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag
 {
 	data = [data subdataWithRange:NSMakeRange(0, data.length-self.messageSeparator.length)];
-	NSString *cmd = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+	NSString *cmd = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 	if(!cmd) return [self reply:@"501 Bad Request" :@"Command not UTF8"];
 	
 	NSString *reply = nil;
@@ -182,7 +178,7 @@
 	if(!NSClassFromString(@"Nu") || _listenSocket)
 		return;
 
-	self.listenSocket = [[[AsyncSocket alloc] initWithDelegate:self] autorelease];
+	self.listenSocket = [[AsyncSocket alloc] initWithDelegate:self];
 	
 #if TARGET_OS_IPHONE
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(activated) name:UIApplicationDidBecomeActiveNotification object:nil];
@@ -200,15 +196,13 @@
 
 - (void)dealloc
 {
+    self.listenSocket.delegate = nil;
 	self.listenSocket = nil;
 	self.publisher = nil;
 	for(SPNRClient *client in _clients) {
 		client->parent = nil;
 		[client->sock disconnect];
 	}
-	[_clients release];
-	[_datasets release];
-	[super dealloc];
 }
 
 - (void)activated
@@ -226,7 +220,7 @@
 
 - (void)onSocket:(AsyncSocket *)sock didAcceptNewSocket:(AsyncSocket *)newSocket
 {
-	[_clients addObject:[[[SPNRClient alloc] init:newSocket :self] autorelease]];
+	[_clients addObject:[[SPNRClient alloc] init:newSocket :self]];
 }
 
 - (void)onSocketDidDisconnect:(AsyncSocket *)sock
@@ -246,7 +240,7 @@
 {
 	for(NRStats *stats in _datasets)
 		if([stats.name isEqual:name]) return stats;
-	NRStats *stats = [[[NRStats alloc] initWithName:name] autorelease];
+	NRStats *stats = [[NRStats alloc] initWithName:name];
 	[[self mutableArrayValueForKey:@"datasets"] addObject:stats];
 	return stats;
 }
@@ -296,7 +290,7 @@
 	];
 	
 	[self.publisher stop];
-	self.publisher = [[[NSNetService alloc] initWithDomain:@"" type:kNuRemotingBonjourType name:pubName	port:kNuRemotingPort] autorelease];
+	self.publisher = [[NSNetService alloc] initWithDomain:@"" type:kNuRemotingBonjourType name:pubName port:kNuRemotingPort];
 	self.publisher.delegate = self;
 	[self.publisher publish];
 }
