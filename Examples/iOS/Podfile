@@ -1,3 +1,0 @@
-target 'NuRemoting2' do
-  podspec :path => "../../NuRemoting.podspec"
-end

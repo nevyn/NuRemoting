@@ -1,0 +1,3 @@
+[submodule "Vendor/ffi-mini"]
+	path = Vendor/ffi-mini
+	url = https://github.com/zwaldowski/ffi-mini

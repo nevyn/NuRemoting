@@ -29,17 +29,16 @@ Pod::Spec.new do |s|
   s.osx.deployment_target = "10.7"
 
   s.source       = { :git => "https://github.com/nevyn/NuRemoting.git", :tag => "#{s.version}" }
-  s.public_header_files = "NuRemote/*.h"
   s.frameworks = "CFNetwork"
-  s.dependency "libffi", "~> 3.0"
   s.requires_arc = true
   
   s.subspec 'arc' do |ss|
+    ss.public_header_files = "NuRemote/*.h"
     ss.source_files  = "NuRemote"
     ss.requires_arc = true
   end
   s.subspec 'no-arc' do |ss|
-    ss.source_files  = "Examples/Support/objc/*.{h|m}"
+    ss.source_files  = "Examples/Support/objc/*.{h,m}"
     ss.requires_arc = false
   end
 
