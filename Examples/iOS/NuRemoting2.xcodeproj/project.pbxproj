@@ -11,8 +11,6 @@
 		0511A720145DCEA90060519A /* AsyncSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 0511A71A145DCEA90060519A /* AsyncSocket.m */; };
 		0511A721145DCEA90060519A /* RemotingClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0511A71C145DCEA90060519A /* RemotingClient.m */; };
 		0511A722145DCEA90060519A /* SPNuRemote.m in Sources */ = {isa = PBXBuildFile; fileRef = 0511A71F145DCEA90060519A /* SPNuRemote.m */; };
-		0511A72F145DCF630060519A /* ffi.c in Sources */ = {isa = PBXBuildFile; fileRef = 0511A725145DCF630060519A /* ffi.c */; };
-		0511A730145DCF630060519A /* ffi.S in Sources */ = {isa = PBXBuildFile; fileRef = 0511A727145DCF630060519A /* ffi.S */; };
 		0511A734145DCF630060519A /* Nu.m in Sources */ = {isa = PBXBuildFile; fileRef = 0511A72D145DCF630060519A /* Nu.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		05F08E221285F81000CB9E22 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05F08E211285F81000CB9E22 /* CFNetwork.framework */; };
 		1D3623260D0F684500981E51 /* NuRemoting2AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* NuRemoting2AppDelegate.m */; };
@@ -25,6 +23,7 @@
 		28AD73600D9D9599002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD735F0D9D9599002E5188 /* MainWindow.xib */; };
 		28C286E10D94DF7D0034E888 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28C286E00D94DF7D0034E888 /* RootViewController.m */; };
 		28D3F202112F7DC200FD0661 /* NuRemoting2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 28D3F201112F7DC200FD0661 /* NuRemoting2.xcdatamodeld */; };
+		C8906635B386A3FC86D16A3E /* libPods-NuRemoting2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CA93BE194A248584DAA1F8D /* libPods-NuRemoting2.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +42,7 @@
 		0511A72C145DCF630060519A /* Nu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Nu.h; sourceTree = "<group>"; };
 		0511A72D145DCF630060519A /* Nu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Nu.m; sourceTree = "<group>"; };
 		05F08E211285F81000CB9E22 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		1CA93BE194A248584DAA1F8D /* libPods-NuRemoting2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NuRemoting2.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* NuRemoting2AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NuRemoting2AppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* NuRemoting2AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NuRemoting2AppDelegate.m; sourceTree = "<group>"; };
@@ -57,7 +57,9 @@
 		28C286DF0D94DF7D0034E888 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
 		28C286E00D94DF7D0034E888 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		65C08BC911A6C2E8E18BFEB2 /* Pods-NuRemoting2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NuRemoting2.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NuRemoting2/Pods-NuRemoting2.debug.xcconfig"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* NuRemoting2-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "NuRemoting2-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		E166FFC2C147FC38D6034EC2 /* Pods-NuRemoting2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NuRemoting2.release.xcconfig"; path = "Pods/Target Support Files/Pods-NuRemoting2/Pods-NuRemoting2.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +72,7 @@
 				2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */,
 				28860BE50F44EE6400985440 /* CoreData.framework in Frameworks */,
 				05F08E221285F81000CB9E22 /* CFNetwork.framework in Frameworks */,
+				C8906635B386A3FC86D16A3E /* libPods-NuRemoting2.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,6 +154,7 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
+				D794DCF960736ABC987AA736 /* Pods */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -183,8 +187,18 @@
 				2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */,
 				28860BE40F44EE6400985440 /* CoreData.framework */,
 				05F08E211285F81000CB9E22 /* CFNetwork.framework */,
+				1CA93BE194A248584DAA1F8D /* libPods-NuRemoting2.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D794DCF960736ABC987AA736 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				65C08BC911A6C2E8E18BFEB2 /* Pods-NuRemoting2.debug.xcconfig */,
+				E166FFC2C147FC38D6034EC2 /* Pods-NuRemoting2.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -194,9 +208,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "NuRemoting2" */;
 			buildPhases = (
+				96A044272FB52097B5C393C3 /* [CP] Check Pods Manifest.lock */,
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+				516BECC085A0F21521D09086 /* [CP] Embed Pods Frameworks */,
+				8803524B76C3DABB81BBEC69 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -226,6 +243,7 @@
 				en,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
+			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -246,6 +264,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		516BECC085A0F21521D09086 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NuRemoting2/Pods-NuRemoting2-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8803524B76C3DABB81BBEC69 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-NuRemoting2/Pods-NuRemoting2-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		96A044272FB52097B5C393C3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		1D60588E0D05DD3D006BFB54 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -258,8 +324,6 @@
 				0511A720145DCEA90060519A /* AsyncSocket.m in Sources */,
 				0511A721145DCEA90060519A /* RemotingClient.m in Sources */,
 				0511A722145DCEA90060519A /* SPNuRemote.m in Sources */,
-				0511A72F145DCF630060519A /* ffi.c in Sources */,
-				0511A730145DCF630060519A /* ffi.S in Sources */,
 				0511A734145DCF630060519A /* Nu.m in Sources */,
 				050181FC145EF54C00D60A47 /* NRStats.m in Sources */,
 			);
@@ -270,10 +334,12 @@
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 65C08BC911A6C2E8E18BFEB2 /* Pods-NuRemoting2.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = M4Q2TE45WT;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/..\"",
@@ -283,17 +349,18 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = NuRemoting2_Prefix.pch;
 				INFOPLIST_FILE = "NuRemoting2-Info.plist";
-				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = NuRemoting2;
 			};
 			name = Debug;
 		};
 		1D6058950D05DD3E006BFB54 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E166FFC2C147FC38D6034EC2 /* Pods-NuRemoting2.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				DEVELOPMENT_TEAM = M4Q2TE45WT;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/..\"",
@@ -301,7 +368,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = NuRemoting2_Prefix.pch;
 				INFOPLIST_FILE = "NuRemoting2-Info.plist";
-				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = NuRemoting2;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -321,6 +387,10 @@
 					../Support,
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
 				PREBINDING = NO;
 				SDKROOT = iphoneos;
 			};
@@ -341,6 +411,10 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
 				PREBINDING = NO;
 				SDKROOT = iphoneos;
 			};

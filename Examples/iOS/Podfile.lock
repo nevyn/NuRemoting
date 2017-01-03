@@ -1,0 +1,12 @@
+PODS:
+  - libffi (3.0.13)
+
+DEPENDENCIES:
+  - libffi (~> 3.0)
+
+SPEC CHECKSUMS:
+  libffi: 1f65dbbdb2c88491c06640dd3bb96030070ca97c
+
+PODFILE CHECKSUM: cd2cabc952f6eb6f28403fb119797b6e77c901b4
+
+COCOAPODS: 1.1.1
