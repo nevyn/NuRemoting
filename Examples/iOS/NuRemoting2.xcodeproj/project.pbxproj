@@ -12,7 +12,6 @@
 		0511A721145DCEA90060519A /* RemotingClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 0511A71C145DCEA90060519A /* RemotingClient.m */; };
 		0511A722145DCEA90060519A /* SPNuRemote.m in Sources */ = {isa = PBXBuildFile; fileRef = 0511A71F145DCEA90060519A /* SPNuRemote.m */; };
 		05987B0C1E1BCF1300E83957 /* Nu.m in Sources */ = {isa = PBXBuildFile; fileRef = 05987B091E1BCF1300E83957 /* Nu.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		05987B0E1E1BCF3100E83957 /* libffi-mini.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 05987B021E1BCF0700E83957 /* libffi-mini.a */; };
 		05F08E221285F81000CB9E22 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 05F08E211285F81000CB9E22 /* CFNetwork.framework */; };
 		1D3623260D0F684500981E51 /* NuRemoting2AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* NuRemoting2AppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
@@ -26,23 +25,6 @@
 		28D3F202112F7DC200FD0661 /* NuRemoting2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 28D3F201112F7DC200FD0661 /* NuRemoting2.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		05987B011E1BCF0700E83957 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 05987AFC1E1BCF0700E83957 /* libffi.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = DB13B1661849DF1E0010F42D;
-			remoteInfo = "libffi-iOS";
-		};
-		05987B031E1BCF0700E83957 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 05987AFC1E1BCF0700E83957 /* libffi.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = DB13B1911849DF510010F42D;
-			remoteInfo = "libffi-Mac";
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		050181FA145EF54C00D60A47 /* NRStats.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NRStats.h; sourceTree = "<group>"; };
 		050181FB145EF54C00D60A47 /* NRStats.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NRStats.m; sourceTree = "<group>"; };
@@ -53,10 +35,8 @@
 		0511A71D145DCEA90060519A /* Shared.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Shared.h; sourceTree = "<group>"; };
 		0511A71E145DCEA90060519A /* SPNuRemote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPNuRemote.h; sourceTree = "<group>"; };
 		0511A71F145DCEA90060519A /* SPNuRemote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPNuRemote.m; sourceTree = "<group>"; };
-		05987AFC1E1BCF0700E83957 /* libffi.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libffi.xcodeproj; path = "../Vendor/ffi-mini/libffi.xcodeproj"; sourceTree = "<group>"; };
 		05987B081E1BCF1300E83957 /* Nu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Nu.h; sourceTree = "<group>"; };
 		05987B091E1BCF1300E83957 /* Nu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Nu.m; sourceTree = "<group>"; };
-		05987B0F1E1BD12700E83957 /* ffi.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ffi.h; path = ../Vendor/ffi/ffi.h; sourceTree = "<group>"; };
 		05F08E211285F81000CB9E22 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		1CA93BE194A248584DAA1F8D /* libPods-NuRemoting2.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NuRemoting2.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -83,7 +63,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				05987B0E1E1BCF3100E83957 /* libffi-mini.a in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */,
@@ -108,20 +87,9 @@
 				050181FA145EF54C00D60A47 /* NRStats.h */,
 				050181FB145EF54C00D60A47 /* NRStats.m */,
 				05987B051E1BCF1300E83957 /* Nu */,
-				05987B0F1E1BD12700E83957 /* ffi.h */,
-				05987AFC1E1BCF0700E83957 /* libffi.xcodeproj */,
 			);
 			name = NuRemote;
 			path = ../../NuRemote;
-			sourceTree = "<group>";
-		};
-		05987AFD1E1BCF0700E83957 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				05987B021E1BCF0700E83957 /* libffi-mini.a */,
-				05987B041E1BCF0700E83957 /* ffi-mini.dylib */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		05987B051E1BCF1300E83957 /* Nu */ = {
@@ -259,35 +227,12 @@
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			productRefGroup = 19C28FACFE9D520D11CA2CBB /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 05987AFD1E1BCF0700E83957 /* Products */;
-					ProjectRef = 05987AFC1E1BCF0700E83957 /* libffi.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				1D6058900D05DD3D006BFB54 /* NuRemoting2 */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		05987B021E1BCF0700E83957 /* libffi-mini.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libffi-mini.a";
-			remoteRef = 05987B011E1BCF0700E83957 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		05987B041E1BCF0700E83957 /* ffi-mini.dylib */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.dylib";
-			path = "ffi-mini.dylib";
-			remoteRef = 05987B031E1BCF0700E83957 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		1D60588D0D05DD3D006BFB54 /* Resources */ = {
